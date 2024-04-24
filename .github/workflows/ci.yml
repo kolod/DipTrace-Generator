@@ -1,0 +1,195 @@
+name: CI
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+
+  python-38:
+    name: Python 3.8 tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8.18
+          architecture: x64
+
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v9
+        with:
+          poetry-version: "1.8.2"
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Run unit-tests
+        run: poetry run pytest --cov=DipTraceGenerator
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./.coverage
+
+  python-39:
+    name: Python 3.9 tests
+    runs-on: ubuntu-latest
+    needs: python-38
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9.19
+          architecture: x64
+
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v9
+        with:
+          poetry-version: "1.8.2"
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
+      - name: Run unit-tests
+        run: poetry run pytest --cov=DipTraceGenerator --cov-append
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./.coverage
+
+  python-310:
+    name: Python 3.10 tests
+    runs-on: ubuntu-latest
+    needs: python-39
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.10.14
+          architecture: x64
+
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v9
+        with:
+          poetry-version: "1.8.2"
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
+      - name: Run unit-tests
+        run: poetry run pytest --cov=DipTraceGenerator --cov-append
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./.coverage
+
+  python-311:
+    name: Python 3.11 tests
+    runs-on: ubuntu-latest
+    needs: python-310
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11.9
+          architecture: x64
+
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v9
+        with:
+          poetry-version: "1.8.2"
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
+      - name: Run unit-tests
+        run: poetry run pytest --cov=DipTraceGenerator --cov-append
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./.coverage
+
+  python-312:
+    name: Python 3.12 tests
+    runs-on: ubuntu-latest
+    needs: python-311
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12.3
+          architecture: x64
+
+      - name: Install Poetry
+        uses: Gr1N/setup-poetry@v9
+        with:
+          poetry-version: "1.8.2"
+
+      - name: Install dependencies
+        run: poetry install --no-interaction --no-root
+
+      - name: Download coverage data
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+
+      - name: Run unit-tests
+        run: poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=xml
+
+      - name: Upload coverage data
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: ./.coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4.0.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: kolod/DipTrace-Generator
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        with:
+          flags: unittests
+          files: ./coverage.xml

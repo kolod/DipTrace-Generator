@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Library Type="DipTrace-PatternLibrary" Version="4.3.0.5" Units="mm" Name="LED Radial Round 3mm" Hint="LED - Radial - Round - 3mm (T1) Lens Diameter">
+  <PadStyles>
+    <PadStyle Name="PadT0" Type="Through" HoleType="Round" Hole="0.889" Side="Top">
+      <MainStack Shape="Obround" Width="1.5" Height="1.5" XOff="0" YOff="0"/>
+      <Terminals>
+        <Terminal Shape="Rectangle" X="0" Y="0" Angle="0" Width="0.5" Height="0.5" Corner="0"/>
+      </Terminals>
+    </PadStyle>
+    <PadStyle Name="PadT1" Type="Through" HoleType="Round" Hole="0.889" Side="Top">
+      <MainStack Shape="Rectangle" Width="1.5" Height="1.5" XOff="0" YOff="0" Corner="0"/>
+      <Terminals>
+        <Terminal Shape="Rectangle" X="0" Y="0" Angle="0" Width="0.5" Height="0.5" Corner="0"/>
+      </Terminals>
+    </PadStyle>
+  </PadStyles>
+  <Patterns>
+    <Pattern RefDes="D" Mounting="Through" Width="4.54" Height="4.54" Orientation="0" LockTypeChange="Y" Type="IPC-7351" Float1="0" Float2="0" Float3="0" Int1="1" Int2="0">
+      <Name>LED-3mm Round Red</Name>
+      <Name_Description>LED, Radial Diameter, 2.54mm lead spacing, 0.5mm lead width, 3.45mm body diameter, 8.4mm height, red</Name_Description>
+      <Name_Unique>KINGBRIGHT_LED-3R_RED</Name_Unique>
+      <Manufacturer>Kingbright</Manufacturer>
+      <Datasheet>http://drawings.diptrace.com/kingbright/LED-3R_RED.pdf</Datasheet>
+      <Origin X="0" Y="0" Cross="Y" Circle="Y" Common="Hide" Courtyard="Show"/>
+      <RecoveryCode Generator="Y" Model="Y">[N;Radial (Round LED);1;Y;Y;0;0;0;Y;Y;N;N;101;Default;|2.54;0;;;8.4;;;0.4;0.5;0.75;0.25;-0.1;0.4;0.5;0.75;0.25;-0.1;2.95;3.2;3.45;0.25;-0.25;0.889;1.5;N;2.65;2.9;3.15;0.25;-0.25;3.3;3.6;3.9;0.3;-0.3;;;3.5;;;0;2;0|0;|;;;;0.5|||||;;;;1|||||||||4079359;15461355;16119285;N]</RecoveryCode>
+      <DefPad Style="PadT0"/>
+      <Pads>
+        <Pad Id="1" Style="PadT1" X="-1.27" Y="0" Angle="0" Locked="Y" Side="Top">
+          <Number>1</Number>
+        </Pad>
+        <Pad Id="2" Style="PadT0" X="1.27" Y="0" Angle="3.1416" Locked="Y" Side="Top">
+          <Number>2</Number>
+        </Pad>
+      </Pads>
+      <Shapes>
+        <Shape Id="1" Type="Obround" Locked="Y" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+          <Points>
+            <Item X="-1.6" Y="1.6"/>
+            <Item X="1.6" Y="-1.6"/>
+          </Points>
+        </Shape>
+        <Shape Id="2" Type="Arc" Locked="Y" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="1.45" Y="0.93"/>
+            <Item X="0" Y="1.73"/>
+            <Item X="-1.45" Y="0.93"/>
+          </Points>
+        </Shape>
+        <Shape Id="3" Type="Arc" Locked="Y" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="1.45" Y="-0.93"/>
+            <Item X="0" Y="-1.73"/>
+            <Item X="-1.45" Y="-0.93"/>
+          </Points>
+        </Shape>
+        <Shape Id="4" Type="FillObround" Locked="Y" Layer="Top Silk" AllLayers="N">
+          <Points>
+            <Item X="-1.7774" Y="1.7774"/>
+            <Item X="-1.2774" Y="1.2774"/>
+          </Points>
+        </Shape>
+        <Shape Id="5" Type="Obround" Locked="Y" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-1.73" Y="1.73"/>
+            <Item X="1.73" Y="-1.73"/>
+          </Points>
+        </Shape>
+        <Shape Id="6" Type="FillObround" Locked="Y" Layer="Top Assy" AllLayers="N">
+          <Points>
+            <Item X="-2.2466" Y="2.2466"/>
+            <Item X="-1.2466" Y="1.2466"/>
+          </Points>
+        </Shape>
+        <Shape Id="7" Type="Obround" Locked="Y" Layer="Top Courtyard" LineWidth="0.05" AllLayers="N">
+          <Points>
+            <Item X="-2.27" Y="2.27"/>
+            <Item X="2.27" Y="-2.27"/>
+          </Points>
+        </Shape>
+      </Shapes>
+      <Model3D Mirror="N" NoSearch="N" Units="mm" IPC_XOff="0" IPC_YOff="0" AutoHeight="8.4" AutoColor="4934475" Type="IPC-7351" KeepPins="N">
+        <Rotate X="0" Y="0" Z="0"/>
+        <Offset X="0" Y="0" Z="-0.05"/>
+        <Zoom X="1" Y="1" Z="1"/>
+      </Model3D>
+    </Pattern>
+  </Patterns>
+</Library>

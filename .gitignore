@@ -1,0 +1,52 @@
+# Copyright 2021-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
+# This program is distributed under the MIT license.
+# Glory to Ukraine!
+
+
+# Compiled Python code
+__pycache__
+
+# Pytest cache
+.pytest_cache
+
+# Python coverage data
+/.coverage
+/coverage.xml
+/htmlcov
+/xmlcov
+
+# Tox test suite
+/.tox
+
+# IntelliJ
+.idea
+
+# Visual Studio Code
+.vscode
+
+# IPython notebook checkpoints
+.ipynb_checkpoints
+
+# output files
+/examples/actual
+/dist
+
+# venv
+/.venv
+
+# Generated files
+/tests/samples/actual*
+
+# DipTrace
+*.eli
+*.lib
+*.dip
+*.dch
+
+# Backup Files
+*.bak
+**/actual/*
+
+# GPG Keys
+*.asc
+*.key

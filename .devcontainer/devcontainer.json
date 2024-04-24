@@ -1,0 +1,30 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+    "name": "Python 3",
+    "image": "mcr.microsoft.com/vscode/devcontainers/python:3",
+    "customizations": {
+		"vscode": {
+			"extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+				"ms-python.debugpy",
+                "tamasfe.even-better-toml",
+                "znck.grammarly"
+            ],
+            "settings": {
+                "grammarly.files.include": [
+                    "**/*.md"
+                ]
+            }
+        }
+    },
+    "features": {
+        "ghcr.io/devcontainers-contrib/features/act:1": {},
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "version": "latest"
+        }
+    },
+    "postCreateCommand": "./.devcontainer/post-create.sh",
+    "remoteUser": "vscode"
+}

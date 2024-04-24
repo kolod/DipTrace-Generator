@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Part RefDes="n" PartType="Normal" ShowNumbers="1" Type="0" Int1="0" Int2="0" Width="0" Height="0" LockTypeChange="N" SubFolderIndex="1">
+  <Name>normalize</Name>
+  <PartName>Part 1</PartName>
+  <Value/>
+  <Origin X="0" Y="0"/>
+  <SpiceModel Type="SubCkt"/>
+  <Category/>
+  <Pins/>
+  <Shapes>
+    <Shape Type="Line" LineWidth="0.25" Enabled="Y" Locked="Y">
+      <Points>
+        <Item X="-2.54" Y="-1.27"/>
+        <Item X="2.54" Y="1.27"/>
+      </Points>
+    </Shape>
+  </Shapes>
+  <Pattern PatternType=""/>
+</Part>
