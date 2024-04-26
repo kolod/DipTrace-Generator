@@ -34,7 +34,7 @@ class Component(PartsMixin):
     def pattern(self) -> Optional[Pattern]:
         if isinstance(self.parts, list) and len(self.parts) > 0:
             if (pattern_style := self.parts[0].pattern) is not None:
-                if (tag := self._root.getroottree().find("/Library")) is not None:
+                if (tag := self._root.getroottree().find("./Library")) is not None:
                     return PatternLibrary(tag).find(pattern_style)
         return None
 
