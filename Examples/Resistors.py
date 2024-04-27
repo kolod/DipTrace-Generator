@@ -14,8 +14,6 @@ from Examples import iec_symbols
 
 def resistor(source: Path, destination: Path, template_name: str):
     library = ComponentLibrary.load(source)
-    if library is None:
-        raise ValueError(f'Source file "{source}" not loaded.')
 
     template_library = iec_symbols()
     if template_library is None:

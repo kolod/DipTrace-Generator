@@ -13,24 +13,26 @@ from Examples import iec_symbols
 
 
 def is_polarized(component: Component) -> bool:
-    if component.name.lower().startswith("capp"):
-        return True
-    if component.name.lower().startswith("cap"):
-        return False
-    if component.pattern.name.lower().startswith("capp"):
-        return True
-    if component.pattern.name.lower().startswith("cap"):
-        return False
+    if component.name is not None:
+        if component.name.lower().startswith("capp"):
+            return True
+        if component.name.lower().startswith("cap"):
+            return False
+
+    if component.pattern is not None:
+        if component.pattern.name is not None:
+            if component.pattern.name.lower().startswith("capp"):
+                return True
+            if component.pattern.name.lower().startswith("cap"):
+                return False
 
     raise ValueError(
-        f"It isn't possible to determine if the capacitor `{component.name}`-`{component.pattern.name}` is polarized."
+        f"It isn't possible to determine if the capacitor `{component.name}` is polarized."
     )
 
 
 def capacitor(source: Path, destination: Path, polarized_name: str, non_polarized_name: str):
     library = ComponentLibrary.load(source)
-    if library is None:
-        raise ValueError(f'Source file "{source}" not loaded.')
 
     template_library = iec_symbols()
     if template_library is None:

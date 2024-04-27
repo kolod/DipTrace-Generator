@@ -16,8 +16,6 @@ from . import iec_symbols
 
 def led(source: Path, destination: Path, template_name: str, name:str, colors: List[str], sizes: List[str], **_):
     pattern_library = PatternLibrary.load(source)
-    if pattern_library is None:
-        raise ValueError(f'Pattern library "{source.name}" was not loaded.')
 
     template_library = iec_symbols()
     if template_library is None:
@@ -27,7 +25,7 @@ def led(source: Path, destination: Path, template_name: str, name:str, colors: L
     if component_template is None:
         raise ValueError(f'Template component `{template_name}` not loaded.')
 
-    components = []
+    components: List[Component] = []
     for size in sizes:
         pattern = pattern_library.find(f'LED-{size}')
         if pattern is None:

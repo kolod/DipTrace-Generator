@@ -68,8 +68,7 @@ def pin_shape_uni() -> List[ComponentShape]:
     point_1 = Point(x=1.27, y=0.0)
     point_2 = Point(x=x, y=0.0)
     point_3 = Point(x=x, y=1.27)
-    point_4 = Point(x=x + 1.27 / 2, y=1.27)
-    point_5 = Point(x=x - 1.27 / 2, y=-1.27)
+    point_4 = Point(x=x - 1.27 / 2, y=-1.27)
 
     return [
         ComponentShape(type=ShapeType.Line, line_width=0.25, locked=Boolean.Yes, points=[point_1.flip_x, point_1]),
@@ -80,7 +79,7 @@ def pin_shape_uni() -> List[ComponentShape]:
             points=[point_3.flip_x, point_2, point_3.flip_xy, point_3.flip_x],
         ),
         ComponentShape(
-            type=ShapeType.Polyline, line_width=0.25, locked=Boolean.Yes, points=[point_3, point_3.flip_y, point_5]
+            type=ShapeType.Polyline, line_width=0.25, locked=Boolean.Yes, points=[point_3, point_3.flip_y, point_4]
         ),
     ]
 
@@ -141,7 +140,7 @@ def diode_tvs(source: Path, destination: Path, name: str, data: List[TVS]):
     origin = ComponentOrigin(x=0.0, y=0.0)
     category = Category(name="Diodes")
     spice = SpiceModel(type=SpiceModelType.SubComponent)
-    components = []
+    components: List[Component] = []
 
     print(Fore.GREEN + 'Bidirectional' + Fore.RESET)
     components.append(Component(name='--- Bidirectional --'))
