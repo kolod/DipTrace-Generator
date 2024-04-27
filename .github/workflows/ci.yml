@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -31,7 +31,7 @@ jobs:
         run: poetry run pytest --cov=DipTraceGenerator
 
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: ./.coverage
@@ -42,7 +42,7 @@ jobs:
     needs: python-38
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -59,7 +59,7 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage
 
@@ -67,7 +67,7 @@ jobs:
         run: poetry run pytest --cov=DipTraceGenerator --cov-append
 
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: ./.coverage
@@ -78,7 +78,7 @@ jobs:
     needs: python-39
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -95,7 +95,7 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage
 
@@ -103,7 +103,7 @@ jobs:
         run: poetry run pytest --cov=DipTraceGenerator --cov-append
 
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: ./.coverage
@@ -114,7 +114,7 @@ jobs:
     needs: python-310
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -131,7 +131,7 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage
 
@@ -139,7 +139,7 @@ jobs:
         run: poetry run pytest --cov=DipTraceGenerator --cov-append
 
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: ./.coverage
@@ -150,7 +150,7 @@ jobs:
     needs: python-311
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -167,7 +167,7 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - name: Download coverage data
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: coverage
 
@@ -175,7 +175,7 @@ jobs:
         run: poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=xml
 
       - name: Upload coverage data
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: coverage
           path: ./.coverage
