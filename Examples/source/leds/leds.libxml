@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Library Type="DipTrace-PatternLibrary" Name="Leds" Hint="Leds" Version="4.3.0.5" Units="mm">
+    <PadStyles>
+        <PadStyle Name="PadT0" Type="Through" HoleType="Round" Hole="1" Side="Top">
+            <MainStack Shape="Obround" Width="1.5" Height="1.5" XOff="0" YOff="0"/>
+            <Terminals>
+                <Terminal Shape="Rectangle" X="0" Y="0" Angle="0" Width="0.5" Height="0.5" Corner="0"/>
+            </Terminals>
+        </PadStyle>
+        <PadStyle Name="PadT1" Type="Through" HoleType="Round" Hole="1" Side="Top">
+            <MainStack Shape="Rectangle" Width="1.5" Height="1.5" XOff="0" YOff="0" Corner="16.6667"/>
+            <Terminals>
+                <Terminal Shape="Rectangle" X="0" Y="0" Angle="0" Width="0.5" Height="0.5" Corner="0"/>
+            </Terminals>
+        </PadStyle>
+    </PadStyles>
+    <Patterns>
+        <Pattern RefDes="D" Mounting="Through" Width="4.7075" Height="4.7075" Orientation="0" LockTypeChange="Y" Type="IPC-7351" Float1="0" Float2="0" Float3="0" Int1="1" Int2="0">
+            <Name>LED-3mm</Name>
+            <Name_Description>LED, Radial Diameter, 2.54mm lead spacing, 0.5mm lead width, 4mm body diameter, 10.75mm height</Name_Description>
+            <Category Index="0"/>
+            <Origin X="0.0837" Y="-0.0837" Cross="Y" Circle="Y" Common="Hide" Courtyard="Show"/>
+            <RecoveryCode Generator="Y" Model="Y">[N;Radial (Round LED);1;N;Y;0;0;0;Y;Y;Y;Y;101;Default;|2.54;0;;;10.75;;;0.4;0.5;0.6;0.1;-0.1;0.4;0.5;0.6;0.1;-0.1;3.7;3.85;4;0.15;-0.15;1;1.5;Y;3;;;;;;;7.5;;;;;2.95;;;0;2;0|0;|;1;;;0.5|||||;2;20;;|||||||||4079359;15461355;16119285;N]</RecoveryCode>
+            <DefPad Style="PadT0"/>
+            <Pads>
+                <Pad Id="1" Style="PadT1" X="-1.1863" Y="-0.0837" Angle="0" Locked="N" Side="Top">
+                    <Number>C</Number>
+                </Pad>
+                <Pad Id="2" Style="PadT0" X="1.3537" Y="-0.0837" Angle="3.1416" Locked="N" Side="Top">
+                    <Number>A</Number>
+                </Pad>
+            </Pads>
+            <Shapes>
+                <Shape Id="1" Type="Arc" Locked="N" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-1.4163" Y="-1.2902"/>
+                        <Item X="2.0087" Y="-0.0837"/>
+                        <Item X="-1.4163" Y="1.1228"/>
+                    </Points>
+                </Shape>
+                <Shape Id="2" Type="Line" Locked="N" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-1.4163" Y="-1.2902"/>
+                        <Item X="-1.4163" Y="1.1228"/>
+                    </Points>
+                </Shape>
+                <Shape Id="3" Type="Arc" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="1.7692" Y="0.8463"/>
+                        <Item X="0.0837" Y="1.8463"/>
+                        <Item X="-1.4163" Y="1.1307"/>
+                    </Points>
+                </Shape>
+                <Shape Id="4" Type="Arc" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="1.7692" Y="-1.0137"/>
+                        <Item X="0.0837" Y="-2.0137"/>
+                        <Item X="-1.4163" Y="-1.2982"/>
+                    </Points>
+                </Shape>
+                <Shape Id="5" Type="Line" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-1.4163" Y="1.1307"/>
+                        <Item X="-1.4163" Y="0.8463"/>
+                    </Points>
+                </Shape>
+                <Shape Id="6" Type="Line" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-1.4163" Y="-1.2982"/>
+                        <Item X="-1.4163" Y="-1.0137"/>
+                    </Points>
+                </Shape>
+                <Shape Id="7" Type="FillObround" Locked="N" Layer="Top Silk" AllLayers="N">
+                    <Points>
+                        <Item X="-1.835" Y="1.835"/>
+                        <Item X="-1.335" Y="1.335"/>
+                    </Points>
+                </Shape>
+                <Shape Id="8" Type="Arc" Locked="N" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-1.4163" Y="-1.4066"/>
+                        <Item X="2.0837" Y="-0.0837"/>
+                        <Item X="-1.4163" Y="1.2391"/>
+                    </Points>
+                </Shape>
+                <Shape Id="9" Type="Line" Locked="N" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-1.4163" Y="-1.4066"/>
+                        <Item X="-1.4163" Y="1.2391"/>
+                    </Points>
+                </Shape>
+                <Shape Id="10" Type="FillObround" Locked="N" Layer="Top Assy" AllLayers="N">
+                    <Points>
+                        <Item X="-2.3537" Y="2.3537"/>
+                        <Item X="-1.3537" Y="1.3537"/>
+                    </Points>
+                </Shape>
+                <Shape Id="11" Type="Obround" Locked="N" Layer="Top Courtyard" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-2.1863" Y="2.1863"/>
+                        <Item X="2.3537" Y="-2.3537"/>
+                    </Points>
+                </Shape>
+            </Shapes>
+            <Model3D Mirror="N" NoSearch="N" Units="mm" IPC_XOff="0.0837" IPC_YOff="-0.0837" AutoHeight="10.75" AutoColor="4934475" Type="IPC-7351" KeepPins="N">
+                <Rotate X="0" Y="0" Z="0"/>
+                <Offset X="0" Y="0" Z="-0.05"/>
+                <Zoom X="1" Y="1" Z="1"/>
+            </Model3D>
+        </Pattern>
+        <Pattern RefDes="D" Mounting="Through" Width="6.3363" Height="6.44" Orientation="0" LockTypeChange="Y" Type="IPC-7351" Float1="0" Float2="0" Float3="0" Int1="1" Int2="0">
+            <Name>LED-5mm</Name>
+            <Name_Description>LED, Radial Diameter, 2.54mm lead spacing, 0.5mm lead width, 5.925mm body diameter, 12mm height</Name_Description>
+            <Category Index="0"/>
+            <Origin X="-0.0519" Y="0" Cross="Y" Circle="Y" Common="Hide" Courtyard="Show"/>
+            <RecoveryCode Generator="Y" Model="Y">[N;Radial (Round LED);1;N;Y;0;0;0;Y;Y;Y;Y;101;Default;|2.54;0;;;12;;;0.4;0.5;0.6;0.1;-0.1;0.4;0.5;0.6;0.1;-0.1;5.575;5.75;5.925;0.175;-0.175;1;1.5;Y;4.8;5;5.2;0.2;-0.2;;;7.5;;;;;3.5;;;0;2;0|0;|;1;;;0.5|||||;2;20;;|||||||||4079359;15461355;16119285;N]</RecoveryCode>
+            <DefPad Style="PadT0"/>
+            <Pads>
+                <Pad Id="1" Style="PadT1" X="-1.3219" Y="0" Angle="0" Locked="N" Side="Top">
+                    <Number>C</Number>
+                </Pad>
+                <Pad Id="2" Style="PadT0" X="1.2181" Y="0" Angle="3.1416" Locked="N" Side="Top">
+                    <Number>A</Number>
+                </Pad>
+            </Pads>
+            <Shapes>
+                <Shape Id="1" Type="Arc" Locked="N" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-2.5519" Y="-1.4197"/>
+                        <Item X="2.8231" Y="0"/>
+                        <Item X="-2.5519" Y="1.4197"/>
+                    </Points>
+                </Shape>
+                <Shape Id="2" Type="Line" Locked="N" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-2.5519" Y="-1.4197"/>
+                        <Item X="-2.5519" Y="1.4197"/>
+                    </Points>
+                </Shape>
+                <Shape Id="3" Type="Arc" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-2.5519" Y="1.4298"/>
+                        <Item X="2.8281" Y="0"/>
+                        <Item X="-2.5519" Y="-1.4298"/>
+                    </Points>
+                </Shape>
+                <Shape Id="4" Type="Line" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-2.5519" Y="-1.4298"/>
+                        <Item X="-2.5519" Y="1.4298"/>
+                    </Points>
+                </Shape>
+                <Shape Id="5" Type="FillObround" Locked="N" Layer="Top Silk" AllLayers="N">
+                    <Points>
+                        <Item X="-2.6424" Y="2.5905"/>
+                        <Item X="-2.1424" Y="2.0905"/>
+                    </Points>
+                </Shape>
+                <Shape Id="6" Type="Arc" Locked="N" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-2.6519" Y="-1.4148"/>
+                        <Item X="2.9081" Y="0"/>
+                        <Item X="-2.6519" Y="1.4148"/>
+                    </Points>
+                </Shape>
+                <Shape Id="7" Type="Line" Locked="N" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+                    <Points>
+                        <Item X="-2.6519" Y="-1.4148"/>
+                        <Item X="-2.6519" Y="1.4148"/>
+                    </Points>
+                </Shape>
+                <Shape Id="8" Type="FillObround" Locked="N" Layer="Top Assy" AllLayers="N">
+                    <Points>
+                        <Item X="-3.1681" Y="3.1163"/>
+                        <Item X="-2.1681" Y="2.1163"/>
+                    </Points>
+                </Shape>
+                <Shape Id="9" Type="Arc" Locked="N" Layer="Top Courtyard" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-2.9019" Y="-1.4986"/>
+                        <Item X="3.1681" Y="0"/>
+                        <Item X="-2.9019" Y="1.4986"/>
+                    </Points>
+                </Shape>
+                <Shape Id="10" Type="Line" Locked="N" Layer="Top Courtyard" LineWidth="0.05" AllLayers="N">
+                    <Points>
+                        <Item X="-2.9019" Y="-1.4986"/>
+                        <Item X="-2.9019" Y="1.4986"/>
+                    </Points>
+                </Shape>
+            </Shapes>
+            <Model3D Mirror="N" NoSearch="N" Units="mm" IPC_XOff="-0.0519" IPC_YOff="0" AutoHeight="12" AutoColor="4934475" Type="IPC-7351" KeepPins="N">
+                <Rotate X="0" Y="0" Z="0"/>
+                <Offset X="0" Y="0" Z="-0.05"/>
+                <Zoom X="1" Y="1" Z="1"/>
+            </Model3D>
+        </Pattern>
+    </Patterns>
+</Library>

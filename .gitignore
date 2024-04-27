@@ -15,27 +15,13 @@ __pycache__
 /htmlcov
 /xmlcov
 
-# Tox test suite
-/.tox
-
-# IntelliJ
-.idea
-
-# Visual Studio Code
-.vscode
-
-# IPython notebook checkpoints
-.ipynb_checkpoints
-
 # output files
 /examples/actual
 /dist
 
-# venv
-/.venv
-
 # Generated files
 /tests/samples/actual*
+/tests/samples/expected*
 
 # DipTrace
 *.eli
@@ -45,8 +31,10 @@ __pycache__
 
 # Backup Files
 *.bak
-**/actual/*
 
 # GPG Keys
 *.asc
 *.key
+
+# VSCode
+.vscode/*

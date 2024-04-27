@@ -32,7 +32,7 @@ packages = [{include="DipTraceGenerator"}]
 [tool.poetry.dependencies]
 python = ">=3.8, <4.0"
 lxml = "^5.2.1"
-termcolor = "^2.3.0"
+colorama = "^0.4.6"
 typing-extensions = {version = "^4.11.0", python = "<3.11"}
 pillow = "^10.3.0"
 
@@ -44,7 +44,7 @@ pytest-cov = "^5.0.0"
 tqdm = "^4.66.2"
 
 [tool.poetry.scripts]
-examples = "examples.all:main"
+examples = "Examples.all:main"
 
 [tool.coverage.report]
 exclude_also = [

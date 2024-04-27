@@ -1,0 +1,196 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Library Type="DipTrace-PatternLibrary" Version="4.3.0.5" Units="mm">
+  <PadStyles>
+    <PadStyle Name="PadT0" Type="Surface" Side="Top">
+      <MainStack Shape="Rectangle" Width="2.17" Height="1.67" Corner="14.9701" />
+      <Terminals>
+        <Terminal Shape="Rectangle" X="0.12" Y="0" Angle="0" Width="1.15" Height="1.45" Corner="0" />
+      </Terminals>
+    </PadStyle>
+  </PadStyles>
+  <Patterns>
+    <Pattern PatternStyle="PatType0" RefDes="D" Mounting="SMD" Width="6.7" Height="3.2"
+      Orientation="0" LockTypeChange="Y" Type="IPC-7351" Float1="0" Float2="0" Float3="0" Int1="1"
+      Int2="0">
+      <Name>LITTELFUSE_SMAJxxxA_N</Name>
+      <Name_Description>Diode, Polarized, Molded, 5.04mm lead span x 2.595mm body width x 2.29mm
+        height, 1.15mm lead length x 1.45mm lead width, nominal density</Name_Description>
+      <Name_Unique>LITTELFUSE_SMAJxxxA</Name_Unique>
+      <Manufacturer>Littelfuse</Manufacturer>
+      <Category Index="51">
+        <Name>Diodes</Name>
+        <CategoryTypes>
+          <CategoryType>
+            <Type Index="25">'Molded</Type>
+          </CategoryType>
+          <CategoryType>
+            <Type Index="1">''''Single</Type>
+          </CategoryType>
+        </CategoryTypes>
+      </Category>
+      <Origin X="0" Y="0" Cross="Y" Circle="Y" Common="Hide" Courtyard="Show" />
+      <RecoveryCode Generator="Y" Model="Y">
+        [Y;Molded;1;N;N;1;0;331;Y;Y;Y;Y;101;Littelfuse;LITTELFUSE|2;;;2.29;;;1.25;1.45;1.65;0.2;-0.2;;;;;;4.8;5.04;5.28;0.24;-0.24;3.99;4.295;4.6;0.305;-0.305;2.4;2.595;2.79;0.195;-0.195;0.78;1.15;1.52;0.37;-0.37;;;;;;1.96;2.17;1.67;2.17;1.67|0;|;;;;;;;;;0.5;0.5;0.5|||||;;;1|||||||||4934475;15461355;16119285;Y]</RecoveryCode>
+      <DefPad Style="PadT0" />
+      <Pads>
+        <Pad Id="1" Style="PadT0" X="-2.065" Y="0" Angle="0" Locked="N" Side="Top">
+          <Number>1</Number>
+        </Pad>
+        <Pad Id="2" Style="PadT0" X="2.065" Y="0" Angle="3.1416" Locked="N" Side="Top">
+          <Number>2</Number>
+        </Pad>
+      </Pads>
+      <Shapes>
+        <Shape Id="1" Type="Rectangle" Locked="N" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+          <Points>
+            <Item X="-2.1475" Y="1.2975" />
+            <Item X="2.1475" Y="-1.2975" />
+          </Points>
+        </Shape>
+        <Shape Id="2" Type="Polyline" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-2.3" Y="1.02" />
+            <Item X="-2.3" Y="1.4" />
+            <Item X="2.3" Y="1.4" />
+            <Item X="2.3" Y="1.02" />
+          </Points>
+        </Shape>
+        <Shape Id="3" Type="Polyline" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-2.3" Y="-1.02" />
+            <Item X="-2.3" Y="-1.4" />
+            <Item X="2.3" Y="-1.4" />
+            <Item X="2.3" Y="-1.02" />
+          </Points>
+        </Shape>
+        <Shape Id="4" Type="Line" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-3.33" Y="0.78" />
+            <Item X="-3.33" Y="-0.78" />
+          </Points>
+        </Shape>
+        <Shape Id="5" Type="Polyline" Locked="N" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-2.3" Y="-1.4" />
+            <Item X="-2.3" Y="0.47" />
+            <Item X="-1.37" Y="1.4" />
+            <Item X="2.3" Y="1.4" />
+            <Item X="2.3" Y="-1.4" />
+            <Item X="-2.3" Y="-1.4" />
+          </Points>
+        </Shape>
+        <Shape Id="6" Type="Polyline" Locked="N" Layer="Top Courtyard" LineWidth="0.05"
+          AllLayers="N">
+          <Points>
+            <Item X="-3.35" Y="1.04" />
+            <Item X="-2.5" Y="1.04" />
+            <Item X="-2.5" Y="1.6" />
+            <Item X="2.5" Y="1.6" />
+            <Item X="2.5" Y="1.04" />
+            <Item X="3.35" Y="1.04" />
+            <Item X="3.35" Y="-1.04" />
+            <Item X="2.5" Y="-1.04" />
+            <Item X="2.5" Y="-1.6" />
+            <Item X="-2.5" Y="-1.6" />
+            <Item X="-2.5" Y="-1.04" />
+            <Item X="-3.35" Y="-1.04" />
+            <Item X="-3.35" Y="1.04" />
+          </Points>
+        </Shape>
+      </Shapes>
+      <Model3D Mirror="N" NoSearch="N" Units="mm" IPC_XOff="0" IPC_YOff="0" AutoHeight="2.29"
+        AutoColor="255" Type="IPC-7351" KeepPins="N">
+        <Rotate X="0" Y="0" Z="0" />
+        <Offset X="0" Y="0" Z="-0.05" />
+        <Zoom X="1" Y="1" Z="1" />
+      </Model3D>
+    </Pattern>
+    <Pattern PatternStyle="PatType1" RefDes="D" Mounting="SMD" Width="6.7" Height="3.2"
+      Orientation="0" LockTypeChange="Y" Type="IPC-7351" Float1="0" Float2="0" Float3="0" Int1="1"
+      Int2="0">
+      <Name>LITTELFUSE_SMAJxxxCA_N</Name>
+      <Name_Description>Diode, Non-Polarized, Molded, 5.04mm lead span x 2.595mm body width x 2.29mm
+        height, 1.15mm lead length x 1.45mm lead width, nominal density</Name_Description>
+      <Name_Unique>LITTELFUSE_SMAJxxxCA</Name_Unique>
+      <Manufacturer>Littelfuse</Manufacturer>
+      <Category Index="51">
+        <Name>Diodes</Name>
+        <CategoryTypes>
+          <CategoryType>
+            <Type Index="25">'Molded</Type>
+          </CategoryType>
+          <CategoryType>
+            <Type Index="1">''''Single</Type>
+          </CategoryType>
+        </CategoryTypes>
+      </Category>
+      <Origin X="0" Y="0" Cross="Y" Circle="Y" Common="Hide" Courtyard="Show" />
+      <RecoveryCode Generator="Y" Model="Y">
+        [Y;Molded;1;N;N;1;0;331;Y;Y;Y;Y;101;Littelfuse;LITTELFUSE|3;;;2.29;;;1.25;1.45;1.65;0.2;-0.2;;;;;;4.8;5.04;5.28;0.24;-0.24;3.99;4.295;4.6;0.305;-0.305;2.4;2.595;2.79;0.195;-0.195;0.78;1.15;1.52;0.37;-0.37;;;;;;1.96;2.17;1.67;2.17;1.67|0;|;;;;;;;;;0.5;0.5;0.5|||||;;;1|||||||||4934475;15461355;16119285;Y]</RecoveryCode>
+      <DefPad Style="PadT0" />
+      <Pads>
+        <Pad Id="1" Style="PadT0" X="-2.065" Y="0" Angle="0" Locked="N" Side="Top">
+          <Number>1</Number>
+        </Pad>
+        <Pad Id="2" Style="PadT0" X="2.065" Y="0" Angle="3.1416" Locked="N" Side="Top">
+          <Number>2</Number>
+        </Pad>
+      </Pads>
+      <Shapes>
+        <Shape Id="1" Type="Rectangle" Locked="N" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
+          <Points>
+            <Item X="-2.1475" Y="1.2975" />
+            <Item X="2.1475" Y="-1.2975" />
+          </Points>
+        </Shape>
+        <Shape Id="2" Type="Polyline" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-2.3" Y="1.02" />
+            <Item X="-2.3" Y="1.4" />
+            <Item X="2.3" Y="1.4" />
+            <Item X="2.3" Y="1.02" />
+          </Points>
+        </Shape>
+        <Shape Id="3" Type="Polyline" Locked="N" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-2.3" Y="-1.02" />
+            <Item X="-2.3" Y="-1.4" />
+            <Item X="2.3" Y="-1.4" />
+            <Item X="2.3" Y="-1.02" />
+          </Points>
+        </Shape>
+        <Shape Id="4" Type="Rectangle" Locked="N" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
+          <Points>
+            <Item X="-2.3" Y="1.4" />
+            <Item X="2.3" Y="-1.4" />
+          </Points>
+        </Shape>
+        <Shape Id="5" Type="Polyline" Locked="N" Layer="Top Courtyard" LineWidth="0.05"
+          AllLayers="N">
+          <Points>
+            <Item X="-3.35" Y="1.04" />
+            <Item X="-2.5" Y="1.04" />
+            <Item X="-2.5" Y="1.6" />
+            <Item X="2.5" Y="1.6" />
+            <Item X="2.5" Y="1.04" />
+            <Item X="3.35" Y="1.04" />
+            <Item X="3.35" Y="-1.04" />
+            <Item X="2.5" Y="-1.04" />
+            <Item X="2.5" Y="-1.6" />
+            <Item X="-2.5" Y="-1.6" />
+            <Item X="-2.5" Y="-1.04" />
+            <Item X="-3.35" Y="-1.04" />
+            <Item X="-3.35" Y="1.04" />
+          </Points>
+        </Shape>
+      </Shapes>
+      <Model3D Mirror="N" NoSearch="N" Units="mm" IPC_XOff="0" IPC_YOff="0" AutoHeight="2.29"
+        AutoColor="255" Type="IPC-7351" KeepPins="N">
+        <Rotate X="0" Y="0" Z="0" />
+        <Offset X="0" Y="0" Z="-0.05" />
+        <Zoom X="1" Y="1" Z="1" />
+      </Model3D>
+    </Pattern>
+  </Patterns>
+</Library>
+  
