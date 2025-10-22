@@ -31,7 +31,7 @@ jobs:
           architecture: x64
 
       - name: Install Poetry
-        run: curl -sSL https://install.python-poetry.org | python3 -
+        uses: snok/install-poetry@v1
 
       - name: Check Poetry version
         run: poetry --version
@@ -48,18 +48,18 @@ jobs:
 
       - name: Download coverage data from previous runs
         uses: actions/download-artifact@v4
-        if: matrix.python-version != '3.8'
+        if: matrix.python-version != '3.9'
         continue-on-error: true
         with:
           name: coverage-data
           path: .
 
       - name: Run unit-tests
-        if: matrix.python-version == '3.8'
+        if: matrix.python-version == '3.9'
         run: poetry run pytest --cov=DipTraceGenerator --cov-report=term
 
       - name: Run unit-tests
-        if: matrix.python-version != '3.8'
+        if: matrix.python-version != '3.9'
         run: poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=term
 
       - name: Upload coverage data for next runs
