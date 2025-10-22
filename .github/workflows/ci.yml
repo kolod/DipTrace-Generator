@@ -33,7 +33,7 @@ jobs:
       - name: Install Poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.8.5
+          version: 2.2.1
 
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
@@ -60,6 +60,7 @@ jobs:
         with:
           name: coverage-data
           path: .coverage
+          if-no-files-found: error
           overwrite: true
 
       - name: Generate coverage report and upload to Codecov
