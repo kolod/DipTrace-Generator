@@ -32,9 +32,12 @@ jobs:
 
       - name: Install Poetry
         id: install-poetry
-        uses: snok/install-poetry@v1
+        uses: Gr1N/setup-poetry@v8
         with:
-          version: 2.2.1
+          poetry-version: 2.2.1
+
+      - name: Check Poetry version
+        run: poetry --version
 
       - name: Upload Poetry installation error log
         if: failure()
