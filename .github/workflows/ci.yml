@@ -91,4 +91,5 @@ jobs:
         with:
           flags: unittests
           files: ./coverage.xml
+          fail_ci_if_error: true
 
