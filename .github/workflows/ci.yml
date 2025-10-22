@@ -71,6 +71,14 @@ jobs:
           if-no-files-found: error
           overwrite: true
 
+      - name: Upload all if failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-failure-logs-${{ matrix.python-version }}
+          path: .
+          if-no-files-found: warn
+
       - name: Generate coverage report and upload to Codecov
         if: matrix.python-version == '3.14'
         run: poetry run coverage xml
