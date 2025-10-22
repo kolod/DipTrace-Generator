@@ -55,27 +55,12 @@ jobs:
           path: .
 
       - name: Run unit-tests
-        run: |
-          if [ "${{ matrix.python-version }}" == "3.8" ]; then
-            poetry run pytest --cov=DipTraceGenerator --cov-report=term
-          else
-            poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=term
-          fi
-        shell: bash
+        if: matrix.python-version == '3.8'
+        run: poetry run pytest --cov=DipTraceGenerator --cov-report=term
 
-      - name: Check if coverage file exists
-        run: |
-          echo "Checking for .coverage file..."
-          ls -la
-          if [ -f .coverage ]; then
-            echo "✓ .coverage file found"
-            poetry run coverage report
-          else
-            echo "✗ .coverage file NOT found"
-            echo "Looking for coverage files recursively:"
-            find . -name ".coverage*" -type f
-          fi
-        shell: bash
+      - name: Run unit-tests
+        if: matrix.python-version != '3.8'
+        run: poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=term
 
       - name: Upload coverage data for next runs
         uses: actions/upload-artifact@v4
