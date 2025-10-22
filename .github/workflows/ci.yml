@@ -83,6 +83,7 @@ jobs:
           name: coverage-data
           path: .coverage
           if-no-files-found: error
+          include-hidden-files: true
           overwrite: true
 
       - name: Upload all if failure
