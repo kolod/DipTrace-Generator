@@ -34,7 +34,7 @@ jobs:
         id: install-poetry
         uses: snok/install-poetry@v1
         with:
-          version: 1.8.5
+          version: 2.2.1
 
       - name: Upload Poetry installation error log
         if: failure()
