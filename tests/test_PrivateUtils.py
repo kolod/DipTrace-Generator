@@ -337,7 +337,15 @@ class TestPrivateUtils(TestCase):
         attr_part = result.split('<Element ')[1].split('/>')[0].strip()
         self.assertLess(attr_part.index('a="1 &lt; less"'), attr_part.index('b="2 &gt; greater"'))
         self.assertLess(attr_part.index('b="2 &gt; greater"'), attr_part.index('c="3 &amp; special"'))
-    
+
+    # Test that PrivateUtils can be imported and has proper main block
+
+    def test_module_main_block(self):
+        """Test that Utils.py can be imported and has proper main block"""
+        import DipTraceGenerator.PrivateUtils as utils_module
+        # The module should be importable and have the main guard
+        self.assertTrue(hasattr(utils_module, 'sort_children_by_tag_order'))
+        self.assertTrue(hasattr(utils_module, 'sort_attributes_by_order'))
 
 if __name__ == "__main__":
     main()
