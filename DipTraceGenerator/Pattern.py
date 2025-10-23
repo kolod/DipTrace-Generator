@@ -75,6 +75,25 @@ class Pattern(
     )
 
     @property
+    def id(self) -> Optional[int]:
+        try:
+            if "Id" in self._root.attrib:
+                return int(self._root.get("Id"))
+            return None
+        except (TypeError, ValueError, AttributeError):
+            return None
+        
+    @id.setter
+    def id(self, value: Optional[int]) -> None:
+        if value is not None:
+            if value < 0:
+                raise ValueError("Id must be non-negative integer.")
+            # TODO: Check for uniqueness in parent group "Patterns"
+            self._root.set("Id", str(value))
+        elif "Id" in self._root.attrib:
+            self._root.attrib.pop("Id")
+
+    @property
     def mounting(self) -> Optional[PatternMounting]:
         try:
             return PatternMounting(self._root.get("Mounting"))
@@ -196,6 +215,11 @@ class PatternsMixin(RootMixin):
     def renumerate_styles(self) -> Self:
         for i, pattern in enumerate(self.patterns, start=0):
             pattern.style = f"PatType{i}"
+        return self
+    
+    def renumerate_ids(self) -> Self:
+        for i, pattern in enumerate(self.patterns, start=0):
+            pattern.id = i
         return self
 
     def find(self, name: str) -> Optional[Pattern]:
