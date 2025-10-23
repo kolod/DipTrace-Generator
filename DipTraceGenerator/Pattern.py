@@ -5,29 +5,14 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-from typing import List, Optional, Union
-from copy import deepcopy
-from lxml.etree import SubElement
-from .Mixins import (
-    RootMixin,
-    WidthMixin,
-    HeightMixin,
-    NameTagMixin,
-    NameDescriptionTagMixin,
-    RefDesMixin,
-    ManufacturerTagMixin,
-    ValueTagMixin,
-    NameUniqueTagMixin,
-    DatasheetTagMixin,
-    OrientationMixin,
-    Order,
-)
-
 try:
     from typing import Self  # python>=3.11
 except ImportError:
-    from typing_extensions import Self  # python<3.11
+    from typing_extensions import Self  # type: ignore # python<3.11
 
+from typing import List, Optional, Union
+from copy import deepcopy
+from lxml.etree import SubElement
 from .Pad import PadsMixin
 from .PatternOrigin import PatternOriginMixin
 from .Model3D import Model3DMixin
@@ -35,10 +20,14 @@ from .PatternShape import PatternShapesMixin
 from .Hole import HolesMixin
 from .RecoveryCode import RecoveryCodeMixin
 from .Enums import Boolean, PatternType, PatternMounting
+from .Mixins import IdMixin, RootMixin, WidthMixin, HeightMixin, NameTagMixin, NameDescriptionTagMixin, \
+    RefDesMixin, ManufacturerTagMixin, ValueTagMixin, NameUniqueTagMixin, DatasheetTagMixin, OrientationMixin, \
+    Order
 
 
 class Pattern(
     RefDesMixin,
+    IdMixin,
     WidthMixin,
     HeightMixin,
     NameTagMixin,
@@ -74,24 +63,7 @@ class Pattern(
         tags=["Name", "Name_Description", "Category", "Origin", "RecoveryCode", "DefPad", "Pads", "Shapes", "Model3D"],
     )
 
-    @property
-    def id(self) -> Optional[int]:
-        try:
-            if "Id" in self._root.attrib:
-                return int(self._root.get("Id"))
-            return None
-        except (TypeError, ValueError, AttributeError):
-            return None
-        
-    @id.setter
-    def id(self, value: Optional[int]) -> None:
-        if value is not None:
-            if value < 0:
-                raise ValueError("Id must be non-negative integer.")
-            # TODO: Check for uniqueness in parent group "Patterns"
-            self._root.set("Id", str(value))
-        elif "Id" in self._root.attrib:
-            self._root.attrib.pop("Id")
+    
 
     @property
     def mounting(self) -> Optional[PatternMounting]:

@@ -5,13 +5,18 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+try:
+    from typing import Self  # python>=3.11
+except ImportError:
+    from typing_extensions import Self  # type: ignore # python<3.11
 from typing import Optional, List
 from copy import deepcopy
 from dataclasses import dataclass, field
 from lxml.etree import SubElement
 from .Enums import Boolean, PinType, ElectricType
-from .Mixins import XMixin, YMixin, RootMixin, NameTagMixin, LockedMixin, OrientationMixin, GroupMixin, Order
 from .NameFont import NameFontMixin
+from .Mixins import XMixin, YMixin, RootMixin, NameTagMixin, LockedMixin, OrientationMixin, GroupMixin, Order, \
+    IdMixin
 
 
 @dataclass
@@ -21,9 +26,10 @@ class Shift(object):
     orientation: float = field(default_factory=lambda: 0.0)
 
 
-class Pin(XMixin, YMixin, NameTagMixin, LockedMixin, OrientationMixin, GroupMixin, NameFontMixin):
+class Pin(IdMixin, XMixin, YMixin, NameTagMixin, LockedMixin, OrientationMixin, GroupMixin, NameFontMixin):
     _order = Order(
         args=[
+            "Id",
             "X",
             "Y",
             "Locked",
@@ -207,6 +213,11 @@ class PinsMixin(RootMixin):
             tag = SubElement(self._root, "Pins")
             for style in value:
                 tag.append(deepcopy(style.root))
+
+    def renumerate_pin_ids(self) -> Self:
+        for i, pin in enumerate(self.pins, start=0):
+            pin.id = i
+        return self
 
 
 if __name__ == "__main__":

@@ -169,12 +169,11 @@ def diodes_tvs():
         console.print("\nDiodes TVS\n", style="red bold")
 
         name = "Diodes TVS"
-        directory = "diodes-tvs"
         path = Path(__file__).parent
 
-        source_path = path / "source" / directory / f"{name}.libxml"
-        destination_path = path / "actual" / directory / f"{name}.elixml"
-        expected_path = path / "expected" / directory / f"{name}.elixml"
+        source_path = path / "source" / f"{name}.libxml"
+        destination_path = path / "actual" / f"{name}.elixml"
+        expected_path = path / "expected" / f"{name}.elixml"
 
         console.print(f"Generating {destination_path.name}...", style="green")
 
@@ -245,6 +244,11 @@ def diodes_tvs():
 
         if expected_path.is_file():
             format_xml(expected_path)
+
+        # Compare generated with expected
+        if expected_path.is_file() and destination_path.is_file():
+            console.print(f"Comparing {destination_path.name} with expected...", style="green")
+            compare(expected_path, destination_path)
 
 
     except ValueError as e:

@@ -10,6 +10,7 @@ from typing import Optional, List
 from dataclasses import dataclass, field
 from copy import deepcopy
 from DipTraceGenerator.Enums import Units, Side, MountType, Boolean, Layer
+from DipTraceGenerator.PrivateUtils import sort_children_by_tag_order, sort_attributes_by_order
 
 
 @dataclass
@@ -46,36 +47,11 @@ class RootMixin(object):
         return tostring(self._root, xml_declaration=False, pretty_print=True, encoding="utf-8").decode("utf-8")
 
     def sort(self) -> None:
-        if hasattr(self, "_order") and isinstance(self._order, Order):
-            temp = {}
-            for key in self._order.args:
-                if key in self._root.attrib:
-                    temp[key] = self._root.attrib.pop(key)
-            for key, value in temp.items():
-                self._root.set(key, value)
-
-            temp = {}
-            for key in self._order.tags:
-                temp[key] = deepcopy(self._root.find(f"./{key}"))
-                for tag in self._root.findall(f"./{key}"):
-                    self._root.remove(tag)
-
-            for key, value in temp.items():
-                if value is not None:
-                    self._root.append(value)
-
-            for key in self._order.subs:
-                if hasattr(self, key):
-                    obj = getattr(self, key)
-
-                    if hasattr(obj, "reorder"):
-                        if callable(obj.sort):
-                            obj.sort()
-
-                    elif hasattr(obj, "__iter__"):
-                        for o in obj:
-                            if callable(o.sort):
-                                o.sort()
+        if hasattr(self, "_order"):
+            if len(self._order.args) > 0:
+                sort_attributes_by_order(self._root, self._order.args)
+            if len(self._order.tags) > 0:
+                sort_children_by_tag_order(self._root, self._order.tags)
 
 
 class NameMixin(RootMixin):
@@ -118,6 +94,27 @@ class NameTagMixin(RootMixin):
         if value is not None:
             tag = SubElement(self._root, "Name")
             tag.text = value
+
+
+class IdMixin(RootMixin):
+    @property
+    def id(self) -> Optional[int]:
+        try:
+            if "Id" in self._root.attrib:
+                return int(self._root.get("Id"))
+            return None
+        except (TypeError, ValueError, AttributeError):
+            return None
+        
+    @id.setter
+    def id(self, value: Optional[int]) -> None:
+        if value is not None:
+            if value < 0:
+                raise ValueError("Id must be non-negative integer.")
+            # TODO: Check for uniqueness in parent group "Patterns"
+            self._root.set("Id", str(value))
+        elif "Id" in self._root.attrib:
+            self._root.attrib.pop("Id")
 
 
 class NameDescriptionTagMixin(RootMixin):

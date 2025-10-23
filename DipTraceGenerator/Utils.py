@@ -14,14 +14,15 @@ This module provides helper functions for:
 - Loading DipTrace libraries from XML files
 """
 
-from os import remove, fdopen
+from os import remove, fdopen, getenv
 from pathlib import Path
 from typing import List, Union
 from subprocess import Popen, call
-from lxml.etree import parse, XMLParser, tostring
+from lxml.etree import parse, XMLParser, tostring, Element
 from tempfile import mkstemp
 from DipTraceGenerator.ComponentLibrary import ComponentLibrary
 from DipTraceGenerator.PatternLibrary import PatternLibrary
+from DipTraceGenerator.PrivateUtils import sort_attributes_by_order, sort_children_by_tag_order
 
 
 def get_correct_filename(path: Path, extensions: List[str]) -> Path:
@@ -120,6 +121,10 @@ def compare(*args: Union[Path, str]) -> None:
     files = [get_correct_filename(x, extensions) for x in args if isinstance(x, Path)]
     paths = [x for x in args if isinstance(x, str)]
 
+    if getenv("GITHUB_ACTIONS") == "true":
+        print("Skipping comparison in GitHub Actions")
+        return
+
     if len(files) < 2:
         raise ValueError("Too low files. Expected two or three files.")
 
@@ -187,6 +192,8 @@ def load_from_xml_file(path: Path) -> Union[PatternLibrary, ComponentLibrary, No
                     return ComponentLibrary(root)
     return None
 
+# Functions sort_attributes_by_order and sort_children_by_tag_order
+# are imported from PrivateUtils to avoid circular imports
 
 if __name__ == "__main__":
     pass

@@ -5,17 +5,21 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+try:
+    from typing import Self  # python>=3.11
+except ImportError:
+    from typing_extensions import Self  # type: ignore # python<3.11
 from typing import Optional, List
 from lxml.etree import SubElement
 from copy import deepcopy
 from lxml.etree import Element
-from .Mixins import RootMixin, LockedMixin, LineWidthMixin, GroupMixin, Order
+from .Mixins import RootMixin, LockedMixin, LineWidthMixin, GroupMixin, Order, IdMixin
 from .Point import PointsMixin
 from .Enums import ShapeType, Boolean
 
 
-class ComponentShape(LockedMixin, LineWidthMixin, PointsMixin, GroupMixin):
-    _order = Order(args=["Type", "LineWidth", "Locked", "Group"])
+class ComponentShape(IdMixin, LockedMixin, LineWidthMixin, PointsMixin, GroupMixin):
+    _order = Order(args=["Id", "Type", "LineWidth", "Locked", "Group"])
 
     def __init__(self, root: Optional[Element] = None, *args, **kwargs):
         if root is None:
@@ -64,6 +68,11 @@ class ComponentShapesMixin(RootMixin):
             tag = SubElement(self._root, "Shapes")
             for shape in value:
                 tag.append(deepcopy(shape.root))
+
+    def renumerate_shape_ids(self) -> Self:
+        for i, shape in enumerate(self.shapes, start=0):
+            shape.id = i
+        return self
 
 
 if __name__ == "__main__":
