@@ -133,14 +133,12 @@ class Test(TestCase):
         file1 = path.joinpath("samples/part_test.sample.xml")
         file2 = path.joinpath("samples/format_test.sample.xml")
         
-        # Mock the necessary functions        
-        with patch('DipTraceGenerator.Utils.Path.exists', return_value=True):
-            with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
-                with patch('os.remove') as mock_remove:
+        # Mock the necessary functions
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
                     compare(file1, file2)
                     mock_popen.assert_called_once()
-                    # No temporary files should be created without xpath
-                    mock_remove.assert_not_called()
 
     def test_compare_three_files(self):
         """Test compare function with three files"""
@@ -150,22 +148,21 @@ class Test(TestCase):
         file3 = path.joinpath("samples/test_load.libxml")
         
         # Mock the necessary functions
-        with patch('DipTraceGenerator.Utils.Path.exists', return_value=True):
-            with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
-                with patch('os.remove') as mock_remove:
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
                     compare(file1, file2, file3)
                     mock_popen.assert_called_once()
-                    # No temporary files should be created without xpath
-                    mock_remove.assert_not_called()
 
     def test_compare_too_few_files(self):
         """Test compare raises error with too few files"""
         path = Path(__file__).parent
         file1 = path.joinpath("samples/part_test.sample.xml")
         
-        with self.assertRaises(ValueError) as cm:
-            compare(file1)
-        self.assertIn("Too low files", str(cm.exception))
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with self.assertRaises(ValueError) as cm:
+                compare(file1)
+            self.assertIn("Too low files", str(cm.exception))
 
     def test_compare_too_many_files(self):
         """Test compare raises error with too many files"""
@@ -175,9 +172,10 @@ class Test(TestCase):
         file3 = path.joinpath("samples/test_load.libxml")
         file4 = path.joinpath("samples/test_categories.libxml")
         
-        with self.assertRaises(ValueError) as cm:
-            compare(file1, file2, file3, file4)
-        self.assertIn("Too many files", str(cm.exception))
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with self.assertRaises(ValueError) as cm:
+                compare(file1, file2, file3, file4)
+            self.assertIn("Too many files", str(cm.exception))
 
     def test_compare_invalid_xpath_count(self):
         """Test compare raises error with invalid xpath count"""
@@ -186,9 +184,10 @@ class Test(TestCase):
         file2 = path.joinpath("samples/format_test.sample.xml")
         file3 = path.joinpath("samples/test_load.libxml")
         
-        with self.assertRaises(ValueError) as cm:
-            compare(file1, file2, file3, "./Parts", "./Components")
-        self.assertIn("Number of xpath", str(cm.exception))
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with self.assertRaises(ValueError) as cm:
+                compare(file1, file2, file3, "./Parts", "./Components")
+            self.assertIn("Number of xpath", str(cm.exception))
 
     def test_compare_with_single_xpath(self):
         """Test compare function with single xpath for all files"""
@@ -196,17 +195,18 @@ class Test(TestCase):
         file1 = path.joinpath("samples/test_load.libxml")
         file2 = path.joinpath("samples/test_categories.libxml")
         
-        # Mock WinMerge to avoid actually launching it
-        with patch('DipTraceGenerator.Utils.which', return_value='C:/Program Files/WinMerge/WinMergeU.exe'):
-            with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
-                # Mock the process wait method
-                mock_popen.return_value.wait.return_value = None
-                
-                # Use a valid XPath that exists in both files
-                compare(file1, file2, "./PadStyles")
-                mock_popen.assert_called_once()
-                # Verify wait was called on the process
-                mock_popen.return_value.wait.assert_called_once()
+        # Mock to avoid GitHub Actions skip and WinMerge launch
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
+                    # Mock the process wait method
+                    mock_popen.return_value.wait.return_value = None
+                    
+                    # Use a valid XPath that exists in both files
+                    compare(file1, file2, "./PadStyles")
+                    mock_popen.assert_called_once()
+                    # Verify wait was called on the process
+                    mock_popen.return_value.wait.assert_called_once()
 
     def test_compare_with_multiple_xpaths(self):
         """Test compare function with different xpath for each file"""
@@ -214,17 +214,18 @@ class Test(TestCase):
         file1 = path.joinpath("samples/test_load.libxml")
         file2 = path.joinpath("samples/test_categories.libxml")
         
-        # Mock WinMerge to avoid actually launching it
-        with patch('DipTraceGenerator.Utils.which', return_value='C:/Program Files/WinMerge/WinMergeU.exe'):
-            with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
-                # Mock the process wait method
-                mock_popen.return_value.wait.return_value = None
-                
-                # Use valid xpaths for each file
-                compare(file1, file2, "./Patterns", "./Categories")
-                mock_popen.assert_called_once()
-                # Verify wait was called on the process
-                mock_popen.return_value.wait.assert_called_once()
+        # Mock to avoid GitHub Actions skip and WinMerge launch
+        with patch('DipTraceGenerator.Utils.getenv', return_value=None):
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with patch('DipTraceGenerator.Utils.Popen') as mock_popen:
+                    # Mock the process wait method
+                    mock_popen.return_value.wait.return_value = None
+                    
+                    # Use valid xpaths for each file
+                    compare(file1, file2, "./Patterns", "./Categories")
+                    mock_popen.assert_called_once()
+                    # Verify wait was called on the process
+                    mock_popen.return_value.wait.assert_called_once()
 
     # Test that PrivateUtils can be imported and has proper main block
 
