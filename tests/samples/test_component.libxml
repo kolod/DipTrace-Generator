@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Library Type="DipTrace-ComponentLibrary" Name="Test Component Library" Hint="Test" Version="5.0.0.0" Units="mm">
+  <Groups>
+  </Groups>
+  <Components>
+  </Components>
+</Library>
