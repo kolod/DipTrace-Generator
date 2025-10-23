@@ -2,13 +2,24 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
+      - ai
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
 
-  python-38:
-    name: Python 3.8 tests
+  test:
+    name: Python ${{ matrix.python-version }} tests
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13', '3.14']
+      max-parallel: 1
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -16,185 +27,102 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: 3.8.18
+          python-version: ${{ matrix.python-version }}
           architecture: x64
 
       - name: Install Poetry
-        uses: Gr1N/setup-poetry@v9
-        with:
-          poetry-version: "1.8.2"
+        uses: snok/install-poetry@v1
 
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
+      - name: Check Poetry version
+        run: poetry --version
 
-      - name: Run unit-tests
-        run: poetry run pytest --cov=DipTraceGenerator
-
-      - name: Upload coverage data
+      - name: Upload Poetry installation error log
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage
-          path: ./.coverage
-          overwrite: true
-
-  python-39:
-    name: Python 3.9 tests
-    runs-on: ubuntu-latest
-    needs: python-38
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.9.19
-          architecture: x64
-
-      - name: Install Poetry
-        uses: Gr1N/setup-poetry@v9
-        with:
-          poetry-version: "1.8.2"
+          name: poetry-installer-error-${{ matrix.python-version }}
+          path: poetry-installer-error-*.log
 
       - name: Install dependencies
         run: poetry install --no-interaction --no-root
 
-      - name: Download coverage data
+      - name: Download coverage data from previous runs
         uses: actions/download-artifact@v4
+        if: matrix.python-version != '3.9'
+        continue-on-error: true
         with:
-          name: coverage
+          name: coverage-data
+          path: .
 
       - name: Run unit-tests
-        run: poetry run pytest --cov=DipTraceGenerator --cov-append
-
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: ./.coverage
-          overwrite: true
-
-  python-310:
-    name: Python 3.10 tests
-    runs-on: ubuntu-latest
-    needs: python-39
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.10.14
-          architecture: x64
-
-      - name: Install Poetry
-        uses: Gr1N/setup-poetry@v9
-        with:
-          poetry-version: "1.8.2"
-
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Download coverage data
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage
+        if: matrix.python-version == '3.9'
+        run: poetry run pytest --cov=DipTraceGenerator --cov-report=term
 
       - name: Run unit-tests
-        run: poetry run pytest --cov=DipTraceGenerator --cov-append
+        if: matrix.python-version != '3.9'
+        run: poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=term
 
-      - name: Upload coverage data
+      - name: Upload coverage data for next runs
         uses: actions/upload-artifact@v4
         with:
-          name: coverage
-          path: ./.coverage
+          name: coverage-data
+          path: .coverage
+          if-no-files-found: error
+          include-hidden-files: true
           overwrite: true
 
-  python-311:
-    name: Python 3.11 tests
-    runs-on: ubuntu-latest
-    needs: python-310
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.11.9
-          architecture: x64
-
-      - name: Install Poetry
-        uses: Gr1N/setup-poetry@v9
-        with:
-          poetry-version: "1.8.2"
-
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Download coverage data
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage
-
-      - name: Run unit-tests
-        run: poetry run pytest --cov=DipTraceGenerator --cov-append
-
-      - name: Upload coverage data
+      - name: Upload all if failure
+        if: failure()
         uses: actions/upload-artifact@v4
         with:
-          name: coverage
-          path: ./.coverage
-          overwrite: true
+          name: test-failure-logs-${{ matrix.python-version }}
+          path: .
+          if-no-files-found: warn
 
-  python-312:
-    name: Python 3.12 tests
-    runs-on: ubuntu-latest
-    needs: python-311
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12.3
-          architecture: x64
-
-      - name: Install Poetry
-        uses: Gr1N/setup-poetry@v9
-        with:
-          poetry-version: "1.8.2"
-
-      - name: Install dependencies
-        run: poetry install --no-interaction --no-root
-
-      - name: Download coverage data
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage
-
-      - name: Run unit-tests
-        run: poetry run pytest --cov=DipTraceGenerator --cov-append --cov-report=xml
-
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: ./.coverage
-          overwrite: true
+      - name: Generate coverage report and upload to Codecov
+        if: matrix.python-version == '3.14'
+        run: poetry run coverage xml
 
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4.0.1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          slug: kolod/DipTrace-Generator
-
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v4
+        if: matrix.python-version == '3.14'
+        uses: codecov/codecov-action@v5
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         with:
           flags: unittests
           files: ./coverage.xml
+          fail_ci_if_error: true
+
+  examples:
+    name: Build examples
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          architecture: x64
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Check Poetry version
+        run: poetry --version
+
+      - name: Install examples dependencies
+        run: poetry install --with examples --no-interaction
+
+      - name: Run examples
+        run: poetry run examples
+
+      - name: Store generated example files
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-example-files
+          path: ./Examples/actual
+          if-no-files-found: error

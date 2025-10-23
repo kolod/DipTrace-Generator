@@ -34,7 +34,7 @@ class TestPoint(unittest.TestCase):
         point.x = 2.5
         point.y = 2.0
 
-        expected = '<Item X="2.5" Y="2"/>\n'
+        expected = '<Point X="2.5" Y="2"/>\n'
         actual = str(point)
 
         self.assertEqual(expected, actual)
@@ -42,7 +42,7 @@ class TestPoint(unittest.TestCase):
     def test_005(self):
         point = Point(x=1.0, y=2.5)
 
-        expected = '<Item X="1" Y="2.5"/>\n'
+        expected = '<Point X="1" Y="2.5"/>\n'
         actual = str(point)
 
         self.assertEqual(expected, actual)

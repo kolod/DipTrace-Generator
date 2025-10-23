@@ -64,12 +64,12 @@ class ComponentLibrary(NameMixin, HintMixin, VersionMixin, UnitsMixin, Component
         return tostring(self._root, xml_declaration=True, pretty_print=True, encoding="utf-8").decode("utf-8")
 
     def save(self, path: Path) -> Self:
+        if self.root is None:
+            raise ValueError("Library root is None, cannot save.")
         if path.suffix == self.extension:
             path = path.with_suffix(self.extension)
-        if self.root is not None:
-            with open(path, "w", encoding="utf-8") as datafile:
-                self.sort()
-                datafile.write(str(self))
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(str(self), encoding="utf-8")
         return self
 
     @property

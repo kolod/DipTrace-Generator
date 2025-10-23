@@ -293,42 +293,42 @@ class TestPatternShape(unittest.TestCase):
             "  <Shapes>\n"
             '    <Shape AllLayers="N" Locked="Y" Type="Arc" Layer="Top Silk">\n'
             "      <Points>\n"
-            '        <Item X="-1.0607" Y="-1.0607"/>\n'
-            '        <Item X="0" Y="-1.5"/>\n'
-            '        <Item X="-1.0607" Y="-1.0607"/>\n'
+            '        <Point X="-1.0607" Y="-1.0607"/>\n'
+            '        <Point X="0" Y="-1.5"/>\n'
+            '        <Point X="-1.0607" Y="-1.0607"/>\n'
             "      </Points>\n"
             "    </Shape>\n"
             '    <Shape AllLayers="N" Locked="Y" Type="Arc" Layer="Top Silk">\n'
             "      <Points>\n"
-            '        <Item X="-1.0607" Y="1.0607"/>\n'
-            '        <Item X="0" Y="1.5"/>\n'
-            '        <Item X="1.0607" Y="1.0607"/>\n'
+            '        <Point X="-1.0607" Y="1.0607"/>\n'
+            '        <Point X="0" Y="1.5"/>\n'
+            '        <Point X="1.0607" Y="1.0607"/>\n'
             "      </Points>\n"
             "    </Shape>\n"
             '    <Shape AllLayers="N" Locked="Y" Type="Arc" Layer="Top Courtyard">\n'
             "      <Points>\n"
-            '        <Item X="-1.6" Y="-1.0703"/>\n'
-            '        <Item X="0" Y="-1.925"/>\n'
-            '        <Item X="-1.6" Y="1.0703"/>\n'
+            '        <Point X="-1.6" Y="-1.0703"/>\n'
+            '        <Point X="0" Y="-1.925"/>\n'
+            '        <Point X="-1.6" Y="1.0703"/>\n'
             "      </Points>\n"
             "    </Shape>\n"
             '    <Shape AllLayers="N" Locked="Y" Type="Line" Layer="Top Courtyard">\n'
             "      <Points>\n"
-            '        <Item X="-1.6" Y="-1.0703"/>\n'
-            '        <Item X="-1.6" Y="1.0703"/>\n'
+            '        <Point X="-1.6" Y="-1.0703"/>\n'
+            '        <Point X="-1.6" Y="1.0703"/>\n'
             "      </Points>\n"
             "    </Shape>\n"
             '    <Shape AllLayers="N" Locked="Y" Type="Arc" Layer="Top Assy">\n'
             "      <Points>\n"
-            '        <Item X="-1.6" Y="-1.0703"/>\n'
-            '        <Item X="0" Y="-1.925"/>\n'
-            '        <Item X="-1.6" Y="1.0703"/>\n'
+            '        <Point X="-1.6" Y="-1.0703"/>\n'
+            '        <Point X="0" Y="-1.925"/>\n'
+            '        <Point X="-1.6" Y="1.0703"/>\n'
             "      </Points>\n"
             "    </Shape>\n"
             '    <Shape AllLayers="N" Locked="Y" Type="Line" Layer="Top Assy">\n'
             "      <Points>\n"
-            '        <Item X="-1.6" Y="-1.0703"/>\n'
-            '        <Item X="-1.6" Y="1.0703"/>\n'
+            '        <Point X="-1.6" Y="-1.0703"/>\n'
+            '        <Point X="-1.6" Y="1.0703"/>\n'
             "      </Points>\n"
             "    </Shape>\n"
             "  </Shapes>\n"

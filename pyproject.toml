@@ -1,22 +1,30 @@
-[tool.poetry]
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[project]
 name = "DipTraceGenerator"
-version = "0.1.0"
+version = "0.1.1"
 description = "This is the python library for generating the DipTrace components and patterns libraries."
-license = "MIT"
 readme = "README.md"
-repository = "https://github.com/kolod/DipTrace-Generator"
-homepage = "https://github.com/kolod/DipTrace-Generator"
+requires-python = ">=3.9, <4.0"
+license = {text = "MIT"}
 keywords = ["DipTrace", "PCB"]
 authors = [
-	"Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>",
+	{name = "Oleksandr Kolodkin", email = "oleksandr.kolodkin@ukr.net"},
 ]
 maintainers = [
-	"Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>",
+	{name = "Oleksandr Kolodkin", email = "oleksandr.kolodkin@ukr.net"},
 ]
-include = ["LICENSE", "README.md"]
-classifiers=[
-	"Development Status :: 2 - Pre-Alpha",
+classifiers = [
+	"Development Status :: 3 - Alpha",
 	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: 3.13",
+	"Programming Language :: Python :: 3.14",
 	"License :: OSI Approved :: MIT License",
 	"Operating System :: OS Independent",
 	"Environment :: Console",
@@ -27,21 +35,35 @@ classifiers=[
 	"Topic :: Software Development :: Libraries",
 	"Topic :: Software Development :: Libraries :: Python Modules",
 ]
-packages = [{include="DipTraceGenerator"}]
+dependencies = [
+	"lxml>=6.0.0",
+	"typing-extensions>=4.11.0; python_version<'3.11'",
+	"pillow>=10.0.0,<11.0.0; python_version<'3.9'",
+	"pillow>=11.0.0; python_version>='3.9'",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.8, <4.0"
-lxml = "^5.2.1"
-colorama = "^0.4.6"
-typing-extensions = {version = "^4.11.0", python = "<3.11"}
-pillow = "^10.3.0"
+[tool.poetry]
+packages = [
+    { include = "DipTraceGenerator" },
+]
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.1.1"
-pytest-cov = "^5.0.0"
+[dependency-groups]
+dev = [
+	"pytest>=8.1.1",
+	"pytest-cov>=5.0.0",
+]
+examples = [
+	"tqdm>=4.66.2",
+	"colorama>=0.4.6",
+]
 
-[tool.poetry.group.examples.dependencies]
-tqdm = "^4.66.2"
+[project.scripts]
+examples = "Examples.all:main"
+
+[project.urls]
+Homepage = "https://github.com/kolod/DipTrace-Generator"
+Repository = "https://github.com/kolod/DipTrace-Generator.git"
+Issues = "https://github.com/kolod/DipTrace-Generator/issues"
 
 [tool.poetry.scripts]
 examples = "Examples.all:main"
