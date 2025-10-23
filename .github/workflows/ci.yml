@@ -115,7 +115,7 @@ jobs:
         run: poetry --version
 
       - name: Install examples dependencies
-        run: poetry install --with examples --no-interaction --no-root
+        run: poetry install --with examples --no-interaction
 
       - name: Run examples
         run: poetry run examples
