@@ -11,10 +11,7 @@ from lxml.etree import Element, parse
 try:
     from typing import Self  # python>=3.11
 except ImportError:
-    try:
-        from typing_extensions import Self  # python<3.11
-    except ImportError:
-        Self = object  # type: ignore
+    from typing_extensions import Self  # python<3.11
 
 from .Mixins import *
 from .Pattern import PatternsMixin
@@ -70,11 +67,12 @@ class PatternLibrary(NameMixin, HintMixin, VersionMixin, UnitsMixin, PatternsMix
         return self.to_string(pretty=True)
 
     def save(self, path: Path) -> Self:
+        if self.root is None:
+            raise ValueError("Library root is None, cannot save.")
         if path.suffix != self.extension:
             path = path.with_suffix(self.extension)
-        if self.root is not None:
-            with open(path, "w", encoding="utf-8") as datafile:
-                datafile.write(self.to_string(pretty=False))
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(self.to_string(pretty=False), encoding="utf-8")
         return self
 
 
