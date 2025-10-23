@@ -157,6 +157,7 @@ class TestPattern(unittest.TestCase):
         self.assertEqual("WF-02_Right_Angle.wrl", library.patterns[0].model3d.filename.path.name)
 
         library.renumerate_styles()
+        library.renumerate_ids()
         self.assertEqual("PatType0", library.patterns[0].style)
 
         library.patterns = None

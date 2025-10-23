@@ -35,46 +35,46 @@
       <Shapes>
         <Shape Id="1" Type="Obround" Locked="Y" Layer="Top Outline" LineWidth="0.05" AllLayers="N">
           <Points>
-            <Item X="-1.6" Y="1.6"/>
-            <Item X="1.6" Y="-1.6"/>
+            <Point X="-1.6" Y="1.6"/>
+            <Point X="1.6" Y="-1.6"/>
           </Points>
         </Shape>
         <Shape Id="2" Type="Arc" Locked="Y" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
           <Points>
-            <Item X="1.45" Y="0.93"/>
-            <Item X="0" Y="1.73"/>
-            <Item X="-1.45" Y="0.93"/>
+            <Point X="1.45" Y="0.93"/>
+            <Point X="0" Y="1.73"/>
+            <Point X="-1.45" Y="0.93"/>
           </Points>
         </Shape>
         <Shape Id="3" Type="Arc" Locked="Y" Layer="Top Silk" LineWidth="0.12" AllLayers="N">
           <Points>
-            <Item X="1.45" Y="-0.93"/>
-            <Item X="0" Y="-1.73"/>
-            <Item X="-1.45" Y="-0.93"/>
+            <Point X="1.45" Y="-0.93"/>
+            <Point X="0" Y="-1.73"/>
+            <Point X="-1.45" Y="-0.93"/>
           </Points>
         </Shape>
         <Shape Id="4" Type="FillObround" Locked="Y" Layer="Top Silk" AllLayers="N">
           <Points>
-            <Item X="-1.7774" Y="1.7774"/>
-            <Item X="-1.2774" Y="1.2774"/>
+            <Point X="-1.7774" Y="1.7774"/>
+            <Point X="-1.2774" Y="1.2774"/>
           </Points>
         </Shape>
         <Shape Id="5" Type="Obround" Locked="Y" Layer="Top Assy" LineWidth="0.12" AllLayers="N">
           <Points>
-            <Item X="-1.73" Y="1.73"/>
-            <Item X="1.73" Y="-1.73"/>
+            <Point X="-1.73" Y="1.73"/>
+            <Point X="1.73" Y="-1.73"/>
           </Points>
         </Shape>
         <Shape Id="6" Type="FillObround" Locked="Y" Layer="Top Assy" AllLayers="N">
           <Points>
-            <Item X="-2.2466" Y="2.2466"/>
-            <Item X="-1.2466" Y="1.2466"/>
+            <Point X="-2.2466" Y="2.2466"/>
+            <Point X="-1.2466" Y="1.2466"/>
           </Points>
         </Shape>
         <Shape Id="7" Type="Obround" Locked="Y" Layer="Top Courtyard" LineWidth="0.05" AllLayers="N">
           <Points>
-            <Item X="-2.27" Y="2.27"/>
-            <Item X="2.27" Y="-2.27"/>
+            <Point X="-2.27" Y="2.27"/>
+            <Point X="2.27" Y="-2.27"/>
           </Points>
         </Shape>
       </Shapes>

@@ -15,7 +15,7 @@ from .Mixins import RootMixin, XMixin, YMixin
 class Point(XMixin, YMixin):
     def __init__(self, root: Optional[Element] = None, *args, **kwargs):
         if root is None:
-            root = Element("Item")
+            root = Element("Point")
         super().__init__(root, *args, **kwargs)
 
     @property
@@ -42,7 +42,11 @@ class PointsMixin(RootMixin):
     @property
     def points(self) -> Optional[List[Point]]:
         if (tag := self._root.find("./Points")) is not None:
-            return [Point(x) for x in tag.findall("./Item")]
+            # In older versions used 'Item' instead of 'Point'.
+            # To maintain backward compatibility, we check for both.
+            if tag.findall("./Item"):
+                return [Point(x) for x in tag.findall("./Item")]
+            return [Point(x) for x in tag.findall("./Point")]
         return None
 
     @points.setter
