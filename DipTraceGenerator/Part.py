@@ -5,31 +5,27 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+try:
+    from typing import Self  # python>=3.11
+except ImportError:
+    from typing_extensions import Self  # type: ignore # python<3.11
 from typing import Optional, List, Tuple
 from lxml.etree import SubElement
 from copy import deepcopy
-from .Mixins import (
-    RootMixin,
-    RefDesMixin,
-    NameTagMixin,
-    ValueTagMixin,
-    DatasheetTagMixin,
-    ManufacturerTagMixin,
-    Order,
-    WidthMixin,
-    HeightMixin,
-)
 from .ComponentOrigin import ComponentOriginMixin
 from .ComponentShape import ComponentShapesMixin
 from .SpiceModel import SpiceModelMixin
 from .Pin import PinsMixin
 from .Enums import PartType, Boolean, PartStyle, ShapeType
 from .Category import CategoryMixin
+from .Mixins import RootMixin, RefDesMixin, NameTagMixin, ValueTagMixin, DatasheetTagMixin, ManufacturerTagMixin, \
+    Order, WidthMixin, HeightMixin, IdMixin
 
 
 class Part(
     RefDesMixin,
     NameTagMixin,
+    IdMixin,
     ValueTagMixin,
     ComponentOriginMixin,
     SpiceModelMixin,
@@ -43,6 +39,7 @@ class Part(
 ):
     _order = Order(
         args=[
+            "Id",
             "RefDes",
             "PartType",
             "ShowNumbers",
@@ -197,6 +194,11 @@ class PartsMixin(RootMixin):
             self._root.remove(tag)
         for part in value:
             self._root.append(deepcopy(part.root))
+
+    def renumerate_part_ids(self) -> Self:
+        for i, part in enumerate(self.parts, start=0):
+            part.id = i
+        return self
 
 
 if __name__ == "__main__":

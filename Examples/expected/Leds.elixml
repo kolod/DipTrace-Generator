@@ -1,0 +1,708 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Library Type="DipTrace-ComponentLibrary" Name="Leds" Hint="Leds" Version="5.2.0.1" Units="mm">
+<Library Type="DipTrace-PatternLibrary" Version="5.2.0.1" Units="mm">
+<PadStyles/>
+<Patterns/>
+</Library>
+<Components>
+<Component Id="0">
+<Part Id="0" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="0" Height="0" LockTypeChange="N" SubFolderIndex="-1">
+<Name>--- 3mm ---</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="0"/>
+<SpiceModel Type="SubCkt"/>
+<Pins/>
+<Shapes/>
+</Part>
+</Component>
+<Component Id="1">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-3mm-green</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="2">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-3mm-red</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="3">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-3mm-orange</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="4">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-3mm-clear</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="5">
+<Part Id="0" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="0" Height="0" LockTypeChange="N" SubFolderIndex="0">
+<Name>--- 5mm ---</Name>
+<Origin X="0" Y="0"/>
+<SpiceModel Type="SubCkt"/>
+<Pins/>
+<Shapes/>
+</Part>
+</Component>
+<Component Id="6">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-5mm-green</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="7">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-5mm-red</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="8">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-5mm-orange</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+<Component Id="9">
+<Part Id="0" RefDes="D" PartType="Normal" ShowNumbers="Show" Type="Free" Int1="0" Int2="0" Width="5.08" Height="5.3976" LockTypeChange="Y" SubFolderIndex="2">
+<Name>led-5mm-clear</Name>
+<PartName>Part 1</PartName>
+<Origin X="0" Y="-1.27"/>
+<SpiceModel Type="SubCkt"/>
+<Category Index="0">
+<Name>Symbols</Name>
+<CategoryTypes>
+<CategoryType>
+<Type Index="3">Diodes</Type>
+</CategoryType>
+<CategoryType>
+<Type Index="4">European, EIC</Type>
+</CategoryType>
+</CategoryTypes>
+</Category>
+<Pins>
+<Pin Id="0" X="-2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="0" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>A</Name>
+<PadNumber>C</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+<Pin Id="1" X="2.54" Y="-1.27" Locked="N" Type="Default" ElectricType="Passive" Orientation="180" PadId="-1" Length="3.81" ShowName="N" NumXShift="0" NumYShift="0" NameXShift="0" NameYShift="0" SignalDelay="0" NumOrientation="0" NameOrientation="0">
+<Name>C</Name>
+<PadNumber>A</PadNumber>
+<NameFont Size="5" Width="-2" Scale="1"/>
+</Pin>
+</Pins>
+<Shapes>
+<Shape Id="0" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="0.9525" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="1" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="0.1587"/>
+<Point X="0.9525" Y="-2.6988"/>
+</Points>
+</Shape>
+<Shape Id="2" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-2.54" Y="-1.27"/>
+<Point X="2.54" Y="-1.27"/>
+</Points>
+</Shape>
+<Shape Id="3" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.9525" Y="-1.27"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="4" Type="Line" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="-0.9525" Y="-2.6988"/>
+<Point X="-0.9525" Y="0.1587"/>
+</Points>
+</Shape>
+<Shape Id="5" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0" Y="0.3175"/>
+<Point X="-1.27" Y="2.2225"/>
+</Points>
+</Shape>
+<Shape Id="6" Type="Arrow" LineWidth="0.25" Locked="N">
+<Points>
+<Point X="0.635" Y="0.7937"/>
+<Point X="-0.635" Y="2.6988"/>
+</Points>
+</Shape>
+</Shapes>
+<AddFields>
+<AddField Type="Text">
+<Name>Description 1</Name>
+<Text>Diode</Text>
+</AddField>
+<AddField Type="Text">
+<Name>Description 2</Name>
+<Text>Light Emitting</Text>
+</AddField>
+</AddFields>
+</Part>
+</Component>
+</Components>
+</Library>

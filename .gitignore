@@ -38,3 +38,6 @@ __pycache__
 
 # VSCode
 .vscode/*
+
+# Poetry lock file
+poetry.lock

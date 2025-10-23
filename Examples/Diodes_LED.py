@@ -5,13 +5,16 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-from tqdm import tqdm
 from copy import deepcopy
 from typing import List
 from pathlib import Path
-from colorama import init, Fore
+from rich.progress import track
+from rich.console import Console
+from rich.style import Style
 from DipTraceGenerator import *
 from . import iec_symbols
+
+console = Console()
 
 
 def led(source: Path, destination: Path, template_name: str, name:str, colors: List[str], sizes: List[str], **_):
@@ -33,10 +36,10 @@ def led(source: Path, destination: Path, template_name: str, name:str, colors: L
         if pattern is None:
             raise ValueError(f'Template component `{pattern}` not loaded.')
 
-        print(Fore.GREEN + size + Fore.RESET)
+        console.print(size, style="green")
         components.append(Component(name=f'--- {size} ---'))
 
-        for color in tqdm(colors, desc='Elements'):
+        for color in track(colors, description='Elements'):
             component = deepcopy(component_template)
             component.parts[0].name = f'led-{size}-{color}'
             component.parts[0].pattern = pattern.style
@@ -54,8 +57,7 @@ def led(source: Path, destination: Path, template_name: str, name:str, colors: L
 
 def diodes_led():
     try:
-        init()
-        print(Fore.RED + "\nDiodes LED\n" + Fore.RESET)
+        console.print("\nDiodes LED\n", style="red bold")
 
         name = "leds"
         directory = "leds"
@@ -65,7 +67,7 @@ def diodes_led():
         destination_path = path / "actual" / directory / f"{name}.elixml"
         expected_path = path / "expected" / directory / f"{name}.elixml"
 
-        print(Fore.GREEN + f"Generating {destination_path.name}..." + Fore.RESET)
+        console.print(f"Generating {destination_path.name}...", style="green")
 
         led(
             source=source_path,
@@ -84,8 +86,11 @@ def diodes_led():
 
 
     except ValueError as e:
-        print(Fore.RED + str(e) + Fore.RESET)
+        console.print(str(e), style="red bold")
 
+
+def main():
+    diodes_led()
 
 if __name__ == "__main__":
-    diodes_led()
+    main()

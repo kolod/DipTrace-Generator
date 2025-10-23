@@ -53,8 +53,7 @@ dev = [
 	"pytest-cov>=5.0.0",
 ]
 examples = [
-	"tqdm>=4.66.2",
-	"colorama>=0.4.6",
+	"rich>=14.2.0,<15.0.0",
 ]
 
 [project.scripts]
@@ -67,6 +66,7 @@ Issues = "https://github.com/kolod/DipTrace-Generator/issues"
 
 [tool.poetry.scripts]
 examples = "Examples.all:main"
+diodes_tvs = "Examples.Diodes_TVS:main"
 
 [tool.coverage.report]
 exclude_also = [

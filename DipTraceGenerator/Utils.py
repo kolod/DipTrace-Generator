@@ -14,14 +14,15 @@ This module provides helper functions for:
 - Loading DipTrace libraries from XML files
 """
 
-from os import remove, fdopen
+from os import getenv
 from pathlib import Path
 from typing import List, Union
-from subprocess import Popen, call
+from subprocess import Popen
 from lxml.etree import parse, XMLParser, tostring
-from tempfile import mkstemp
+from tempfile import TemporaryDirectory
 from DipTraceGenerator.ComponentLibrary import ComponentLibrary
 from DipTraceGenerator.PatternLibrary import PatternLibrary
+from shutil import which
 
 
 def get_correct_filename(path: Path, extensions: List[str]) -> Path:
@@ -120,6 +121,23 @@ def compare(*args: Union[Path, str]) -> None:
     files = [get_correct_filename(x, extensions) for x in args if isinstance(x, Path)]
     paths = [x for x in args if isinstance(x, str)]
 
+    # Skip on GitHub Actions
+    if getenv("GITHUB_ACTIONS") == "true":
+        print("Skipping comparison in GitHub Actions")
+        return
+    
+    # Try to find WinMerge on Windows System
+    # Check if WinMerge is available in PATH (common executable names)
+    winmerge_path = which("WinMergeU")
+    if winmerge_path is None:
+        default_install_path = Path("C:/Program Files/WinMerge/WinMergeU.exe")
+        if default_install_path.exists():
+            winmerge_path = str(default_install_path)
+
+    if winmerge_path is None:
+        print("Skipping comparison. WinMerge not found in PATH or default install location.")
+        return
+    
     if len(files) < 2:
         raise ValueError("Too low files. Expected two or three files.")
 
@@ -129,28 +147,47 @@ def compare(*args: Union[Path, str]) -> None:
     if (len(files) != len(paths)) and (len(paths) > 1):
         raise ValueError("Number of xpath's must be equal to the number of files or less then two.")
 
+    # If no xpath provided, compare whole files
     if len(paths) == 0:
         for file in files:
             format_xml(file)
-        Popen(["C:/Program Files/WinMerge/WinMergeU.exe", "/s", *files])
-    else:
-        parser = XMLParser(remove_blank_text=True)
 
-        tmp_files = []
+        # Launch WinMerge with whole files
+        Popen([winmerge_path, "/s", *[str(f) for f in files]])
+        return
+    
+    # Prepare temporary files with selected XML parts
+    parser = XMLParser(remove_blank_text=True)
+    tmp_files: List[Path] = []
 
-        try:
-            for i, file in enumerate(files):
-                tmp_fd, tmp_name = mkstemp(suffix=".xml")
-                with fdopen(tmp_fd, "wb") as tmp_f:
-                    xml = parse(file, parser)
-                    tag = xml.find(paths[0] if len(paths) == 1 else paths[i])
-                    tmp_f.write(tostring(tag, method="xml", xml_declaration=False, encoding="utf-8", pretty_print=True))
-                    tmp_files.append(tmp_name)
+    # Create temporary directory
+    with TemporaryDirectory() as temp_dir:
 
-            call(executable="C:/Program Files/WinMerge/WinMergeU.exe", args=["/s", *tmp_files])
-        finally:
-            for tmp_name in tmp_files:
-                remove(tmp_name)
+        # Process each file
+        for i, file in enumerate(files):
+
+            # Create temporary files with similar names to originals
+            tmp_path = Path(temp_dir) / f"{file.stem}_tmp{i}{file.suffix}"
+            
+            # Extract XML content based on XPath
+            xml = parse(file, parser)
+            xpath = paths[0] if len(paths) == 1 else paths[i]
+            tag = xml.find(xpath)
+            
+            if tag is None:
+                raise ValueError(f"XPath '{xpath}' not found in {file}")
+            
+            # Write content to temporary file
+            tmp_path.write_bytes(
+                tostring(tag, method="xml", xml_declaration=False, encoding="utf-8", pretty_print=True)
+            )
+
+            # Append temporary file to the list
+            tmp_files.append(tmp_path)
+
+        # Launch WinMerge with temporary files and wait for it to close
+        process = Popen([winmerge_path, "/s", *[str(f) for f in tmp_files]])
+        process.wait()  # Wait for WinMerge to close
 
 
 def load_from_xml_file(path: Path) -> Union[PatternLibrary, ComponentLibrary, None]:
@@ -187,6 +224,8 @@ def load_from_xml_file(path: Path) -> Union[PatternLibrary, ComponentLibrary, No
                     return ComponentLibrary(root)
     return None
 
+# Functions sort_attributes_by_order and sort_children_by_tag_order
+# are imported from PrivateUtils to avoid circular imports
 
 if __name__ == "__main__":
     pass

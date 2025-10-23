@@ -5,16 +5,20 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+try:
+    from typing import Self  # python>=3.11
+except ImportError:
+    from typing_extensions import Self  # type: ignore # python<3.11
 from typing import Optional, List
 from lxml.etree import SubElement
 from copy import deepcopy
-from DipTraceGenerator.Mixins import RootMixin, Order
+from DipTraceGenerator.Mixins import RootMixin, Order, IdMixin
 from DipTraceGenerator.Part import Part, PartsMixin
 from DipTraceGenerator.Pattern import Pattern
 from DipTraceGenerator.PatternLibrary import PatternLibrary
 
 
-class Component(PartsMixin):
+class Component(PartsMixin, IdMixin):
     _order = Order(subs=["parts"])
 
     @property
@@ -61,10 +65,30 @@ class ComponentsMixin(RootMixin):
                 tag.append(deepcopy(component.root))
 
     def find(self, name: str) -> Optional[Component]:
+        """
+        Find component by its name.
+        
+        Args:
+            name (str): Component name.
+
+        Returns:
+            Component or None if not found.
+        """
         for tag in self._root.findall("./Components/Component/Part/Name"):
             if tag.text == name:
                 return Component(tag.getparent().getparent())
         return None
+    
+    def renumerate_ids(self) -> Self:
+        """
+        Renumerate component IDs starting from 0.
+
+        Returns:
+            Self
+        """
+        for i, component in enumerate(self.components, start=0):
+            component.id = i
+        return self
 
 
 if __name__ == "__main__":
