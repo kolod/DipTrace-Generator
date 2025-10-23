@@ -8,7 +8,9 @@
 import unittest
 from pathlib import Path
 from unittest.mock import patch, MagicMock
+from lxml.etree import Element, SubElement, tostring
 from DipTraceGenerator import format_xml, get_correct_filename, load_from_xml_file, compare
+from DipTraceGenerator.Utils import sort_children_by_tag_order
 from DipTraceGenerator.ComponentLibrary import ComponentLibrary
 from DipTraceGenerator.PatternLibrary import PatternLibrary
 
@@ -223,6 +225,173 @@ class Test(unittest.TestCase):
         self.assertTrue(hasattr(utils_module, 'format_xml'))
         self.assertTrue(hasattr(utils_module, 'compare'))
         self.assertTrue(hasattr(utils_module, 'get_correct_filename'))
+        self.assertTrue(hasattr(utils_module, 'sort_children_by_tag_order'))
+
+    def test_sort_children_by_tag_order_basic(self):
+        """Test sort_children_by_tag_order with basic order"""
+        # Create a parent element with children in wrong order
+        parent = Element('Parent')
+        SubElement(parent, 'C')
+        SubElement(parent, 'A')
+        SubElement(parent, 'B')
+        
+        # Define the expected order
+        order = ['A', 'B', 'C']
+        
+        # Sort the children
+        sort_children_by_tag_order(parent, order)
+        
+        # Check if the children are in the expected order
+        children = list(parent)
+        self.assertEqual(len(children), 3)
+        self.assertEqual(children[0].tag, 'A')
+        self.assertEqual(children[1].tag, 'B')
+        self.assertEqual(children[2].tag, 'C')
+
+    def test_sort_children_by_tag_order_with_attributes(self):
+        """Test sort_children_by_tag_order preserves attributes"""
+        parent = Element('Parent')
+        
+        # Create elements with attributes
+        c_elem = SubElement(parent, 'C')
+        c_elem.set('id', '3')
+        
+        a_elem = SubElement(parent, 'A')
+        a_elem.set('id', '1')
+        
+        b_elem = SubElement(parent, 'B')
+        b_elem.set('id', '2')
+        
+        # Sort the children
+        sort_children_by_tag_order(parent, ['A', 'B', 'C'])
+        
+        # Check if attributes are preserved
+        children = list(parent)
+        self.assertEqual(children[0].get('id'), '1')
+        self.assertEqual(children[1].get('id'), '2')
+        self.assertEqual(children[2].get('id'), '3')
+
+    def test_sort_children_by_tag_order_with_nested_elements(self):
+        """Test sort_children_by_tag_order with nested elements"""
+        parent = Element('Parent')
+        
+        # Create elements with nested children
+        c_elem = SubElement(parent, 'C')
+        SubElement(c_elem, 'NestedC')
+        
+        a_elem = SubElement(parent, 'A')
+        SubElement(a_elem, 'NestedA')
+        
+        b_elem = SubElement(parent, 'B')
+        SubElement(b_elem, 'NestedB')
+        
+        # Sort the children
+        sort_children_by_tag_order(parent, ['A', 'B', 'C'])
+        
+        # Check if nested elements are preserved
+        children = list(parent)
+        self.assertEqual(len(list(children[0])), 1)
+        self.assertEqual(list(children[0])[0].tag, 'NestedA')
+        self.assertEqual(len(list(children[1])), 1)
+        self.assertEqual(list(children[1])[0].tag, 'NestedB')
+        self.assertEqual(len(list(children[2])), 1)
+        self.assertEqual(list(children[2])[0].tag, 'NestedC')
+
+    def test_sort_children_by_tag_order_with_missing_tags(self):
+        """Test sort_children_by_tag_order with tags missing from the order list"""
+        parent = Element('Parent')
+        SubElement(parent, 'C')
+        SubElement(parent, 'A')
+        SubElement(parent, 'D')  # Not in order list
+        SubElement(parent, 'B')
+        SubElement(parent, 'E')  # Not in order list
+        
+        # Sort with keep_rest=True (default)
+        sort_children_by_tag_order(parent, ['A', 'B', 'C'])
+        
+        # Check order: A, B, C followed by D, E
+        children = list(parent)
+        self.assertEqual(len(children), 5)
+        self.assertEqual(children[0].tag, 'A')
+        self.assertEqual(children[1].tag, 'B')
+        self.assertEqual(children[2].tag, 'C')
+        self.assertEqual(children[3].tag, 'D')
+        self.assertEqual(children[4].tag, 'E')
+
+    def test_sort_children_by_tag_order_without_keep_rest(self):
+        """Test sort_children_by_tag_order with keep_rest=False"""
+        parent = Element('Parent')
+        SubElement(parent, 'C')
+        SubElement(parent, 'A')
+        SubElement(parent, 'D')  # Not in order list, should be removed
+        SubElement(parent, 'B')
+        SubElement(parent, 'E')  # Not in order list, should be removed
+        
+        # Sort with keep_rest=False
+        sort_children_by_tag_order(parent, ['A', 'B', 'C'], keep_rest=False)
+        
+        # Check order: Only A, B, C should remain
+        children = list(parent)
+        self.assertEqual(len(children), 3)
+        self.assertEqual(children[0].tag, 'A')
+        self.assertEqual(children[1].tag, 'B')
+        self.assertEqual(children[2].tag, 'C')
+
+    def test_sort_children_by_tag_order_with_duplicate_tags(self):
+        """Test sort_children_by_tag_order with duplicate tags"""
+        parent = Element('Parent')
+        SubElement(parent, 'A')
+        SubElement(parent, 'B')
+        SubElement(parent, 'A')  # Duplicate tag
+        SubElement(parent, 'C')
+        SubElement(parent, 'B')  # Duplicate tag
+        
+        # Sort the children
+        sort_children_by_tag_order(parent, ['C', 'B', 'A'])
+        
+        # Check order: C, both B's, then both A's
+        children = list(parent)
+        self.assertEqual(len(children), 5)
+        self.assertEqual(children[0].tag, 'C')
+        self.assertEqual(children[1].tag, 'B')
+        self.assertEqual(children[2].tag, 'B')
+        self.assertEqual(children[3].tag, 'A')
+        self.assertEqual(children[4].tag, 'A')
+
+    def test_sort_children_by_tag_order_empty_parent(self):
+        """Test sort_children_by_tag_order with empty parent element"""
+        parent = Element('Parent')
+        
+        # Sort with no children
+        sort_children_by_tag_order(parent, ['A', 'B', 'C'])
+        
+        # Should not cause any issues
+        children = list(parent)
+        self.assertEqual(len(children), 0)
+
+    def test_sort_children_by_tag_order_empty_order(self):
+        """Test sort_children_by_tag_order with empty order list"""
+        parent = Element('Parent')
+        SubElement(parent, 'A')
+        SubElement(parent, 'B')
+        SubElement(parent, 'C')
+        
+        # Sort with empty order list and keep_rest=True
+        sort_children_by_tag_order(parent, [], keep_rest=True)
+        
+        # All elements should be kept in original order
+        children = list(parent)
+        self.assertEqual(len(children), 3)
+        self.assertEqual(children[0].tag, 'A')
+        self.assertEqual(children[1].tag, 'B')
+        self.assertEqual(children[2].tag, 'C')
+        
+        # Sort with empty order list and keep_rest=False
+        sort_children_by_tag_order(parent, [], keep_rest=False)
+        
+        # All elements should be removed
+        children = list(parent)
+        self.assertEqual(len(children), 0)
 
 
 if __name__ == "__main__":
