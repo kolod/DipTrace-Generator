@@ -1,5 +1,5 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [project]
@@ -7,7 +7,7 @@ name = "DipTraceGenerator"
 version = "0.1.1"
 description = "This is the python library for generating the DipTrace components and patterns libraries."
 readme = "README.md"
-requires-python = ">=3.8, <4.0"
+requires-python = ">=3.9, <4.0"
 license = {text = "MIT"}
 keywords = ["DipTrace", "PCB"]
 authors = [
@@ -17,8 +17,14 @@ maintainers = [
 	{name = "Oleksandr Kolodkin", email = "oleksandr.kolodkin@ukr.net"},
 ]
 classifiers = [
-	"Development Status :: 2 - Pre-Alpha",
+	"Development Status :: 3 - Alpha",
 	"Programming Language :: Python :: 3",
+	"Programming Language :: Python :: 3.9",
+	"Programming Language :: Python :: 3.10",
+	"Programming Language :: Python :: 3.11",
+	"Programming Language :: Python :: 3.12",
+	"Programming Language :: Python :: 3.13",
+	"Programming Language :: Python :: 3.14",
 	"License :: OSI Approved :: MIT License",
 	"Operating System :: OS Independent",
 	"Environment :: Console",
@@ -36,6 +42,11 @@ dependencies = [
 	"pillow>=11.0.0; python_version>='3.9'",
 ]
 
+[tool.poetry]
+packages = [
+    { include = "DipTraceGenerator" },
+]
+
 [dependency-groups]
 dev = [
 	"pytest>=8.1.1",
@@ -51,7 +62,8 @@ examples = "Examples.all:main"
 
 [project.urls]
 Homepage = "https://github.com/kolod/DipTrace-Generator"
-Repository = "https://github.com/kolod/DipTrace-Generator"
+Repository = "https://github.com/kolod/DipTrace-Generator.git"
+Issues = "https://github.com/kolod/DipTrace-Generator/issues"
 
 [tool.poetry.scripts]
 examples = "Examples.all:main"
