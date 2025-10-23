@@ -93,3 +93,36 @@ jobs:
           files: ./coverage.xml
           fail_ci_if_error: true
 
+  examples:
+    name: Build and test examples
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          architecture: x64
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Check Poetry version
+        run: poetry --version
+
+      - name: Install examples dependencies
+        run: poetry install --with examples --no-interaction --no-root
+
+      - name: Run examples
+        run: poetry run examples
+
+      - name: Store generated example files
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-example-files
+          path: ./examples/actual
+          if-no-files-found: error
