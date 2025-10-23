@@ -10,7 +10,7 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 from lxml.etree import Element, SubElement, tostring
 from DipTraceGenerator import format_xml, get_correct_filename, load_from_xml_file, compare
-from DipTraceGenerator.Utils import sort_children_by_tag_order
+from DipTraceGenerator.Utils import sort_children_by_tag_order, sort_attributes_by_order
 from DipTraceGenerator.ComponentLibrary import ComponentLibrary
 from DipTraceGenerator.PatternLibrary import PatternLibrary
 
@@ -392,6 +392,168 @@ class Test(unittest.TestCase):
         # All elements should be removed
         children = list(parent)
         self.assertEqual(len(children), 0)
+    
+    # Tests for sort_attributes_by_order function
+    
+    def test_sort_attributes_by_order_basic(self):
+        """Test sort_attributes_by_order with basic order"""
+        # Create an element with attributes in wrong order
+        elem = Element('Element', attrib={'c': '3', 'a': '1', 'b': '2'})
+        
+        # Define the expected order
+        order = ['a', 'b', 'c']
+        
+        # Sort the attributes
+        sort_attributes_by_order(elem, order)
+        
+        # Check if the attributes are in the expected order
+        # Note: lxml doesn't guarantee attribute order in Element objects
+        # but we can verify the order in the serialized XML string
+        result = tostring(elem, encoding='unicode')
+        
+        # The result should be something like: <Element a="1" b="2" c="3"/>
+        # Extract the attributes portion from the result
+        attr_part = result.split('<Element ')[1].split('/>')[0].strip()
+        
+        # Verify the order of attributes
+        self.assertLess(attr_part.index('a="1"'), attr_part.index('b="2"'))
+        self.assertLess(attr_part.index('b="2"'), attr_part.index('c="3"'))
+
+    def test_sort_attributes_by_order_with_missing_attributes(self):
+        """Test sort_attributes_by_order with attributes missing from the order list"""
+        elem = Element('Element', attrib={
+            'c': '3', 'a': '1', 'd': '4', 'b': '2', 'e': '5'
+        })
+        
+        # Sort with keep_rest=True (default)
+        sort_attributes_by_order(elem, ['a', 'b', 'c'])
+        
+        # All attributes should be present
+        self.assertEqual(len(elem.attrib), 5)
+        self.assertIn('a', elem.attrib)
+        self.assertIn('b', elem.attrib)
+        self.assertIn('c', elem.attrib)
+        self.assertIn('d', elem.attrib)
+        self.assertIn('e', elem.attrib)
+        
+        # Check order in serialized format
+        result = tostring(elem, encoding='unicode')
+        attr_part = result.split('<Element ')[1].split('/>')[0].strip()
+        
+        # a, b, c should be in specified order
+        self.assertLess(attr_part.index('a="1"'), attr_part.index('b="2"'))
+        self.assertLess(attr_part.index('b="2"'), attr_part.index('c="3"'))
+
+    def test_sort_attributes_by_order_without_keep_rest(self):
+        """Test sort_attributes_by_order with keep_rest=False"""
+        elem = Element('Element', attrib={
+            'c': '3', 'a': '1', 'd': '4', 'b': '2', 'e': '5'
+        })
+        
+        # Sort with keep_rest=False
+        sort_attributes_by_order(elem, ['a', 'b', 'c'], keep_rest=False)
+        
+        # Only a, b, c should remain
+        self.assertEqual(len(elem.attrib), 3)
+        self.assertIn('a', elem.attrib)
+        self.assertIn('b', elem.attrib)
+        self.assertIn('c', elem.attrib)
+        self.assertNotIn('d', elem.attrib)
+        self.assertNotIn('e', elem.attrib)
+        
+        # Check values are preserved
+        self.assertEqual(elem.get('a'), '1')
+        self.assertEqual(elem.get('b'), '2')
+        self.assertEqual(elem.get('c'), '3')
+        
+        # Check order in serialized format
+        result = tostring(elem, encoding='unicode')
+        attr_part = result.split('<Element ')[1].split('/>')[0].strip()
+        
+        self.assertLess(attr_part.index('a="1"'), attr_part.index('b="2"'))
+        self.assertLess(attr_part.index('b="2"'), attr_part.index('c="3"'))
+
+    def test_sort_attributes_by_order_with_empty_element(self):
+        """Test sort_attributes_by_order with element having no attributes"""
+        elem = Element('Element')
+        
+        # Sort the attributes (should have no effect)
+        sort_attributes_by_order(elem, ['a', 'b', 'c'])
+        
+        # Element should still have no attributes
+        self.assertEqual(len(elem.attrib), 0)
+        
+        # Serialized element should be simple
+        result = tostring(elem, encoding='unicode')
+        self.assertEqual(result, '<Element/>')
+
+    def test_sort_attributes_by_order_empty_order(self):
+        """Test sort_attributes_by_order with empty order list"""
+        elem = Element('Element', attrib={'a': '1', 'b': '2', 'c': '3'})
+        
+        # Sort with empty order list and keep_rest=True
+        sort_attributes_by_order(elem, [], keep_rest=True)
+        
+        # All attributes should be kept
+        self.assertEqual(len(elem.attrib), 3)
+        self.assertIn('a', elem.attrib)
+        self.assertIn('b', elem.attrib)
+        self.assertIn('c', elem.attrib)
+        
+        # Sort with empty order list and keep_rest=False
+        sort_attributes_by_order(elem, [], keep_rest=False)
+        
+        # All attributes should be removed
+        self.assertEqual(len(elem.attrib), 0)
+
+    def test_sort_attributes_by_order_unknown_attributes(self):
+        """Test sort_attributes_by_order with order containing unknown attributes"""
+        elem = Element('Element', attrib={'a': '1', 'b': '2'})
+        
+        # Sort with order including unknown attributes
+        sort_attributes_by_order(elem, ['c', 'a', 'd', 'b'])
+        
+        # Only existing attributes should be present
+        self.assertEqual(len(elem.attrib), 2)
+        self.assertIn('a', elem.attrib)
+        self.assertIn('b', elem.attrib)
+        self.assertNotIn('c', elem.attrib)
+        self.assertNotIn('d', elem.attrib)
+        
+        # Check order in serialized format (a should come before b)
+        result = tostring(elem, encoding='unicode')
+        attr_part = result.split('<Element ')[1].split('/>')[0].strip()
+        
+        self.assertLess(attr_part.index('a="1"'), attr_part.index('b="2"'))
+
+    def test_sort_attributes_by_order_xml_special_chars(self):
+        """Test sort_attributes_by_order with attributes containing XML special characters"""
+        elem = Element('Element', attrib={
+            'c': '"3"', 
+            'a': '<1>', 
+            'b': '&2;'
+        })
+        
+        # Sort the attributes
+        sort_attributes_by_order(elem, ['a', 'b', 'c'])
+        
+        # Check values are preserved with escaping
+        self.assertEqual(elem.get('a'), '<1>')
+        self.assertEqual(elem.get('b'), '&2;')
+        self.assertEqual(elem.get('c'), '"3"')
+        
+        # Check order in serialized format (special chars should be escaped)
+        result = tostring(elem, encoding='unicode')
+        
+        # Verify order and proper escaping
+        self.assertIn('a="&lt;1&gt;"', result)
+        self.assertIn('b="&amp;2;"', result)
+        self.assertIn('c="&quot;3&quot;"', result)
+        
+        # Check proper attribute order
+        attr_part = result.split('<Element ')[1].split('/>')[0].strip()
+        self.assertLess(attr_part.index('a="'), attr_part.index('b="'))
+        self.assertLess(attr_part.index('b="'), attr_part.index('c="'))
 
 
 if __name__ == "__main__":
