@@ -5,7 +5,10 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-from Examples import diodes_led, diodes_tvs, capacitors, resistors
+from Examples.Diodes_LED import diodes_led
+from Examples.Diodes_TVS import diodes_tvs
+from Examples.Capacitors import capacitors
+from Examples.Resistors import resistors
 
 
 def main():

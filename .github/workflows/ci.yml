@@ -94,7 +94,7 @@ jobs:
           fail_ci_if_error: true
 
   examples:
-    name: Build and test examples
+    name: Build examples
     runs-on: ubuntu-latest
     needs: test
 
