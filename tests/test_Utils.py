@@ -160,9 +160,10 @@ class Test(TestCase):
         file1 = path.joinpath("samples/part_test.sample.xml")
         
         with patch('DipTraceGenerator.Utils.getenv', return_value=None):
-            with self.assertRaises(ValueError) as cm:
-                compare(file1)
-            self.assertIn("Too low files", str(cm.exception))
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with self.assertRaises(ValueError) as cm:
+                    compare(file1)
+                self.assertIn("Too low files", str(cm.exception))
 
     def test_compare_too_many_files(self):
         """Test compare raises error with too many files"""
@@ -173,9 +174,10 @@ class Test(TestCase):
         file4 = path.joinpath("samples/test_categories.libxml")
         
         with patch('DipTraceGenerator.Utils.getenv', return_value=None):
-            with self.assertRaises(ValueError) as cm:
-                compare(file1, file2, file3, file4)
-            self.assertIn("Too many files", str(cm.exception))
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with self.assertRaises(ValueError) as cm:
+                    compare(file1, file2, file3, file4)
+                self.assertIn("Too many files", str(cm.exception))
 
     def test_compare_invalid_xpath_count(self):
         """Test compare raises error with invalid xpath count"""
@@ -185,9 +187,10 @@ class Test(TestCase):
         file3 = path.joinpath("samples/test_load.libxml")
         
         with patch('DipTraceGenerator.Utils.getenv', return_value=None):
-            with self.assertRaises(ValueError) as cm:
-                compare(file1, file2, file3, "./Parts", "./Components")
-            self.assertIn("Number of xpath", str(cm.exception))
+            with patch('DipTraceGenerator.Utils.which', return_value='winmerge'):
+                with self.assertRaises(ValueError) as cm:
+                    compare(file1, file2, file3, "./Parts", "./Components")
+                self.assertIn("Number of xpath", str(cm.exception))
 
     def test_compare_with_single_xpath(self):
         """Test compare function with single xpath for all files"""
