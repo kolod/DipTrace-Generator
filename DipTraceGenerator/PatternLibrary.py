@@ -11,7 +11,10 @@ from lxml.etree import Element, parse
 try:
     from typing import Self  # python>=3.11
 except ImportError:
-    from typing_extensions import Self  # python<3.11
+    try:
+        from typing_extensions import Self  # python<3.11
+    except ImportError:
+        Self = object  # type: ignore
 
 from .Mixins import *
 from .Pattern import PatternsMixin
@@ -52,22 +55,26 @@ class PatternLibrary(NameMixin, HintMixin, VersionMixin, UnitsMixin, PatternsMix
 
         return PatternLibrary(root)
 
-    def __str__(self) -> str:
-        # Remove the unneeded whitespaces
+    def remove_unneeded_whitespaces(self) -> None:
         for element in self._root.iter():
             if not isinstance(element.text, type(None)):
                 element.text = element.text.strip()
                 if element.text == "":
                     element.text = "\n"
 
-        return tostring(self._root, xml_declaration=True, pretty_print=True, encoding="utf-8").decode("utf-8")
+    def to_string(self, pretty: bool = False) -> str:
+        self.remove_unneeded_whitespaces()
+        return tostring(self._root, xml_declaration=True, pretty_print=pretty, encoding="utf-8").decode("utf-8")
+
+    def __str__(self) -> str:
+        return self.to_string(pretty=True)
 
     def save(self, path: Path) -> Self:
         if path.suffix != self.extension:
             path = path.with_suffix(self.extension)
         if self.root is not None:
             with open(path, "w", encoding="utf-8") as datafile:
-                datafile.write(str(self))
+                datafile.write(self.to_string(pretty=False))
         return self
 
 
