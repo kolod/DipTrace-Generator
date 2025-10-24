@@ -58,15 +58,12 @@ examples = [
 
 [project.scripts]
 examples = "Examples.all:main"
+diodes_tvs = "Examples.Diodes_TVS:main"
 
 [project.urls]
 Homepage = "https://github.com/kolod/DipTrace-Generator"
 Repository = "https://github.com/kolod/DipTrace-Generator.git"
 Issues = "https://github.com/kolod/DipTrace-Generator/issues"
-
-[tool.poetry.scripts]
-examples = "Examples.all:main"
-diodes_tvs = "Examples.Diodes_TVS:main"
 
 [tool.coverage.report]
 exclude_also = [
