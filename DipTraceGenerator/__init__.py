@@ -27,6 +27,7 @@ __version__ = "0.2.0"
 # Core utilities
 from DipTraceGenerator.Units import Units, convert_units
 from DipTraceGenerator.Point import Point
+from DipTraceGenerator.NameFont import NameFont
 
 # Enums
 from DipTraceGenerator.Enums import (
@@ -57,6 +58,7 @@ __all__ = [
     'Units',
     'convert_units',
     'Point',
+    'NameFont',
     
     # Enums
     'Boolean',

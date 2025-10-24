@@ -16,30 +16,7 @@ from typing import Optional
 from ..xmltools import etree, E, dataclass, field, Enum
 from ..Units import Units, convert_units
 from ..Enums import Boolean, PinType, ElectricType
-
-
-@dataclass
-class NameFont:
-    """Font settings for pin names."""
-    size: int = field(default=5)
-    width: int = field(default=-2)
-    scale: float = field(default=1.0)
-
-    @classmethod
-    def from_xml(cls, element: etree._Element) -> "NameFont":
-        """Create NameFont from XML element."""
-        size = int(element.get("Size", "5"))
-        width = int(element.get("Width", "-2"))
-        scale = float(element.get("Scale", "1.0"))
-        return cls(size=size, width=width, scale=scale)
-
-    def to_xml(self) -> etree._Element:
-        """Convert NameFont to XML element."""
-        return etree.Element("NameFont",
-            Size=str(self.size),
-            Width=str(self.width),
-            Scale=str(self.scale)
-        )
+from ..NameFont import NameFont
 
 
 @dataclass
