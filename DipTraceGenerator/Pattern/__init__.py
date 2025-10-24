@@ -12,12 +12,17 @@ from .Shape import Shape
 from .Pad import Pad
 from .CategoryType import CategoryType
 from .Origin import Origin
+from .MainStack import MainStack
+from .MaskPaste import MaskPaste, SegmentItem
 
 __all__ = [
     'Shape',
     'Pad',
     'CategoryType',
     'Origin',
+    'MainStack',
+    'MaskPaste',
+    'SegmentItem',
     # 'Library',  # To be added when Pattern.Library is implemented
     # 'Pattern',  # To be added
 ]

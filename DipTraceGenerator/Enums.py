@@ -108,6 +108,32 @@ class SpiceModelType(str, Enum):
     """Enumeration of SPICE model types"""
     SubCkt = "SubCkt"
     Model = "Model"
+
+
+class PadStackShape(str, Enum):
+    """Enumeration of pad stack shapes for MainStack"""
+    Ellipse = "Ellipse"
+    Obround = "Obround"
+    Rectangle = "Rectangle"
+    Polygon = "Polygon"
+    DShape = "D-shape"
+    Fiducial = "Fiducial"
+
+
+class MaskSetting(str, Enum):
+    """Enumeration of solder mask settings"""
+    Common = "Common"
+    Open = "Open"
+    Tented = "Tented"
+    ByPaste = "By Paste"
+
+
+class PasteSetting(str, Enum):
+    """Enumeration of solder paste settings"""
+    Common = "Common"
+    Solder = "Solder"
+    NoSolder = "No Solder"
+    Segments = "Segments"
     
 
 if __name__ == "__main__":
