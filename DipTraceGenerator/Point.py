@@ -6,9 +6,7 @@
 # Glory to Ukraine!
 
 
-from dataclasses import dataclass, field
-from lxml import etree
-from lxml.builder import E
+from .xmltools import etree, E, dataclass, field
 from DipTraceGenerator import Units, convert_units
 
 
