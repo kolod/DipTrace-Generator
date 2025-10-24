@@ -134,6 +134,39 @@ class PasteSetting(str, Enum):
     Solder = "Solder"
     NoSolder = "No Solder"
     Segments = "Segments"
+
+
+class PadType(str, Enum):
+    """Enumeration of pad types"""
+    Through = "Through"
+    Surface = "Surface"
+
+
+class HoleType(str, Enum):
+    """Enumeration of hole types for through-hole pads"""
+    Round = "Round"
+    Obround = "Obround"
+
+
+class PadSide(str, Enum):
+    """Enumeration of pad sides"""
+    Top = "Top"
+    Bottom = "Bottom"
+
+
+class Model3DUnits(str, Enum):
+    """Enumeration of 3D model units"""
+    MM = "mm"
+    MIL = "mil"
+    INCH = "inch"
+    Wings = "Wings"
+
+
+class Model3DType(str, Enum):
+    """Enumeration of 3D model types"""
+    File = "File"
+    IPC7351 = "IPC-7351"
+    Outline = "Outline"
     
 
 if __name__ == "__main__":
