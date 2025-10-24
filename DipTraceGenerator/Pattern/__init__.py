@@ -9,10 +9,11 @@
 """DipTrace Pattern Library classes."""
 
 from .Shape import Shape
+from .Pad import Pad
 
 __all__ = [
     'Shape',
+    'Pad',
     # 'Library',  # To be added when Pattern.Library is implemented
-    # 'Pad',      # To be added
     # 'Pattern',  # To be added
 ]
