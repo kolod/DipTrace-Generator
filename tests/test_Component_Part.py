@@ -11,17 +11,14 @@
 # To run the tests with coverage report in terminal, use:
 # poetry run pytest --cov=DipTraceGenerator.Component.Part tests/test_Component_Part.py -v --cov-report=term --cov-report=term-missing
 
+
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
 from DipTraceGenerator.Component.Part import Part
 from DipTraceGenerator.Component.Group import Group
-from DipTraceGenerator.Component.SpiceModel import SpiceModel
-from DipTraceGenerator.Component.Origin import Origin
-from DipTraceGenerator.Component.Pin import Pin, PinType, ElectricType
+from DipTraceGenerator.Component.Pin import Pin,  ElectricType
 from DipTraceGenerator.Component.Shape import Shape, ShapeType
-from DipTraceGenerator.Enums import (
-    PartType, ShowNumbers, ComponentType, Boolean, SpiceModelType
-)
+from DipTraceGenerator.Enums import PartType, ShowNumbers, ComponentType, Boolean
 from DipTraceGenerator import Units
 
 

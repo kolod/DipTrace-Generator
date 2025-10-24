@@ -11,6 +11,7 @@
 # To run the tests with coverage report in terminal, use:
 # poetry run pytest --cov=DipTraceGenerator.Point tests/test_Point.py -v --cov-report=term --cov-report=term-missing
 
+
 from unittest import TestCase, main
 from DipTraceGenerator import Point, Units
 from lxml.etree import fromstring as xml

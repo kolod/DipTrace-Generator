@@ -11,13 +11,11 @@
 # To run the tests with coverage report in terminal, use:
 # poetry run pytest --cov=DipTraceGenerator.Component.Shape tests/test_Component_Shape.py -v --cov-report=term --cov-report=term-missing
 
+
 from unittest import TestCase, main
-from lxml.etree import fromstring as xml, tostring
-from DipTraceGenerator.Component.Shape import (
-    Shape, ShapeType, Boolean, HorizontalAlign, VerticalAlign, 
-    TextAlign, TextShow
-)
-from DipTraceGenerator import Point, Units
+from lxml.etree import fromstring as xml
+from DipTraceGenerator import Shape, ShapeType, Boolean, HorizontalAlign, VerticalAlign, TextAlign, TextShow, \
+    Point, Units
 
 
 class TestComponentShape(TestCase):

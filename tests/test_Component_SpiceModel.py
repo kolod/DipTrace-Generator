@@ -11,6 +11,7 @@
 # To run the tests with coverage report in terminal, use:
 # poetry run pytest --cov=DipTraceGenerator.Component.SpiceModel tests/test_Component_SpiceModel.py -v --cov-report=term --cov-report=term-missing
 
+
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
 from DipTraceGenerator.Component.SpiceModel import SpiceModel
