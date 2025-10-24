@@ -13,4 +13,6 @@ from .Shape import Shape
 __all__ = [
     'Shape',
     # 'Library',  # To be added when Pattern.Library is implemented
+    # 'Pad',      # To be added
+    # 'Pattern',  # To be added
 ]

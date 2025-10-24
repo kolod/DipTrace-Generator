@@ -42,6 +42,9 @@ __pycache__
 # Poetry lock file
 poetry.lock
 
+# Virtual Environments
+venv/
+
 # Old files
-DipTraceGeneratorOld/*
-testsOld/*
+DipTraceGeneratorOld/
+testsOld/
