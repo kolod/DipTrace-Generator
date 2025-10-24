@@ -1,62 +1,63 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright 2021-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
+# Copyright 2025-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
 
-from typing import List, Optional
-from copy import deepcopy
-from lxml.etree import SubElement, Element
-from .Mixins import RootMixin, XMixin, YMixin
+from dataclasses import dataclass, field
+from lxml import etree
+from lxml.builder import E
+from DipTraceGenerator import Units, convert_units
 
 
-class Point(XMixin, YMixin):
-    def __init__(self, root: Optional[Element] = None, *args, **kwargs):
-        if root is None:
-            root = Element("Point")
-        super().__init__(root, *args, **kwargs)
+@dataclass
+class Point:
+    x: float = field(default=0.0)
+    y: float = field(default=0.0)
 
-    @property
-    def flip_y(self):
-        result = deepcopy(self)
-        result.y = -self.y
-        return result
+    @classmethod
+    def from_xml(cls, element: etree._Element, units: Units = Units.MM) -> "Point":
+        """
+        Create Point instance from XML element.
 
-    @property
-    def flip_x(self):
-        result = deepcopy(self)
-        result.x = -self.x
-        return result
+        Args:
+            element (etree._Element): XML element representing the Point.
+            units (Units): Units of the coordinates in the XML element. Defaults to Units.MM.
 
-    @property
-    def flip_xy(self):
-        result = deepcopy(self)
-        result.x = -self.x
-        result.y = -self.y
-        return result
+        Returns:
+            Point: The created Point instance.
+                    
+        """
+        # Convert coordinates to millimeters for internal representation if needed
+        x = convert_units(float(element.get("X", "0.0")), units, Units.MM)
+        y = convert_units(float(element.get("Y", "0.0")), units, Units.MM)
+        return cls(x=x, y=y)
 
+    def to_xml(self, units: Units = Units.MM) -> etree._Element:
+        """
+        Convert Point instance to XML element.
 
-class PointsMixin(RootMixin):
-    @property
-    def points(self) -> Optional[List[Point]]:
-        if (tag := self._root.find("./Points")) is not None:
-            # In older versions used 'Item' instead of 'Point'.
-            # To maintain backward compatibility, we check for both.
-            if tag.findall("./Item"):
-                return [Point(x) for x in tag.findall("./Item")]
-            return [Point(x) for x in tag.findall("./Point")]
-        return None
+        Args:
+            units (Units): Units to use for the XML element. Defaults to Units.MM.
 
-    @points.setter
-    def points(self, value: Optional[List[Point]]):
-        if (tag := self._root.find("./Points")) is not None:
-            self._root.remove(tag)
-        if value is not None:
-            tag = SubElement(self._root, "Points")
-            for point in value:
-                tag.append(deepcopy(point.root))
+        Returns:
+            etree._Element: XML element representing the Point.
+        """
+
+        # Determine number of decimal places based on units
+        digits = 6 if units == Units.INCH else 4
+
+        # Convert coordinates from millimeters to desired units for XML representation if needed
+        x_converted = convert_units(self.x, Units.MM, units)
+        y_converted = convert_units(self.y, Units.MM, units)
+
+        # Create XML element with formatted coordinates
+        return E.Point(
+            X=f"{x_converted:.{digits}f}", 
+            Y=f"{y_converted:.{digits}f}"
+        )
 
 
 if __name__ == "__main__":
