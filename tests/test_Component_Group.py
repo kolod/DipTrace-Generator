@@ -14,7 +14,7 @@
 
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
-from DipTraceGenerator.Component.Group import Group
+from DipTraceGenerator.Component import Group
 from DipTraceGenerator import Units
 
 

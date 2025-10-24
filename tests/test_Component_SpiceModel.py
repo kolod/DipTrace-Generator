@@ -14,8 +14,8 @@
 
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
-from DipTraceGenerator.Component.SpiceModel import SpiceModel
-from DipTraceGenerator.Enums import SpiceModelType
+from DipTraceGenerator.Component import SpiceModel
+from DipTraceGenerator import SpiceModelType
 
 
 class TestSpiceModel(TestCase):

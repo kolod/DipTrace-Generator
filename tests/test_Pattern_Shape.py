@@ -1,27 +1,36 @@
-"""Tests for Pattern Shape class."""
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
-import pytest
+# Copyright 2025-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
+# This program is distributed under the MIT license.
+# Glory to Ukraine!
+
+# To run the tests, use:
+# poetry run pytest tests/test_Pattern_Shape.py -v
+
+# To run the tests with coverage report in terminal, use:
+# poetry run pytest --cov=DipTraceGenerator.Pattern.Shape tests/test_Pattern_Shape.py -v --cov-report=term --cov-report=term-missing
+
+
+from unittest import TestCase, main
 from lxml import etree
-
-from DipTraceGenerator.Pattern.Shape import Shape
-from DipTraceGenerator.Point import Point
-from DipTraceGenerator.Units import Units
-from DipTraceGenerator.Enums import Boolean
+from DipTraceGenerator.Pattern import Shape
+from DipTraceGenerator import Point, Units, Boolean
 
 
-class TestShape:
+class TestShape(TestCase):
     """Test the Pattern.Shape class."""
     
     def test_create_shape_defaults(self):
         """Test creating a Shape with default values."""
         shape = Shape()
-        assert shape.id == 0
-        assert shape.type == "Line"
-        assert shape.locked == Boolean.No
-        assert shape.layer == "Top Silk"
-        assert shape.all_layers == Boolean.No
-        assert shape.points == []
-        assert shape.width is None
+        self.assertEqual(shape.id, 0)
+        self.assertEqual(shape.type, "Line")
+        self.assertEqual(shape.locked, Boolean.No)
+        self.assertEqual(shape.layer, "Top Silk")
+        self.assertEqual(shape.all_layers, Boolean.No)
+        self.assertEqual(shape.points, [])
+        self.assertIsNone(shape.width)
     
     def test_create_shape_with_values(self):
         """Test creating a Shape with specific values."""
@@ -35,17 +44,17 @@ class TestShape:
             points=points,
             width=0.25
         )
-        assert shape.id == 5
-        assert shape.type == "Arc"
-        assert shape.locked == Boolean.Yes
-        assert shape.layer == "Top Assy"
-        assert shape.all_layers == Boolean.Yes
-        assert len(shape.points) == 2
-        assert shape.width == 0.25
+        self.assertEqual(shape.id, 5)
+        self.assertEqual(shape.type, "Arc")
+        self.assertEqual(shape.locked, Boolean.Yes)
+        self.assertEqual(shape.layer, "Top Assy")
+        self.assertEqual(shape.all_layers, Boolean.Yes)
+        self.assertEqual(len(shape.points), 2)
+        self.assertEqual(shape.width, 0.25)
     
     def test_shape_from_xml_line(self):
         """Test parsing a Line shape from XML."""
-        xml = etree.fromstring('''
+        xml_element = etree.fromstring('''
             <Shape Id="1" Type="Line" Locked="N" Layer="Top Silk" AllLayers="N">
                 <Points>
                     <Point X="-1.3002" Y="2.5001"/>
@@ -53,22 +62,22 @@ class TestShape:
                 </Points>
             </Shape>
         ''')
-        shape = Shape.from_xml(xml, Units.MM)
-        assert shape.id == 1
-        assert shape.type == "Line"
-        assert shape.locked == Boolean.No
-        assert shape.layer == "Top Silk"
-        assert shape.all_layers == Boolean.No
-        assert len(shape.points) == 2
-        assert shape.points[0].x == pytest.approx(-1.3002, abs=0.0001)
-        assert shape.points[0].y == pytest.approx(2.5001, abs=0.0001)
-        assert shape.points[1].x == pytest.approx(-1.3002, abs=0.0001)
-        assert shape.points[1].y == pytest.approx(-2.5001, abs=0.0001)
-        assert shape.width is None
+        shape = Shape.from_xml(xml_element, Units.MM)
+        self.assertEqual(shape.id, 1)
+        self.assertEqual(shape.type, "Line")
+        self.assertEqual(shape.locked, Boolean.No)
+        self.assertEqual(shape.layer, "Top Silk")
+        self.assertEqual(shape.all_layers, Boolean.No)
+        self.assertEqual(len(shape.points), 2)
+        self.assertAlmostEqual(shape.points[0].x, -1.3002, places=4)
+        self.assertAlmostEqual(shape.points[0].y, 2.5001, places=4)
+        self.assertAlmostEqual(shape.points[1].x, -1.3002, places=4)
+        self.assertAlmostEqual(shape.points[1].y, -2.5001, places=4)
+        self.assertIsNone(shape.width)
     
     def test_shape_from_xml_arc(self):
         """Test parsing an Arc shape from XML."""
-        xml = etree.fromstring('''
+        xml_element = etree.fromstring('''
             <Shape Id="6" Type="Arc" Locked="N" Layer="Top Silk" AllLayers="N">
                 <Points>
                     <Point X="-0.5002" Y="2.5001"/>
@@ -77,18 +86,18 @@ class TestShape:
                 </Points>
             </Shape>
         ''')
-        shape = Shape.from_xml(xml, Units.MM)
-        assert shape.id == 6
-        assert shape.type == "Arc"
-        assert len(shape.points) == 3
-        assert shape.points[0].x == pytest.approx(-0.5002, abs=0.0001)
-        assert shape.points[1].x == pytest.approx(0, abs=0.0001)
-        assert shape.points[1].y == pytest.approx(2, abs=0.0001)
-        assert shape.points[2].x == pytest.approx(0.5002, abs=0.0001)
+        shape = Shape.from_xml(xml_element, Units.MM)
+        self.assertEqual(shape.id, 6)
+        self.assertEqual(shape.type, "Arc")
+        self.assertEqual(len(shape.points), 3)
+        self.assertAlmostEqual(shape.points[0].x, -0.5002, places=4)
+        self.assertAlmostEqual(shape.points[1].x, 0, places=4)
+        self.assertAlmostEqual(shape.points[1].y, 2, places=4)
+        self.assertAlmostEqual(shape.points[2].x, 0.5002, places=4)
     
     def test_shape_from_xml_with_width(self):
         """Test parsing a shape with width attribute."""
-        xml = etree.fromstring('''
+        xml_element = etree.fromstring('''
             <Shape Id="10" Type="Rectangle" Locked="Y" Layer="Top Assy" AllLayers="Y" Width="0.15">
                 <Points>
                     <Point X="0" Y="0"/>
@@ -96,28 +105,28 @@ class TestShape:
                 </Points>
             </Shape>
         ''')
-        shape = Shape.from_xml(xml, Units.MM)
-        assert shape.id == 10
-        assert shape.type == "Rectangle"
-        assert shape.locked == Boolean.Yes
-        assert shape.layer == "Top Assy"
-        assert shape.all_layers == Boolean.Yes
-        assert shape.width == pytest.approx(0.15, abs=0.0001)
-        assert len(shape.points) == 2
+        shape = Shape.from_xml(xml_element, Units.MM)
+        self.assertEqual(shape.id, 10)
+        self.assertEqual(shape.type, "Rectangle")
+        self.assertEqual(shape.locked, Boolean.Yes)
+        self.assertEqual(shape.layer, "Top Assy")
+        self.assertEqual(shape.all_layers, Boolean.Yes)
+        self.assertAlmostEqual(shape.width, 0.15, places=4)
+        self.assertEqual(len(shape.points), 2)
     
     def test_shape_from_xml_no_points(self):
         """Test parsing a shape without points."""
-        xml = etree.fromstring('''
+        xml_element = etree.fromstring('''
             <Shape Id="7" Type="Text" Locked="N" Layer="Top Silk" AllLayers="N"/>
         ''')
-        shape = Shape.from_xml(xml, Units.MM)
-        assert shape.id == 7
-        assert shape.type == "Text"
-        assert shape.points == []
+        shape = Shape.from_xml(xml_element, Units.MM)
+        self.assertEqual(shape.id, 7)
+        self.assertEqual(shape.type, "Text")
+        self.assertEqual(shape.points, [])
     
     def test_shape_from_xml_units_conversion(self):
         """Test parsing with unit conversion (MIL to MM)."""
-        xml = etree.fromstring('''
+        xml_element = etree.fromstring('''
             <Shape Id="1" Type="Line" Locked="N" Layer="Top Silk" AllLayers="N" Width="10">
                 <Points>
                     <Point X="0" Y="0"/>
@@ -125,12 +134,12 @@ class TestShape:
                 </Points>
             </Shape>
         ''')
-        shape = Shape.from_xml(xml, Units.MIL)
+        shape = Shape.from_xml(xml_element, Units.MIL)
         # 100 mils = 2.54 mm
-        assert shape.points[1].x == pytest.approx(2.54, abs=0.01)
-        assert shape.points[1].y == pytest.approx(2.54, abs=0.01)
+        self.assertAlmostEqual(shape.points[1].x, 2.54, places=2)
+        self.assertAlmostEqual(shape.points[1].y, 2.54, places=2)
         # 10 mils = 0.254 mm
-        assert shape.width == pytest.approx(0.254, abs=0.001)
+        self.assertAlmostEqual(shape.width, 0.254, places=3)
     
     def test_shape_to_xml_line(self):
         """Test converting a Line shape to XML."""
@@ -142,20 +151,20 @@ class TestShape:
             all_layers=Boolean.No,
             points=[Point(-1.3, 2.5), Point(-1.3, -2.5)]
         )
-        xml = shape.to_xml(Units.MM)
-        assert xml.get("Id") == "1"
-        assert xml.get("Type") == "Line"
-        assert xml.get("Locked") == "N"
-        assert xml.get("Layer") == "Top Silk"
-        assert xml.get("AllLayers") == "N"
-        assert xml.get("Width") is None  # No width specified
+        xml_element = shape.to_xml(Units.MM)
+        self.assertEqual(xml_element.get("Id"), "1")
+        self.assertEqual(xml_element.get("Type"), "Line")
+        self.assertEqual(xml_element.get("Locked"), "N")
+        self.assertEqual(xml_element.get("Layer"), "Top Silk")
+        self.assertEqual(xml_element.get("AllLayers"), "N")
+        self.assertIsNone(xml_element.get("Width"))  # No width specified
         
-        points_elem = xml.find("Points")
-        assert points_elem is not None
+        points_elem = xml_element.find("Points")
+        self.assertIsNotNone(points_elem)
         point_elems = points_elem.findall("Point")
-        assert len(point_elems) == 2
-        assert point_elems[0].get("X") == "-1.3000"
-        assert point_elems[0].get("Y") == "2.5000"
+        self.assertEqual(len(point_elems), 2)
+        self.assertEqual(point_elems[0].get("X"), "-1.3000")
+        self.assertEqual(point_elems[0].get("Y"), "2.5000")
     
     def test_shape_to_xml_with_width(self):
         """Test converting a shape with width to XML."""
@@ -168,11 +177,11 @@ class TestShape:
             points=[Point(0, 0), Point(5, 3)],
             width=0.15
         )
-        xml = shape.to_xml(Units.MM)
-        assert xml.get("Id") == "10"
-        assert xml.get("Type") == "Rectangle"
-        assert xml.get("Locked") == "Y"
-        assert xml.get("Width") == "0.1500"
+        xml_element = shape.to_xml(Units.MM)
+        self.assertEqual(xml_element.get("Id"), "10")
+        self.assertEqual(xml_element.get("Type"), "Rectangle")
+        self.assertEqual(xml_element.get("Locked"), "Y")
+        self.assertEqual(xml_element.get("Width"), "0.1500")
     
     def test_shape_to_xml_no_points(self):
         """Test converting a shape without points."""
@@ -181,11 +190,11 @@ class TestShape:
             type="Text",
             layer="Top Silk"
         )
-        xml = shape.to_xml(Units.MM)
-        assert xml.get("Id") == "7"
-        assert xml.get("Type") == "Text"
+        xml_element = shape.to_xml(Units.MM)
+        self.assertEqual(xml_element.get("Id"), "7")
+        self.assertEqual(xml_element.get("Type"), "Text")
         # Should not have Points element if points list is empty
-        assert xml.find("Points") is None
+        self.assertIsNone(xml_element.find("Points"))
     
     def test_shape_to_xml_units_mil(self):
         """Test converting shape to XML with MIL units."""
@@ -195,13 +204,13 @@ class TestShape:
             points=[Point(2.54, 5.08)],  # 100 mils, 200 mils
             width=0.254  # 10 mils
         )
-        xml = shape.to_xml(Units.MIL)
-        points_elem = xml.find("Points")
+        xml_element = shape.to_xml(Units.MIL)
+        points_elem = xml_element.find("Points")
         point_elem = points_elem.find("Point")
         # Should be converted to mils
-        assert point_elem.get("X") == "100.0000"
-        assert point_elem.get("Y") == "200.0000"
-        assert xml.get("Width") == "10.0000"
+        self.assertEqual(point_elem.get("X"), "100.0000")
+        self.assertEqual(point_elem.get("Y"), "200.0000")
+        self.assertEqual(xml_element.get("Width"), "10.0000")
     
     def test_shape_to_xml_units_inch(self):
         """Test converting shape to XML with INCH units."""
@@ -211,13 +220,13 @@ class TestShape:
             points=[Point(25.4, 50.8)],  # 1 inch, 2 inches
             width=2.54  # 0.1 inch
         )
-        xml = shape.to_xml(Units.INCH)
-        points_elem = xml.find("Points")
+        xml_element = shape.to_xml(Units.INCH)
+        points_elem = xml_element.find("Points")
         point_elem = points_elem.find("Point")
         # Should be converted to inches with 6 decimal places
-        assert point_elem.get("X") == "1.000000"
-        assert point_elem.get("Y") == "2.000000"
-        assert xml.get("Width") == "0.100000"
+        self.assertEqual(point_elem.get("X"), "1.000000")
+        self.assertEqual(point_elem.get("Y"), "2.000000")
+        self.assertEqual(xml_element.get("Width"), "0.100000")
     
     def test_shape_roundtrip_mm(self):
         """Test Shape XML round-trip conversion (MM units)."""
@@ -234,18 +243,18 @@ class TestShape:
             ],
             width=0.2
         )
-        xml = original.to_xml(Units.MM)
-        parsed = Shape.from_xml(xml, Units.MM)
+        xml_element = original.to_xml(Units.MM)
+        parsed = Shape.from_xml(xml_element, Units.MM)
         
-        assert parsed.id == original.id
-        assert parsed.type == original.type
-        assert parsed.locked == original.locked
-        assert parsed.layer == original.layer
-        assert parsed.all_layers == original.all_layers
-        assert len(parsed.points) == len(original.points)
-        assert parsed.points[0].x == pytest.approx(original.points[0].x, abs=0.0001)
-        assert parsed.points[1].y == pytest.approx(original.points[1].y, abs=0.0001)
-        assert parsed.width == pytest.approx(original.width, abs=0.0001)
+        self.assertEqual(parsed.id, original.id)
+        self.assertEqual(parsed.type, original.type)
+        self.assertEqual(parsed.locked, original.locked)
+        self.assertEqual(parsed.layer, original.layer)
+        self.assertEqual(parsed.all_layers, original.all_layers)
+        self.assertEqual(len(parsed.points), len(original.points))
+        self.assertAlmostEqual(parsed.points[0].x, original.points[0].x, places=4)
+        self.assertAlmostEqual(parsed.points[1].y, original.points[1].y, places=4)
+        self.assertAlmostEqual(parsed.width, original.width, places=4)
     
     def test_shape_roundtrip_mil(self):
         """Test Shape XML round-trip conversion (MIL units)."""
@@ -255,55 +264,55 @@ class TestShape:
             layer="Top Silk",
             points=[Point(1.27, 2.54), Point(5.08, 7.62)]
         )
-        xml = original.to_xml(Units.MIL)
-        parsed = Shape.from_xml(xml, Units.MIL)
+        xml_element = original.to_xml(Units.MIL)
+        parsed = Shape.from_xml(xml_element, Units.MIL)
         
-        assert parsed.id == original.id
-        assert parsed.type == original.type
-        assert len(parsed.points) == 2
+        self.assertEqual(parsed.id, original.id)
+        self.assertEqual(parsed.type, original.type)
+        self.assertEqual(len(parsed.points), 2)
         # Allow small tolerance due to unit conversion
-        assert parsed.points[0].x == pytest.approx(original.points[0].x, abs=0.01)
-        assert parsed.points[1].y == pytest.approx(original.points[1].y, abs=0.01)
+        self.assertAlmostEqual(parsed.points[0].x, original.points[0].x, places=2)
+        self.assertAlmostEqual(parsed.points[1].y, original.points[1].y, places=2)
     
     def test_shape_locked_values(self):
         """Test different locked values."""
         shape_yes = Shape(locked=Boolean.Yes)
         xml_yes = shape_yes.to_xml()
-        assert xml_yes.get("Locked") == "Y"
+        self.assertEqual(xml_yes.get("Locked"), "Y")
         
         shape_no = Shape(locked=Boolean.No)
         xml_no = shape_no.to_xml()
-        assert xml_no.get("Locked") == "N"
+        self.assertEqual(xml_no.get("Locked"), "N")
     
     def test_shape_all_layers_values(self):
         """Test different all_layers values."""
         shape_yes = Shape(all_layers=Boolean.Yes)
         xml_yes = shape_yes.to_xml()
-        assert xml_yes.get("AllLayers") == "Y"
+        self.assertEqual(xml_yes.get("AllLayers"), "Y")
         
         shape_no = Shape(all_layers=Boolean.No)
         xml_no = shape_no.to_xml()
-        assert xml_no.get("AllLayers") == "N"
+        self.assertEqual(xml_no.get("AllLayers"), "N")
     
     def test_shape_different_layers(self):
         """Test shapes on different layers."""
         layers = ["Top Silk", "Top Assy", "Bottom Silk", "Bottom Assy", "Top Component Center"]
         for layer in layers:
             shape = Shape(layer=layer)
-            xml = shape.to_xml()
-            assert xml.get("Layer") == layer
-            parsed = Shape.from_xml(xml)
-            assert parsed.layer == layer
+            xml_element = shape.to_xml()
+            self.assertEqual(xml_element.get("Layer"), layer)
+            parsed = Shape.from_xml(xml_element)
+            self.assertEqual(parsed.layer, layer)
     
     def test_shape_different_types(self):
         """Test different shape types."""
         types = ["Line", "Arc", "Rectangle", "FillRect", "Polygon", "Text", "Polyline"]
         for shape_type in types:
             shape = Shape(type=shape_type)
-            xml = shape.to_xml()
-            assert xml.get("Type") == shape_type
-            parsed = Shape.from_xml(xml)
-            assert parsed.type == shape_type
+            xml_element = shape.to_xml()
+            self.assertEqual(xml_element.get("Type"), shape_type)
+            parsed = Shape.from_xml(xml_element)
+            self.assertEqual(parsed.type, shape_type)
     
     def test_shape_complex_polygon(self):
         """Test a complex polygon shape."""
@@ -321,12 +330,16 @@ class TestShape:
             points=points,
             width=0.15
         )
-        xml = shape.to_xml(Units.MM)
-        parsed = Shape.from_xml(xml, Units.MM)
+        xml_element = shape.to_xml(Units.MM)
+        parsed = Shape.from_xml(xml_element, Units.MM)
         
-        assert parsed.id == 100
-        assert parsed.type == "Polygon"
-        assert len(parsed.points) == 5
+        self.assertEqual(parsed.id, 100)
+        self.assertEqual(parsed.type, "Polygon")
+        self.assertEqual(len(parsed.points), 5)
         for i, point in enumerate(parsed.points):
-            assert point.x == pytest.approx(points[i].x, abs=0.0001)
-            assert point.y == pytest.approx(points[i].y, abs=0.0001)
+            self.assertAlmostEqual(point.x, points[i].x, places=4)
+            self.assertAlmostEqual(point.y, points[i].y, places=4)
+
+
+if __name__ == "__main__":
+    main()

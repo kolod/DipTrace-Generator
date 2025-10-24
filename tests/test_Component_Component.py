@@ -13,12 +13,8 @@
 
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
-from DipTraceGenerator.Component.Component import Component
-from DipTraceGenerator.Component.Part import Part
-from DipTraceGenerator.Component.Pin import Pin
-from DipTraceGenerator.Component.Shape import Shape, ShapeType
-from DipTraceGenerator.Enums import PartType, ShowNumbers, ComponentType
-from DipTraceGenerator import Units
+from DipTraceGenerator.Component import Component, Part
+from DipTraceGenerator import PartType, Units, ShapeType
 
 
 class TestComponent(TestCase):
