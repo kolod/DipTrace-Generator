@@ -23,5 +23,31 @@ class ShapeType(str, Enum):
     Text = "Text"
 
 
+class Layer(str, Enum):
+    """Layer types for Pattern shapes"""
+    TopSilk = "Top Silk"
+    TopAssy = "Top Assy"
+    TopMask = "Top Mask"
+    TopPaste = "Top Paste"
+    BottomPaste = "Bottom Paste"
+    BottomMask = "Bottom Mask"
+    BottomAssy = "Bottom Assy"
+    BottomSilk = "Bottom Silk"
+    Top = "Top"
+    TopKeepout = "Top Keepout"
+    BottomKeepout = "Bottom Keepout"
+    Bottom = "Bottom"
+    BoardCutout = "Board Cutout"
+    TopDimension = "Top Dimension"
+    BottomDimension = "Bottom Dimension"
+    NonSignal = "Non-Signal"
+    TopCourtyard = "Top Courtyard"
+    BottomCourtyard = "Bottom Courtyard"
+    TopOutline = "Top Outline"
+    BottomOutline = "Bottom Outline"
+    TopTerminals = "Top Terminals"
+    BottomTerminals = "Bottom Terminals"
+
+
 if __name__ == "__main__":
     pass  # pragma: no cover

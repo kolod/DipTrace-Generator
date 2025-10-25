@@ -12,7 +12,7 @@ from ..xmltools import etree, E, dataclass, field
 from ..Units import Units, convert_units
 from ..Point import Point
 from ..Enums import Boolean
-from .Enums import ShapeType
+from .Enums import ShapeType, Layer
 
 
 @dataclass
@@ -27,7 +27,7 @@ class Shape:
         id (int): Unique identifier for the shape within the pattern.
         type (ShapeType): Shape type (Line, Arc, Rectangle, Polygon, etc. - no Arrow).
         locked (Boolean): Whether the shape is locked from editing.
-        layer (str): The layer on which the shape appears (e.g., "Top Silk", "Top Assy").
+        layer (Layer): The layer on which the shape appears (e.g., Layer.TopSilk, Layer.TopAssy).
         all_layers (Boolean): Whether the shape appears on all layers.
         points (List[Point]): List of points defining the shape geometry (in mm).
         width (float): Line width for outline shapes (in mm). Optional.
@@ -36,7 +36,7 @@ class Shape:
     id: int = 0
     type: ShapeType = ShapeType.Line
     locked: Boolean = Boolean.No
-    layer: str = "Top Silk"
+    layer: Layer = Layer.TopSilk
     all_layers: Boolean = Boolean.No
     points: List[Point] = field(default_factory=list)
     width: float = field(default=None)  # Optional, not all shapes have width
@@ -56,7 +56,7 @@ class Shape:
         id_val = int(element.get("Id", "0"))
         type_val = ShapeType(element.get("Type", "Line"))
         locked = Boolean(element.get("Locked", "N"))
-        layer = element.get("Layer", "Top Silk")
+        layer = Layer(element.get("Layer", "Top Silk"))
         all_layers = Boolean(element.get("AllLayers", "N"))
         
         # Parse optional width attribute
@@ -103,7 +103,7 @@ class Shape:
             "Id": str(self.id),
             "Type": self.type.value,
             "Locked": self.locked.value,
-            "Layer": self.layer,
+            "Layer": self.layer.value,
             "AllLayers": self.all_layers.value,
         }
         

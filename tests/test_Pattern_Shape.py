@@ -14,7 +14,7 @@
 
 from unittest import TestCase, main
 from lxml import etree
-from DipTraceGenerator.Pattern import Shape, ShapeType
+from DipTraceGenerator.Pattern import Shape, ShapeType, Layer
 from DipTraceGenerator import Point, Units, Boolean
 
 
@@ -27,7 +27,7 @@ class TestShape(TestCase):
         self.assertEqual(shape.id, 0)
         self.assertEqual(shape.type, ShapeType.Line)
         self.assertEqual(shape.locked, Boolean.No)
-        self.assertEqual(shape.layer, "Top Silk")
+        self.assertEqual(shape.layer, Layer.TopSilk)
         self.assertEqual(shape.all_layers, Boolean.No)
         self.assertEqual(shape.points, [])
         self.assertIsNone(shape.width)
@@ -39,7 +39,7 @@ class TestShape(TestCase):
             id=5,
             type=ShapeType.Arc,
             locked=Boolean.Yes,
-            layer="Top Assy",
+            layer=Layer.TopAssy,
             all_layers=Boolean.Yes,
             points=points,
             width=0.25
@@ -47,7 +47,7 @@ class TestShape(TestCase):
         self.assertEqual(shape.id, 5)
         self.assertEqual(shape.type, ShapeType.Arc)
         self.assertEqual(shape.locked, Boolean.Yes)
-        self.assertEqual(shape.layer, "Top Assy")
+        self.assertEqual(shape.layer, Layer.TopAssy)
         self.assertEqual(shape.all_layers, Boolean.Yes)
         self.assertEqual(len(shape.points), 2)
         self.assertEqual(shape.width, 0.25)
@@ -147,7 +147,7 @@ class TestShape(TestCase):
             id=1,
             type=ShapeType.Line,
             locked=Boolean.No,
-            layer="Top Silk",
+            layer=Layer.TopSilk,
             all_layers=Boolean.No,
             points=[Point(-1.3, 2.5), Point(-1.3, -2.5)]
         )
@@ -172,7 +172,7 @@ class TestShape(TestCase):
             id=10,
             type=ShapeType.Rectangle,
             locked=Boolean.Yes,
-            layer="Top Assy",
+            layer=Layer.TopAssy,
             all_layers=Boolean.Yes,
             points=[Point(0, 0), Point(5, 3)],
             width=0.15
@@ -188,7 +188,7 @@ class TestShape(TestCase):
         shape = Shape(
             id=7,
             type=ShapeType.Text,
-            layer="Top Silk"
+            layer=Layer.TopSilk
         )
         xml_element = shape.to_xml(Units.MM)
         self.assertEqual(xml_element.get("Id"), "7")
@@ -234,7 +234,7 @@ class TestShape(TestCase):
             id=5,
             type=ShapeType.Arc,
             locked=Boolean.Yes,
-            layer="Bottom Silk",
+            layer=Layer.BottomSilk,
             all_layers=Boolean.No,
             points=[
                 Point(-0.5, 2.5),
@@ -261,7 +261,7 @@ class TestShape(TestCase):
         original = Shape(
             id=3,
             type=ShapeType.Line,
-            layer="Top Silk",
+            layer=Layer.TopSilk,
             points=[Point(1.27, 2.54), Point(5.08, 7.62)]
         )
         xml_element = original.to_xml(Units.MIL)
@@ -296,11 +296,12 @@ class TestShape(TestCase):
     
     def test_shape_different_layers(self):
         """Test shapes on different layers."""
-        layers = ["Top Silk", "Top Assy", "Bottom Silk", "Bottom Assy", "Top Component Center"]
+        layers = [Layer.TopSilk, Layer.TopAssy, Layer.BottomSilk, Layer.BottomAssy, 
+                  Layer.TopMask, Layer.BottomMask, Layer.TopPaste, Layer.BottomPaste]
         for layer in layers:
             shape = Shape(layer=layer)
             xml_element = shape.to_xml()
-            self.assertEqual(xml_element.get("Layer"), layer)
+            self.assertEqual(xml_element.get("Layer"), layer.value)
             parsed = Shape.from_xml(xml_element)
             self.assertEqual(parsed.layer, layer)
     
@@ -327,7 +328,7 @@ class TestShape(TestCase):
         shape = Shape(
             id=100,
             type=ShapeType.Polygon,
-            layer="Top Silk",
+            layer=Layer.TopSilk,
             points=points,
             width=0.15
         )
