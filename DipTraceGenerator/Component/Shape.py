@@ -16,7 +16,8 @@ from typing import Optional, List
 from ..xmltools import etree, E, dataclass, field
 from ..Point import Point
 from ..Units import Units
-from ..Enums import Boolean, HorizontalAlign, VerticalAlign, TextAlign, TextShow, ShapeType
+from ..Enums import Boolean, HorizontalAlign, VerticalAlign, TextAlign, TextShow
+from .Enums import ShapeType
 
 
 @dataclass

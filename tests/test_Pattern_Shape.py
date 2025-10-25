@@ -14,7 +14,7 @@
 
 from unittest import TestCase, main
 from lxml import etree
-from DipTraceGenerator.Pattern import Shape
+from DipTraceGenerator.Pattern import Shape, ShapeType
 from DipTraceGenerator import Point, Units, Boolean
 
 
@@ -25,7 +25,7 @@ class TestShape(TestCase):
         """Test creating a Shape with default values."""
         shape = Shape()
         self.assertEqual(shape.id, 0)
-        self.assertEqual(shape.type, "Line")
+        self.assertEqual(shape.type, ShapeType.Line)
         self.assertEqual(shape.locked, Boolean.No)
         self.assertEqual(shape.layer, "Top Silk")
         self.assertEqual(shape.all_layers, Boolean.No)
@@ -37,7 +37,7 @@ class TestShape(TestCase):
         points = [Point(0.0, 0.0), Point(10.0, 5.0)]
         shape = Shape(
             id=5,
-            type="Arc",
+            type=ShapeType.Arc,
             locked=Boolean.Yes,
             layer="Top Assy",
             all_layers=Boolean.Yes,
@@ -45,7 +45,7 @@ class TestShape(TestCase):
             width=0.25
         )
         self.assertEqual(shape.id, 5)
-        self.assertEqual(shape.type, "Arc")
+        self.assertEqual(shape.type, ShapeType.Arc)
         self.assertEqual(shape.locked, Boolean.Yes)
         self.assertEqual(shape.layer, "Top Assy")
         self.assertEqual(shape.all_layers, Boolean.Yes)
@@ -145,7 +145,7 @@ class TestShape(TestCase):
         """Test converting a Line shape to XML."""
         shape = Shape(
             id=1,
-            type="Line",
+            type=ShapeType.Line,
             locked=Boolean.No,
             layer="Top Silk",
             all_layers=Boolean.No,
@@ -170,7 +170,7 @@ class TestShape(TestCase):
         """Test converting a shape with width to XML."""
         shape = Shape(
             id=10,
-            type="Rectangle",
+            type=ShapeType.Rectangle,
             locked=Boolean.Yes,
             layer="Top Assy",
             all_layers=Boolean.Yes,
@@ -187,7 +187,7 @@ class TestShape(TestCase):
         """Test converting a shape without points."""
         shape = Shape(
             id=7,
-            type="Text",
+            type=ShapeType.Text,
             layer="Top Silk"
         )
         xml_element = shape.to_xml(Units.MM)
@@ -200,7 +200,7 @@ class TestShape(TestCase):
         """Test converting shape to XML with MIL units."""
         shape = Shape(
             id=1,
-            type="Line",
+            type=ShapeType.Line,
             points=[Point(2.54, 5.08)],  # 100 mils, 200 mils
             width=0.254  # 10 mils
         )
@@ -216,7 +216,7 @@ class TestShape(TestCase):
         """Test converting shape to XML with INCH units."""
         shape = Shape(
             id=1,
-            type="Line",
+            type=ShapeType.Line,
             points=[Point(25.4, 50.8)],  # 1 inch, 2 inches
             width=2.54  # 0.1 inch
         )
@@ -232,7 +232,7 @@ class TestShape(TestCase):
         """Test Shape XML round-trip conversion (MM units)."""
         original = Shape(
             id=5,
-            type="Arc",
+            type=ShapeType.Arc,
             locked=Boolean.Yes,
             layer="Bottom Silk",
             all_layers=Boolean.No,
@@ -260,7 +260,7 @@ class TestShape(TestCase):
         """Test Shape XML round-trip conversion (MIL units)."""
         original = Shape(
             id=3,
-            type="Line",
+            type=ShapeType.Line,
             layer="Top Silk",
             points=[Point(1.27, 2.54), Point(5.08, 7.62)]
         )
@@ -306,11 +306,12 @@ class TestShape(TestCase):
     
     def test_shape_different_types(self):
         """Test different shape types."""
-        types = ["Line", "Arc", "Rectangle", "FillRect", "Polygon", "Text", "Polyline"]
+        types = [ShapeType.Line, ShapeType.Arc, ShapeType.Rectangle, ShapeType.FillRect, 
+                 ShapeType.Polygon, ShapeType.Text, ShapeType.Polyline]
         for shape_type in types:
             shape = Shape(type=shape_type)
             xml_element = shape.to_xml()
-            self.assertEqual(xml_element.get("Type"), shape_type)
+            self.assertEqual(xml_element.get("Type"), shape_type.value)
             parsed = Shape.from_xml(xml_element)
             self.assertEqual(parsed.type, shape_type)
     
@@ -325,7 +326,7 @@ class TestShape(TestCase):
         ]
         shape = Shape(
             id=100,
-            type="Polygon",
+            type=ShapeType.Polygon,
             layer="Top Silk",
             points=points,
             width=0.15
@@ -334,7 +335,7 @@ class TestShape(TestCase):
         parsed = Shape.from_xml(xml_element, Units.MM)
         
         self.assertEqual(parsed.id, 100)
-        self.assertEqual(parsed.type, "Polygon")
+        self.assertEqual(parsed.type, ShapeType.Polygon)
         self.assertEqual(len(parsed.points), 5)
         for i, point in enumerate(parsed.points):
             self.assertAlmostEqual(point.x, points[i].x, places=4)

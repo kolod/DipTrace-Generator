@@ -14,8 +14,8 @@
 
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
-from DipTraceGenerator.Component import Shape
-from DipTraceGenerator import ShapeType, Boolean, HorizontalAlign, VerticalAlign, TextAlign, TextShow, \
+from DipTraceGenerator.Component import Shape, ShapeType
+from DipTraceGenerator import Boolean, HorizontalAlign, VerticalAlign, TextAlign, TextShow, \
     Point, Units
 
 

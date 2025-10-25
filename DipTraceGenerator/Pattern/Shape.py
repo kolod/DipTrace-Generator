@@ -12,6 +12,7 @@ from ..xmltools import etree, E, dataclass, field
 from ..Units import Units, convert_units
 from ..Point import Point
 from ..Enums import Boolean
+from .Enums import ShapeType
 
 
 @dataclass
@@ -24,7 +25,7 @@ class Shape:
     
     Attributes:
         id (int): Unique identifier for the shape within the pattern.
-        type (str): Shape type ("Line", "Arc", "Rectangle", "Polygon", etc.).
+        type (ShapeType): Shape type (Line, Arc, Rectangle, Polygon, etc. - no Arrow).
         locked (Boolean): Whether the shape is locked from editing.
         layer (str): The layer on which the shape appears (e.g., "Top Silk", "Top Assy").
         all_layers (Boolean): Whether the shape appears on all layers.
@@ -33,7 +34,7 @@ class Shape:
     """
     
     id: int = 0
-    type: str = "Line"
+    type: ShapeType = ShapeType.Line
     locked: Boolean = Boolean.No
     layer: str = "Top Silk"
     all_layers: Boolean = Boolean.No
@@ -53,7 +54,7 @@ class Shape:
             Shape: Shape instance created from the XML element.
         """
         id_val = int(element.get("Id", "0"))
-        type_val = element.get("Type", "Line")
+        type_val = ShapeType(element.get("Type", "Line"))
         locked = Boolean(element.get("Locked", "N"))
         layer = element.get("Layer", "Top Silk")
         all_layers = Boolean(element.get("AllLayers", "N"))
@@ -100,7 +101,7 @@ class Shape:
         # Build attributes dictionary
         attrs = {
             "Id": str(self.id),
-            "Type": self.type,
+            "Type": self.type.value,
             "Locked": self.locked.value,
             "Layer": self.layer,
             "AllLayers": self.all_layers.value,

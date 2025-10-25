@@ -16,9 +16,11 @@ from .MaskPaste import MaskPaste, SegmentItem
 from .PadStyle import PadStyle
 from .Model3D import Model3D, Filename, Rotate, Offset, Zoom
 from .Category import Category
+from .Enums import ShapeType
 
 __all__ = [
     'Shape',
+    'ShapeType',
     'Pad',
     'Origin',
     'MainStack',

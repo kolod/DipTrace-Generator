@@ -16,6 +16,7 @@ from .Shape import Shape
 from .Part import Part, PartType
 from .Component import Component
 from .Library import Library, Category, Type, SubType
+from .Enums import ShapeType
 
 __all__ = [
     'Origin',
@@ -26,11 +27,10 @@ __all__ = [
     'PinType',
     'ElectricType',
     'Shape',
+    'ShapeType',
     'Part',
     'PartType',
     'Component',
     'Library',
     'Category',
-    'Type',
-    'SubType',
 ]

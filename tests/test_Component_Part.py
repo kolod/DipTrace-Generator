@@ -14,8 +14,8 @@
 
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
-from DipTraceGenerator.Component import Part, Group, Pin, ElectricType, Shape
-from DipTraceGenerator import PartType, ShowNumbers, ComponentType, Boolean, ShapeType, Units
+from DipTraceGenerator.Component import Part, Group, Pin, ElectricType, Shape, ShapeType
+from DipTraceGenerator import PartType, ShowNumbers, ComponentType, Boolean, Units
 
 
 class TestComponentPart(TestCase):

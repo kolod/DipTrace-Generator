@@ -13,8 +13,8 @@
 
 from unittest import TestCase, main
 from lxml.etree import fromstring as xml
-from DipTraceGenerator.Component import Component, Part
-from DipTraceGenerator import PartType, Units, ShapeType
+from DipTraceGenerator.Component import Component, Part, ShapeType
+from DipTraceGenerator import PartType, Units
 
 
 class TestComponent(TestCase):

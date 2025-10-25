@@ -40,19 +40,6 @@ class TextShow(str, Enum):
     Comment = "Comment"
 
 
-class ShapeType(str, Enum):
-    Line = "Line"
-    Arrow = "Arrow"
-    Arc = "Arc"
-    Rectangle = "Rectangle"
-    FillRect = "FillRect"
-    Obround = "Obround"
-    FillObround = "FillObround"
-    Polyline = "Polyline"
-    Polygon = "Polygon"
-    Text = "Text"
-
-
 class PinType(str, Enum):
     Default = "Default"
     Dot = "Dot"
