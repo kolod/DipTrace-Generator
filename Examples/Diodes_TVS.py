@@ -5,13 +5,16 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-from tqdm import tqdm
 from typing import List
 from pathlib import Path
-from colorama import init, Fore
 from dataclasses import dataclass
+from rich.progress import track
+from rich.console import Console
+from rich.style import Style
 from DipTraceGenerator import *
 from math import sin, radians
+
+console = Console()
 
 
 @dataclass
@@ -143,14 +146,14 @@ def diode_tvs(source: Path, destination: Path, name: str, data: List[TVS]):
     spice = SpiceModel(type=SpiceModelType.SubComponent)
     components = []
 
-    print(Fore.GREEN + 'Bidirectional' + Fore.RESET)
+    console.print('Bidirectional', style='green bold')
     components.append(Component(name='--- Bidirectional --'))
-    for tvs in tqdm(data, desc='Elements'):
+    for tvs in track(data, description='Elements'):
         components.append(component(tvs.bi, tvs.voltage, 'PatType0', origin, category, spice, pin_shape_bi()))
 
-    print(Fore.GREEN + 'Unidirectional' + Fore.RESET)
+    console.print('Unidirectional', style='green bold')
     components.append(Component(name='-- Unidirectional --'))
-    for tvs in tqdm(data, desc='Elements'):
+    for tvs in track(data, description='Elements'):
         components.append(component(tvs.uni, tvs.voltage, 'PatType1', origin, category, spice, pin_shape_uni()))
 
     component_library = ComponentLibrary()
@@ -163,18 +166,16 @@ def diode_tvs(source: Path, destination: Path, name: str, data: List[TVS]):
 
 def diodes_tvs():
     try:
-        init()
-        print(Fore.RED + "\nDiodes TVS\n" + Fore.RESET)
+        console.print("\nDiodes TVS\n", style="red bold")
 
         name = "Diodes TVS"
-        directory = "diodes-tvs"
         path = Path(__file__).parent
 
-        source_path = path / "source" / directory / f"{name}.libxml"
-        destination_path = path / "actual" / directory / f"{name}.elixml"
-        expected_path = path / "expected" / directory / f"{name}.elixml"
+        source_path = path / "source" / f"{name}.libxml"
+        destination_path = path / "actual" / f"{name}.elixml"
+        expected_path = path / "expected" / f"{name}.elixml"
 
-        print(Fore.GREEN + f"Generating {destination_path.name}..." + Fore.RESET)
+        console.print(f"Generating {destination_path.name}...", style="green")
 
         diode_tvs(
             source=source_path,
@@ -244,10 +245,17 @@ def diodes_tvs():
         if expected_path.is_file():
             format_xml(expected_path)
 
+        # Compare generated with expected
+        if expected_path.is_file() and destination_path.is_file():
+            console.print(f"Comparing {destination_path.name} with expected...", style="green")
+            compare(expected_path, destination_path)
+
 
     except ValueError as e:
-        print(Fore.RED + str(e) + Fore.RESET)
+        console.print(str(e), style="red bold")
 
+def main():
+    diodes_tvs()
 
 if __name__ == "__main__":
-    diodes_tvs()
+    main()

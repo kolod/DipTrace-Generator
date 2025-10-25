@@ -1,58 +1,62 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright 2021-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
+# Copyright 2025-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-from typing import Optional
-from copy import deepcopy
-from .Mixins import RootMixin, WidthMixin
+# To run the tests, use:
+# poetry run pytest tests/test_NameFont.py -v
+
+# To run the tests with coverage report in terminal, use:
+# poetry run pytest --cov=DipTraceGenerator.NameFont tests/test_NameFont.py -v --cov-report=term --cov-report=term-missing
 
 
-class NameFont(WidthMixin):
-    @property
-    def scale(self) -> Optional[float]:
-        try:
-            return float(self._root.get("Scale"))
-        except (ValueError, TypeError, AttributeError):
-            return None
-
-    @scale.setter
-    def scale(self, value: Optional[float]):
-        if value is not None:
-            self._root.set("Scale", f"{value:.5g}")
-        elif "Scale" in self._root.attrib:
-            self._root.attrib.pop("Scale")
-
-    @property
-    def size(self) -> Optional[float]:
-        try:
-            return float(self._root.get("Size"))
-        except (ValueError, TypeError, AttributeError):
-            return None
-
-    @size.setter
-    def size(self, value: Optional[float]):
-        if value is not None:
-            self._root.set("Size", f"{value:.5g}")
-        elif "Size" in self._root.attrib:
-            self._root.attrib.pop("Size")
+from .xmltools import etree, dataclass, field
 
 
-class NameFontMixin(RootMixin):
-    @property
-    def name_font(self) -> Optional[NameFont]:
-        if (tag := self._root.find("./NameFont")) is not None:
-            return NameFont(tag)
-        return None
+@dataclass
+class NameFont:
+    """
+    Font settings for pin names.
+    
+    Attributes:
+        size (int): Font size. Defaults to 5.
+        width (int): Font width. Defaults to -2.
+        scale (float): Font scale. Defaults to 1.0.
+    """
+    size: int = field(default=5)
+    width: int = field(default=-2)
+    scale: float = field(default=1.0)
 
-    @name_font.setter
-    def name_font(self, value: Optional[NameFont]) -> None:
-        for tag in self._root.findall("./NameFont"):
-            self._root.remove(tag)
-        if value is not None:
-            self._root.append(deepcopy(value.root))
+    @classmethod
+    def from_xml(cls, element: etree._Element) -> "NameFont":
+        """
+        Create NameFont from XML element.
+        
+        Args:
+            element (etree._Element): XML element representing the NameFont.
+            
+        Returns:
+            NameFont: NameFont instance created from the XML element.
+        """
+        size = int(element.get("Size", "5"))
+        width = int(element.get("Width", "-2"))
+        scale = float(element.get("Scale", "1.0"))
+        return cls(size=size, width=width, scale=scale)
+
+    def to_xml(self) -> etree._Element:
+        """
+        Convert NameFont to XML element.
+        
+        Returns:
+            etree._Element: XML element representing the NameFont.
+        """
+        return etree.Element("NameFont",
+            Size=str(self.size),
+            Width=str(self.width),
+            Scale=str(self.scale)
+        )
 
 
 if __name__ == "__main__":

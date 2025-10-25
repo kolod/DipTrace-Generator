@@ -5,11 +5,14 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-from tqdm import tqdm
-from colorama import init, Fore
 from pathlib import Path
+from rich.progress import track
+from rich.console import Console
+from rich.style import Style
 from DipTraceGenerator import ComponentLibrary, format_xml
 from Examples import iec_symbols
+
+console = Console()
 
 
 def resistor(source: Path, destination: Path, template_name: str):
@@ -26,11 +29,11 @@ def resistor(source: Path, destination: Path, template_name: str):
         raise ValueError(f"Template component `{template_name}` not loaded.")
 
 
-    for component in tqdm(library.components, desc='Elements'):
+    for component in track(library.components, description='Elements'):
         for i in range(len(component.parts)):
             if len(component.parts[i].pins) != 2:
                 msg = f"Component part must have two pins. Skip `{component.name}`."
-                tqdm.write(msg)
+                console.print(msg)
                 continue
 
             pads = [x.pad_number for x in component.parts[i].pins]
@@ -46,8 +49,7 @@ def resistor(source: Path, destination: Path, template_name: str):
 
 def resistors() -> None:
     try:
-        init()
-        print(Fore.RED + "\nResistors\n" + Fore.RESET)
+        console.print("\nResistors\n", style="red bold")
 
         directory = "resistors"
         path = Path(__file__).parent
@@ -56,7 +58,7 @@ def resistors() -> None:
             destination_path = path / "actual" / directory / source_path.name
             expected_path = path / "expected" / directory / source_path.name
 
-            print(Fore.GREEN + f"Generating {destination_path.name}..." + Fore.RESET)
+            console.print(f"Generating {destination_path.name}...", style="green")
 
             resistor(
                 source=source_path,
@@ -72,7 +74,7 @@ def resistors() -> None:
 
 
     except ValueError as e:
-        print(Fore.RED + str(e) + Fore.RESET)
+        console.print(str(e), style="red bold")
 
 
 if __name__ == "__main__":

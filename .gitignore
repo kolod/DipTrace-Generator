@@ -38,3 +38,13 @@ __pycache__
 
 # VSCode
 .vscode/*
+
+# Poetry lock file
+poetry.lock
+
+# Virtual Environments
+venv/
+
+# Old files
+DipTraceGeneratorOld/
+testsOld/

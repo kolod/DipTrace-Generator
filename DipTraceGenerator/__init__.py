@@ -1,40 +1,79 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright 2021-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
+# Copyright 2025-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-__version__ = "0.1.0"
+"""
+DipTrace Generator - Python library for generating DipTrace component and pattern libraries.
 
-from DipTraceGenerator.Utils import get_correct_filename, format_xml, compare, load_from_xml_file
-from DipTraceGenerator.PatternLibrary import PatternLibrary
-from DipTraceGenerator.ComponentLibrary import ComponentLibrary
-from DipTraceGenerator.Enums import *
-from DipTraceGenerator.PatternOrigin import PatternOrigin
-from DipTraceGenerator.PatternShape import PatternShape
-from DipTraceGenerator.Model3D import Model3D, Rotate, Offset, Zoom
-from DipTraceGenerator.Pattern import Pattern
+This package provides classes and utilities for creating and manipulating DipTrace
+library files programmatically.
+
+Usage:
+    # Import submodules for namespaced access (recommended to avoid conflicts)
+    from DipTraceGenerator import Component, Pattern
+    comp_lib = Component.Library(name="My Components")
+    pattern_lib = Pattern.Library(name="My Patterns")
+    
+    # Or import specific classes
+    from DipTraceGenerator.Component import Library as ComponentLibrary
+    from DipTraceGenerator.Pattern import Library as PatternLibrary
+"""
+
+__version__ = "0.2.0"
+
+# Core utilities
+from DipTraceGenerator.Units import Units, convert_units
 from DipTraceGenerator.Point import Point
-from DipTraceGenerator.Filename import Filename
-from DipTraceGenerator.MainStack import MainStack
-from DipTraceGenerator.Pad import Pad
-from DipTraceGenerator.PadStyle import PadStyle
-from DipTraceGenerator.Dimension import Dimension
-from DipTraceGenerator.Category import Category, CategoryType
-from DipTraceGenerator.Terminal import Terminal
-from DipTraceGenerator.RecoveryCode import RecoveryCode
-from DipTraceGenerator.ComponentOrigin import ComponentOrigin
-from DipTraceGenerator.ComponentShape import ComponentShape
-from DipTraceGenerator.Pin import Pin, Shift
-from DipTraceGenerator.RecoveryCode import RecoveryCode
-from DipTraceGenerator.SpiceModel import SpiceModel, SpiceModelType
-from DipTraceGenerator.Component import Component
-from DipTraceGenerator.Part import Part
-from DipTraceGenerator.Group import Group
 from DipTraceGenerator.NameFont import NameFont
-from DipTraceGenerator.MaskPaste import MaskPaste, Segment
 
+# Enums
+from DipTraceGenerator.Enums import (
+    Boolean,
+    HorizontalAlign,
+    VerticalAlign,
+    TextAlign,
+    TextShow,
+    PinType,
+    ElectricType,
+    PartType,
+    ShowNumbers,
+    ComponentType,
+    SpiceModelType,
+)
 
-if __name__ == "__main__":
-    pass
+# Import submodules as namespaces to avoid conflicts between Component.Library and Pattern.Library
+from DipTraceGenerator import Component
+from DipTraceGenerator import Pattern
+
+# Declare public API
+__all__ = [
+    # Version
+    '__version__',
+    
+    # Core utilities
+    'Units',
+    'convert_units',
+    'Point',
+    'NameFont',
+    
+    # Enums
+    'Boolean',
+    'HorizontalAlign',
+    'VerticalAlign',
+    'TextAlign',
+    'TextShow',
+    'PinType',
+    'ElectricType',
+    'PartType',
+    'ShowNumbers',
+    'ComponentType',
+    'SpiceModelType',
+    
+    # Submodules (namespaces for Component and Pattern libraries)
+    'Component',
+    'Pattern',
+]
+
