@@ -6,15 +6,13 @@
 # Glory to Ukraine!
 
 
-import unittest
-from DipTraceGenerator.Pattern import MainStack
-from DipTraceGenerator import Units
-from DipTraceGenerator.Enums import PadStackShape
-from DipTraceGenerator.Point import Point
 from lxml import etree
+from unittest import TestCase, main
+from DipTraceGenerator.Pattern import MainStack, PadStackShape
+from DipTraceGenerator import Units, Point
 
 
-class TestMainStack(unittest.TestCase):
+class TestMainStack(TestCase):
     """Test cases for Pattern.MainStack class."""
 
     def test_default_constructor(self):
@@ -321,4 +319,4 @@ class TestMainStack(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

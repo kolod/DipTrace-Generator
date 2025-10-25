@@ -7,6 +7,7 @@
 
 """Pattern Shape classes for DipTrace pattern library shapes."""
 
+
 from typing import List, Optional
 from ..xmltools import etree, E, dataclass, field
 from ..Units import Units, convert_units

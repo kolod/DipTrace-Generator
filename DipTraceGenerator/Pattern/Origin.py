@@ -7,6 +7,7 @@
 
 """Pattern Origin class for DipTrace pattern library origin point."""
 
+
 from ..xmltools import etree, E, dataclass
 from ..Units import Units, convert_units
 from ..Enums import Boolean

@@ -6,14 +6,13 @@
 # Glory to Ukraine!
 
 
-import unittest
-from DipTraceGenerator.Pattern import Model3D, Filename, Rotate, Offset, Zoom
-from DipTraceGenerator import Units
-from DipTraceGenerator.Enums import Boolean, Model3DUnits, Model3DType
+from unittest import TestCase, main
+from DipTraceGenerator.Pattern import Model3D, Filename, Rotate, Offset, Zoom, Model3DUnits, Model3DType
+from DipTraceGenerator import Units, Boolean
 from lxml import etree
 
 
-class TestFilename(unittest.TestCase):
+class TestFilename(TestCase):
     """Test cases for Filename class."""
 
     def test_default_constructor(self):
@@ -79,7 +78,7 @@ class TestFilename(unittest.TestCase):
         self.assertEqual(element2.find("Var").text, element1.find("Var").text)
 
 
-class TestRotate(unittest.TestCase):
+class TestRotate(TestCase):
     """Test cases for Rotate class."""
 
     def test_default_constructor(self):
@@ -145,7 +144,7 @@ class TestRotate(unittest.TestCase):
         self.assertEqual(element.get("Z"), "-180")
 
 
-class TestOffset(unittest.TestCase):
+class TestOffset(TestCase):
     """Test cases for Offset class."""
 
     def test_default_constructor(self):
@@ -220,7 +219,7 @@ class TestOffset(unittest.TestCase):
         self.assertEqual(element.get("Z"), "-3.5")
 
 
-class TestZoom(unittest.TestCase):
+class TestZoom(TestCase):
     """Test cases for Zoom class."""
 
     def test_default_constructor(self):
@@ -277,7 +276,7 @@ class TestZoom(unittest.TestCase):
         self.assertEqual(element.get("Z"), "1")
 
 
-class TestModel3D(unittest.TestCase):
+class TestModel3D(TestCase):
     """Test cases for Pattern.Model3D class."""
 
     def test_default_constructor(self):
@@ -526,4 +525,4 @@ class TestModel3D(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

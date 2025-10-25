@@ -5,6 +5,9 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+"""Component representation for DipTrace component libraries."""
+
+
 from typing import List
 from ..xmltools import etree, E, dataclass, field
 from ..Units import Units

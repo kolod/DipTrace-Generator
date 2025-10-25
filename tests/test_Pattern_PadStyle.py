@@ -5,15 +5,21 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+# To run these tests, use:
+# poetry run python -m unittest discover -s tests -p "test_Pattern_PadStyle.py"
 
-import unittest
-from DipTraceGenerator.Pattern import PadStyle, MainStack, MaskPaste, SegmentItem
-from DipTraceGenerator import Units
-from DipTraceGenerator.Enums import PadType, HoleType, PadSide, PadStackShape, PasteSetting
+# To run a specific test case, use:
+# python -m unittest tests.test_Pattern_PadStyle.TestPadStyle.test_default_constructor
+
+
 from lxml import etree
+from unittest import TestCase, main
+from DipTraceGenerator import Units
+from DipTraceGenerator.Pattern import PadStyle, MainStack, MaskPaste, SegmentItem, PadStackShape, PasteSetting, \
+    PadType, HoleType, PadSide
 
 
-class TestPadStyle(unittest.TestCase):
+class TestPadStyle(TestCase):
     """Test cases for Pattern.PadStyle class."""
 
     def test_default_constructor(self):
@@ -463,4 +469,4 @@ class TestPadStyle(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

@@ -5,11 +5,13 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+"""Represents solder mask and paste mask settings for a pad style in DipTrace component libraries."""
 
-from DipTraceGenerator.xmltools import etree, E, dataclass, field
-from DipTraceGenerator import Units, convert_units
-from DipTraceGenerator.Enums import MaskSetting, PasteSetting
+
 from typing import Optional
+from ..xmltools import etree, E, dataclass, field
+from ..Units import Units, convert_units
+from .Enums import MaskSetting, PasteSetting
 
 
 @dataclass

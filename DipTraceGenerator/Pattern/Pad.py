@@ -7,7 +7,7 @@
 
 """Pattern Pad classes for DipTrace pattern library pads."""
 
-from typing import Optional
+
 from ..xmltools import etree, E, dataclass
 from ..Units import Units, convert_units
 from ..Enums import Boolean

@@ -5,11 +5,14 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+"""Represents a 3D model reference for a pattern."""
 
-from DipTraceGenerator.xmltools import etree, E, dataclass, field
-from DipTraceGenerator import Units, convert_units
-from DipTraceGenerator.Enums import Boolean, Model3DUnits, Model3DType
+
 from typing import Optional
+from ..xmltools import etree, E, dataclass, field
+from ..Units import Units, convert_units
+from ..Enums import Boolean
+from .Enums import Model3DUnits, Model3DType
 
 
 @dataclass

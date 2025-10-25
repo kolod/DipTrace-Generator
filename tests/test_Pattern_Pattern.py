@@ -14,9 +14,9 @@
 
 from unittest import TestCase, main
 from lxml import etree
-from DipTraceGenerator.Pattern import Pattern, Pad, Shape, Origin, Model3D, Category, Side, ShapeType, Layer
 from DipTraceGenerator import Units, Boolean
-from DipTraceGenerator.Enums import Model3DUnits, Model3DType
+from DipTraceGenerator.Pattern import Pattern, Pad, Shape, Origin, Model3D, Category, Side, ShapeType, Layer, \
+    Model3DUnits, Model3DType
 
 
 class TestPattern(TestCase):

@@ -5,11 +5,7 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-# To run the tests, use:
-# poetry run pytest tests/test_Component_Shape.py -v
-
-# To run the tests with coverage report in terminal, use:
-# poetry run pytest --cov=DipTraceGenerator.Component.Shape tests/test_Component_Shape.py -v --cov-report=term --cov-report=term-missing
+"""Component Shape class for DipTrace component library shapes."""
 
 
 from typing import Optional, List

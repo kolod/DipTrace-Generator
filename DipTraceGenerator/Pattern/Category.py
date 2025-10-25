@@ -5,15 +5,11 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+"""Pattern Category Represents a hierarchical category structure for organizing patterns."""
 
-"""
-Pattern Category
-Represents a hierarchical category structure for organizing patterns.
-"""
 
-from dataclasses import dataclass, field
 from typing import List
-from lxml import etree
+from ..xmltools import etree, E, dataclass, field
 
 
 @dataclass

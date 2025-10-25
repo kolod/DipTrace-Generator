@@ -1,10 +1,15 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright 2025-... Oleksandr Kolodkin <oleksandr.kolodkin@ukr.net>.
+# This program is distributed under the MIT license.
+# Glory to Ukraine!
+ 
 """Component Library - Top-level container for DipTrace component library files."""
 
-from dataclasses import dataclass, field
-from typing import List, Optional
-from lxml import etree
-from lxml.builder import E
 
+from typing import List, Optional
+from ..xmltools import etree, E, dataclass, field
 from ..Units import Units
 from .Component import Component
 

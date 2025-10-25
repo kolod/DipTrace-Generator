@@ -5,13 +5,15 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+"""Represents a pad style definition in a pattern library."""
 
-from DipTraceGenerator.xmltools import etree, E, dataclass, field
-from DipTraceGenerator import Units, convert_units
-from DipTraceGenerator.Enums import PadType, HoleType, PadSide
-from DipTraceGenerator.Pattern.MainStack import MainStack
-from DipTraceGenerator.Pattern.MaskPaste import MaskPaste
+
 from typing import Optional
+from ..xmltools import etree, E, dataclass, field
+from ..Units import Units, convert_units
+from .Enums import PadType, HoleType, PadSide
+from .MainStack import MainStack
+from .MaskPaste import MaskPaste
 
 
 @dataclass

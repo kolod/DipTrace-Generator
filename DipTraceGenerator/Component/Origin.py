@@ -5,11 +5,7 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-# To run the tests, use:
-# poetry run pytest tests/test_Component_Origin.py -v
-
-# To run the tests with coverage report in terminal, use:
-# poetry run pytest --cov=DipTraceGenerator.Component.Origin tests/test_Component_Origin.py -v --cov-report=term --cov-report=term-missing
+"""Origin representation for DipTrace component libraries."""
 
 
 from ..xmltools import etree, E, dataclass, field

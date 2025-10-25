@@ -5,12 +5,13 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
+"""Represents a pad stack definition in a pattern library."""
 
-from DipTraceGenerator.xmltools import etree, E, dataclass, field
-from DipTraceGenerator import Units, convert_units
-from DipTraceGenerator.Enums import PadStackShape
-from DipTraceGenerator.Point import Point
 from typing import Optional
+from .Enums import PadStackShape
+from ..xmltools import etree, E, dataclass, field
+from ..Units import Units, convert_units
+from ..Point import Point
 
 
 @dataclass
@@ -42,7 +43,7 @@ class MainStack:
         Returns:
             MainStack: The created MainStack instance.
         """
-        shape = PadStackShape(element.get("Shape", "Ellipse"))
+        shape = PadStackShape(element.get("Shape"))
         width = convert_units(float(element.get("Width", "0.0")), units, Units.MM)
         height = convert_units(float(element.get("Height", "0.0")), units, Units.MM)
         

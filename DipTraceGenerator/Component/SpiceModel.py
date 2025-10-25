@@ -5,11 +5,7 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-# To run the tests, use:
-# poetry run pytest tests/test_Component_SpiceModel.py -v
-
-# To run the tests with coverage report in terminal, use:
-# poetry run pytest --cov=DipTraceGenerator.Component.SpiceModel tests/test_Component_SpiceModel.py -v --cov-report=term --cov-report=term-missing
+"""SpiceModel representation for DipTrace component libraries."""
 
 
 from ..Enums import SpiceModelType

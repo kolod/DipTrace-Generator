@@ -6,14 +6,13 @@
 # Glory to Ukraine!
 
 
-import unittest
-from DipTraceGenerator.Pattern import MaskPaste, SegmentItem
-from DipTraceGenerator import Units
-from DipTraceGenerator.Enums import MaskSetting, PasteSetting
 from lxml import etree
+from unittest import TestCase, main
+from DipTraceGenerator.Pattern import MaskPaste, SegmentItem,  MaskSetting, PasteSetting
+from DipTraceGenerator import Units
 
 
-class TestSegmentItem(unittest.TestCase):
+class TestSegmentItem(TestCase):
     """Test cases for SegmentItem class."""
 
     def test_default_constructor(self):
@@ -65,7 +64,7 @@ class TestSegmentItem(unittest.TestCase):
         self.assertEqual(element.get("Y2"), "100")
 
 
-class TestMaskPaste(unittest.TestCase):
+class TestMaskPaste(TestCase):
     """Test cases for Pattern.MaskPaste class."""
 
     def test_default_constructor(self):
@@ -374,4 +373,4 @@ class TestMaskPaste(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+    main()

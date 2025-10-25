@@ -7,11 +7,9 @@
 
 """Pattern class for DipTrace Pattern Library."""
 
-from dataclasses import dataclass, field
-from typing import Optional
-from lxml import etree
-from lxml.builder import E
 
+from typing import Optional
+from ..xmltools import etree, E, dataclass, field
 from ..Units import Units, convert_units
 from ..Enums import Boolean
 from .Origin import Origin

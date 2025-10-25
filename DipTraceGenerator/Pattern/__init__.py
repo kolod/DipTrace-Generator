@@ -17,7 +17,9 @@ from .PadStyle import PadStyle
 from .Model3D import Model3D, Filename, Rotate, Offset, Zoom
 from .Category import Category
 from .Pattern import Pattern
-from .Enums import ShapeType, Layer, TextShow, Side
+from .Library import Library
+from .Enums import ShapeType, Layer, TextShow, Side, MaskSetting, PasteSetting, PadStackShape, \
+    Model3DType, Model3DUnits, PadType, HoleType, PadSide
 
 __all__ = [
     'Shape',
@@ -38,5 +40,13 @@ __all__ = [
     'Zoom',
     'Category',
     'Pattern',
-    # 'Library',  # To be added when Pattern.Library is implemented
+    'Library',
+    'MaskSetting',
+    'PasteSetting',
+    'PadStackShape',
+    'Model3DType',
+    'Model3DUnits',
+    'PadType',
+    'HoleType',
+    'PadSide',
 ]

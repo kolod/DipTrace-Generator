@@ -7,6 +7,7 @@
 
 """Pattern-specific enumerations for DipTrace pattern libraries."""
 
+
 from enum import Enum
 
 
@@ -62,6 +63,65 @@ class TextShow(str, Enum):
 
 class Side(str, Enum):
     """Pad location side in Pattern"""
+    Top = "Top"
+    Bottom = "Bottom"
+
+
+class MaskSetting(str, Enum):
+    """Enumeration of solder mask settings"""
+    Common = "Common"
+    Open = "Open"
+    Tented = "Tented"
+    ByPaste = "By Paste"
+
+
+class PasteSetting(str, Enum):
+    """Enumeration of solder paste settings"""
+    Common = "Common"
+    Solder = "Solder"
+    NoSolder = "No Solder"
+    Segments = "Segments"
+
+
+class PadStackShape(str, Enum):
+    """Enumeration of pad stack shapes for MainStack"""
+    Ellipse = "Ellipse"
+    Obround = "Obround"
+    Rectangle = "Rectangle"
+    Polygon = "Polygon"
+    DShape = "D-shape"
+    Fiducial = "Fiducial"
+
+
+class Model3DUnits(str, Enum):
+    """Enumeration of 3D model units"""
+    MM = "mm"
+    MIL = "mil"
+    INCH = "inch"
+    Wings = "Wings"
+
+
+class Model3DType(str, Enum):
+    """Enumeration of 3D model types"""
+    File = "File"
+    IPC7351 = "IPC-7351"
+    Outline = "Outline"
+
+
+class PadType(str, Enum):
+    """Enumeration of pad types"""
+    Through = "Through"
+    Surface = "Surface"
+
+
+class HoleType(str, Enum):
+    """Enumeration of hole types for through-hole pads"""
+    Round = "Round"
+    Obround = "Obround"
+
+
+class PadSide(str, Enum):
+    """Enumeration of pad sides"""
     Top = "Top"
     Bottom = "Bottom"
 

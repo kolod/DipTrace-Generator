@@ -5,15 +5,10 @@
 # This program is distributed under the MIT license.
 # Glory to Ukraine!
 
-# To run the tests, use:
-# poetry run pytest tests/test_Component_Pin.py -v
-
-# To run the tests with coverage report in terminal, use:
-# poetry run pytest --cov=DipTraceGenerator.Component.Pin tests/test_Component_Pin.py -v --cov-report=term --cov-report=term-missing
+"""Component Pin class for DipTrace component library pins."""
 
 
-from typing import Optional
-from ..xmltools import etree, E, dataclass, field, Enum
+from ..xmltools import etree, dataclass, field
 from ..Units import Units, convert_units
 from ..Enums import Boolean, PinType, ElectricType
 from ..NameFont import NameFont
