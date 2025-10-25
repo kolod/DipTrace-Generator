@@ -14,8 +14,8 @@
 
 from unittest import TestCase, main
 from lxml import etree
-from DipTraceGenerator.Pattern import Shape, ShapeType, Layer
-from DipTraceGenerator import Point, Units, Boolean
+from DipTraceGenerator.Pattern import Shape, ShapeType, Layer, TextShow
+from DipTraceGenerator import Point, Units, Boolean, HorizontalAlign, VerticalAlign, TextAlign
 
 
 class TestShape(TestCase):
@@ -341,6 +341,160 @@ class TestShape(TestCase):
         for i, point in enumerate(parsed.points):
             self.assertAlmostEqual(point.x, points[i].x, places=4)
             self.assertAlmostEqual(point.y, points[i].y, places=4)
+    
+    def test_text_shape_from_xml(self):
+        """Test parsing a text shape from XML."""
+        xml_str = '''
+            <Shape Id="1" Type="Text" Locked="N" Layer="Top Silk" FontVector="Y" FontName="Tahoma" 
+                   FontSize="8" FontScale="1" FontWidth="-2" TextShow="Any Text" HorzAlign="Left" 
+                   VertAlign="Top" TextAlign="Left" LineSpacing="1.2" Angle="0" AllLayers="N">
+                <TextLines>
+                    <TextLine>Hello</TextLine>
+                    <TextLine>World</TextLine>
+                </TextLines>
+                <Points>
+                    <Point X="-13.97" Y="5.3975"/>
+                </Points>
+            </Shape>
+        '''
+        element = etree.fromstring(xml_str)
+        shape = Shape.from_xml(element, Units.MM)
+        
+        self.assertEqual(shape.id, 1)
+        self.assertEqual(shape.type, ShapeType.Text)
+        self.assertEqual(shape.locked, Boolean.No)
+        self.assertEqual(shape.layer, Layer.TopSilk)
+        self.assertEqual(shape.font_vector, Boolean.Yes)
+        self.assertEqual(shape.font_name, "Tahoma")
+        self.assertEqual(shape.font_size, 8)
+        self.assertEqual(shape.font_scale, 1.0)
+        self.assertEqual(shape.font_width, -2.0)
+        self.assertEqual(shape.text_show, TextShow.AnyText)
+        self.assertEqual(shape.horz_align, HorizontalAlign.Left)
+        self.assertEqual(shape.vert_align, VerticalAlign.Top)
+        self.assertEqual(shape.text_align, TextAlign.Left)
+        self.assertEqual(shape.line_spacing, 1.2)
+        self.assertEqual(shape.angle, 0.0)
+        self.assertEqual(len(shape.text_lines), 2)
+        self.assertEqual(shape.text_lines[0], "Hello")
+        self.assertEqual(shape.text_lines[1], "World")
+        self.assertEqual(len(shape.points), 1)
+        self.assertAlmostEqual(shape.points[0].x, -13.97, places=4)
+        self.assertAlmostEqual(shape.points[0].y, 5.3975, places=4)
+    
+    def test_text_shape_to_xml(self):
+        """Test converting a text shape to XML."""
+        shape = Shape(
+            id=5,
+            type=ShapeType.Text,
+            locked=Boolean.No,
+            layer=Layer.TopSilk,
+            font_vector=Boolean.Yes,
+            font_name="Arial",
+            font_size=10,
+            font_scale=1.5,
+            font_width=-1.0,
+            text_show=TextShow.RefDes,
+            horz_align=HorizontalAlign.Center,
+            vert_align=VerticalAlign.Bottom,
+            text_align=TextAlign.Right,
+            line_spacing=1.5,
+            angle=0.5,
+            text_lines=["Line1", "Line2", "Line3"],
+            points=[Point(1.0, 2.0)],
+            group=2
+        )
+        xml_element = shape.to_xml(Units.MM)
+        
+        self.assertEqual(xml_element.get("Id"), "5")
+        self.assertEqual(xml_element.get("Type"), "Text")
+        self.assertEqual(xml_element.get("FontVector"), "Y")
+        self.assertEqual(xml_element.get("FontName"), "Arial")
+        self.assertEqual(xml_element.get("FontSize"), "10")
+        self.assertEqual(xml_element.get("FontScale"), "1.5")
+        self.assertEqual(xml_element.get("FontWidth"), "-1.0")
+        self.assertEqual(xml_element.get("TextShow"), "RefDes")
+        self.assertEqual(xml_element.get("HorzAlign"), "Center")
+        self.assertEqual(xml_element.get("VertAlign"), "Bottom")
+        self.assertEqual(xml_element.get("TextAlign"), "Right")
+        self.assertEqual(xml_element.get("LineSpacing"), "1.5")
+        self.assertEqual(xml_element.get("Angle"), "0.5")
+        self.assertEqual(xml_element.get("Group"), "2")
+        
+        # Check text lines
+        text_lines_elem = xml_element.find("TextLines")
+        self.assertIsNotNone(text_lines_elem)
+        lines = text_lines_elem.findall("TextLine")
+        self.assertEqual(len(lines), 3)
+        self.assertEqual(lines[0].text, "Line1")
+        self.assertEqual(lines[1].text, "Line2")
+        self.assertEqual(lines[2].text, "Line3")
+        
+        # Check points
+        points_elem = xml_element.find("Points")
+        self.assertIsNotNone(points_elem)
+        point_elems = points_elem.findall("Point")
+        self.assertEqual(len(point_elems), 1)
+    
+    def test_text_shape_roundtrip(self):
+        """Test text shape XML round-trip conversion."""
+        original = Shape(
+            id=10,
+            type=ShapeType.Text,
+            layer=Layer.BottomSilk,
+            font_vector=Boolean.No,
+            font_name="Courier New",
+            font_size=12,
+            text_show=TextShow.Value,
+            horz_align=HorizontalAlign.Right,
+            text_lines=["Test", "Data"],
+            points=[Point(5.0, -3.0)]
+        )
+        
+        xml_element = original.to_xml(Units.MM)
+        parsed = Shape.from_xml(xml_element, Units.MM)
+        
+        self.assertEqual(parsed.id, original.id)
+        self.assertEqual(parsed.type, original.type)
+        self.assertEqual(parsed.layer, original.layer)
+        self.assertEqual(parsed.font_vector, original.font_vector)
+        self.assertEqual(parsed.font_name, original.font_name)
+        self.assertEqual(parsed.font_size, original.font_size)
+        self.assertEqual(parsed.text_show, original.text_show)
+        self.assertEqual(parsed.horz_align, original.horz_align)
+        self.assertEqual(len(parsed.text_lines), len(original.text_lines))
+        for i, line in enumerate(parsed.text_lines):
+            self.assertEqual(line, original.text_lines[i])
+    
+    def test_text_shape_with_group(self):
+        """Test text shape with Group attribute from XML."""
+        xml_str = '''
+            <Shape Id="10" Type="Text" Locked="N" Layer="Top Silk" FontVector="Y" 
+                   FontName="Arial" FontSize="10" TextShow="RefDes" HorzAlign="Center"
+                   VertAlign="Top" TextAlign="Center" Group="5" AllLayers="N">
+                <TextLines>
+                    <TextLine>U1</TextLine>
+                </TextLines>
+                <Points>
+                    <Point X="0" Y="0"/>
+                </Points>
+            </Shape>
+        '''
+        element = etree.fromstring(xml_str)
+        shape = Shape.from_xml(element, Units.MM)
+        
+        # Verify group attribute is parsed correctly
+        self.assertEqual(shape.group, 5)
+        self.assertEqual(shape.id, 10)
+        self.assertEqual(shape.type, ShapeType.Text)
+        
+        # Test round-trip with group
+        xml_element = shape.to_xml(Units.MM)
+        self.assertEqual(xml_element.get("Group"), "5")
+        
+        # Parse back and verify
+        parsed = Shape.from_xml(xml_element, Units.MM)
+        self.assertEqual(parsed.group, 5)
 
 
 if __name__ == "__main__":

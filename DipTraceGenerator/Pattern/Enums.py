@@ -49,5 +49,16 @@ class Layer(str, Enum):
     BottomTerminals = "Bottom Terminals"
 
 
+class TextShow(str, Enum):
+    """Text display options for Pattern text shapes"""
+    AnyText = "Any Text"
+    Name = "Name"
+    RefDes = "RefDes"
+    Value = "Value"
+    Manufacturer = "Manufacturer"
+    UniqueName = "Unique Name"
+    Datasheet = "Datasheet"
+
+
 if __name__ == "__main__":
     pass  # pragma: no cover
