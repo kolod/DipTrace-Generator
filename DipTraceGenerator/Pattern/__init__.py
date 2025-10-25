@@ -16,6 +16,7 @@ from .MaskPaste import MaskPaste, SegmentItem
 from .PadStyle import PadStyle
 from .Model3D import Model3D, Filename, Rotate, Offset, Zoom
 from .Category import Category
+from .Pattern import Pattern
 from .Enums import ShapeType, Layer, TextShow, Side
 
 __all__ = [
@@ -36,6 +37,6 @@ __all__ = [
     'Offset',
     'Zoom',
     'Category',
+    'Pattern',
     # 'Library',  # To be added when Pattern.Library is implemented
-    # 'Pattern',  # To be added
 ]
