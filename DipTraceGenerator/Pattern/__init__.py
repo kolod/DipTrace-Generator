@@ -10,17 +10,16 @@
 
 from .Shape import Shape
 from .Pad import Pad
-from .CategoryType import CategoryType
 from .Origin import Origin
 from .MainStack import MainStack
 from .MaskPaste import MaskPaste, SegmentItem
 from .PadStyle import PadStyle
 from .Model3D import Model3D, Filename, Rotate, Offset, Zoom
+from .Category import Category
 
 __all__ = [
     'Shape',
     'Pad',
-    'CategoryType',
     'Origin',
     'MainStack',
     'MaskPaste',
@@ -31,6 +30,7 @@ __all__ = [
     'Rotate',
     'Offset',
     'Zoom',
+    'Category',
     # 'Library',  # To be added when Pattern.Library is implemented
     # 'Pattern',  # To be added
 ]
