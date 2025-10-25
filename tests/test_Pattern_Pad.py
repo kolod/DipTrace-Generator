@@ -14,7 +14,7 @@
 
 from unittest import TestCase, main
 from lxml import etree
-from DipTraceGenerator.Pattern import Pad
+from DipTraceGenerator.Pattern import Pad, Side
 from DipTraceGenerator import Units, Boolean
 from math import pi
 
@@ -31,7 +31,7 @@ class TestPad(TestCase):
         self.assertEqual(pad.y, 0.0)
         self.assertEqual(pad.angle, 0.0)
         self.assertEqual(pad.locked, Boolean.No)
-        self.assertEqual(pad.side, "Top")
+        self.assertEqual(pad.side, Side.Top)
         self.assertEqual(pad.number, "")
     
     def test_create_pad_with_values(self):
@@ -43,7 +43,7 @@ class TestPad(TestCase):
             y=-1.27,
             angle=1.5708,
             locked=Boolean.Yes,
-            side="Bottom",
+            side=Side.Bottom,
             number="12"
         )
         self.assertEqual(pad.id, 5)
@@ -52,7 +52,7 @@ class TestPad(TestCase):
         self.assertAlmostEqual(pad.y, -1.27, places=4)
         self.assertAlmostEqual(pad.angle, 1.5708, places=4)
         self.assertEqual(pad.locked, Boolean.Yes)
-        self.assertEqual(pad.side, "Bottom")
+        self.assertEqual(pad.side, Side.Bottom)
         self.assertEqual(pad.number, "12")
     
     def test_pad_from_xml_basic(self):
@@ -69,7 +69,7 @@ class TestPad(TestCase):
         self.assertAlmostEqual(pad.y, 1.905, places=4)
         self.assertAlmostEqual(pad.angle, 1.5708, places=4)
         self.assertEqual(pad.locked, Boolean.No)
-        self.assertEqual(pad.side, "Top")
+        self.assertEqual(pad.side, Side.Top)
         self.assertEqual(pad.number, "1")
     
     def test_pad_from_xml_bottom_side(self):
@@ -86,7 +86,7 @@ class TestPad(TestCase):
         self.assertAlmostEqual(pad.y, -2.1, places=4)
         self.assertAlmostEqual(pad.angle, 3.1416, places=4)
         self.assertEqual(pad.locked, Boolean.Yes)
-        self.assertEqual(pad.side, "Bottom")
+        self.assertEqual(pad.side, Side.Bottom)
         self.assertEqual(pad.number, "GND")
     
     def test_pad_from_xml_zero_angle(self):
@@ -103,7 +103,7 @@ class TestPad(TestCase):
         self.assertAlmostEqual(pad.y, -0.1, places=4)
         self.assertAlmostEqual(pad.angle, 0.0, places=4)
         self.assertEqual(pad.locked, Boolean.No)
-        self.assertEqual(pad.side, "Top")
+        self.assertEqual(pad.side, Side.Top)
         self.assertEqual(pad.number, "9")
     
     def test_pad_from_xml_no_number(self):
@@ -135,7 +135,7 @@ class TestPad(TestCase):
             y=-2.54,
             angle=1.5708,
             locked=Boolean.No,
-            side="Top",
+            side=Side.Top,
             number="A1"
         )
         xml_element = pad.to_xml(Units.MM)
@@ -161,7 +161,7 @@ class TestPad(TestCase):
             y=50.8,
             angle=0.0,
             locked=Boolean.Yes,
-            side="Bottom",
+            side=Side.Bottom,
             number="2"
         )
         xml_element = pad.to_xml(Units.INCH)
@@ -180,7 +180,7 @@ class TestPad(TestCase):
             y=5.08,
             angle=3.1416,
             locked=Boolean.No,
-            side="Top",
+            side=Side.Top,
             number="3"
         )
         xml_element = pad.to_xml(Units.MIL)
@@ -297,11 +297,11 @@ class TestPad(TestCase):
     
     def test_pad_side_values(self):
         """Test both side values."""
-        pad_top = Pad(side="Top")
-        self.assertEqual(pad_top.side, "Top")
+        pad_top = Pad(side=Side.Top)
+        self.assertEqual(pad_top.side, Side.Top)
         
-        pad_bottom = Pad(side="Bottom")
-        self.assertEqual(pad_bottom.side, "Bottom")
+        pad_bottom = Pad(side=Side.Bottom)
+        self.assertEqual(pad_bottom.side, Side.Bottom)
     
     def test_pad_to_xml_empty_number(self):
         """Test that pads without numbers still create Number element if number is empty string."""

@@ -60,5 +60,11 @@ class TextShow(str, Enum):
     Datasheet = "Datasheet"
 
 
+class Side(str, Enum):
+    """Pad location side in Pattern"""
+    Top = "Top"
+    Bottom = "Bottom"
+
+
 if __name__ == "__main__":
     pass  # pragma: no cover

@@ -11,6 +11,7 @@ from typing import Optional
 from ..xmltools import etree, E, dataclass
 from ..Units import Units, convert_units
 from ..Enums import Boolean
+from .Enums import Side
 
 
 @dataclass
@@ -20,15 +21,18 @@ class Pad:
     
     Pattern pads define the physical landing areas for component leads on a PCB.
     They reference a PadStyle which defines the pad's shape, size, and stack-up.
+
+    X, Y coordinates represent offset from pattern center coordinate (0, 0) to 
+    pad center coordinate.
     
     Attributes:
         id (int): Unique identifier for the pad within the pattern.
         style (str): Reference to a PadStyle by name (e.g., "PadT0").
         x (float): X coordinate position (in mm, internal representation).
         y (float): Y coordinate position (in mm, internal representation).
-        angle (float): Rotation angle in radians.
+        angle (float): Rotation angle in degrees counter-clockwise.
         locked (Boolean): Whether the pad is locked from editing.
-        side (str): Which side of the board the pad is on ("Top" or "Bottom").
+        side (Side): Which side of the board the pad is on (Side.Top or Side.Bottom).
         number (str): Pad number or name (e.g., "1", "2", "GND").
     """
     
@@ -38,7 +42,7 @@ class Pad:
     y: float = 0.0
     angle: float = 0.0
     locked: Boolean = Boolean.No
-    side: str = "Top"
+    side: Side = Side.Top
     number: str = ""
 
     @classmethod
@@ -64,7 +68,7 @@ class Pad:
         angle = float(element.get("Angle", "0.0"))
         
         locked = Boolean(element.get("Locked", "N"))
-        side = element.get("Side", "Top")
+        side = Side(element.get("Side", "Top"))
         
         # Parse number sub-element
         number_elem = element.find("Number")
@@ -109,7 +113,7 @@ class Pad:
             "Y": f"{y_out:.{digits}f}",
             "Angle": f"{self.angle:.{digits}f}",
             "Locked": self.locked.value,
-            "Side": self.side,
+            "Side": self.side.value,
         }
         
         # Create Pad element
