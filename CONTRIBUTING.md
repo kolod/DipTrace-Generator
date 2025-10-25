@@ -167,6 +167,41 @@ from ..Units import Units
 from .Pattern import Pattern
 ```
 
+**Import Style Rules:**
+
+Use **relative imports** for same-package/sibling modules:
+
+```python
+# ✓ CORRECT - Same package (sibling modules)
+from .Pattern import Pattern
+from .Category import Category
+from .PadStyle import PadStyle
+
+# ✓ CORRECT - Parent package
+from ..Units import Units
+from ..xmltools import etree, E, dataclass, field
+
+# ✗ AVOID - Absolute imports for internal modules
+from DipTraceGenerator.Pattern.Pattern import Pattern
+from DipTraceGenerator.Pattern.Category import Category
+```
+
+Use **absolute imports** for external libraries:
+
+```python
+# ✓ CORRECT - External libraries
+from lxml import etree
+from dataclasses import dataclass
+from typing import Optional
+```
+
+**Why relative imports for internal code?**
+
+- **Maintainability**: Renaming the package requires zero internal import changes
+- **Refactoring**: Moving modules within the package doesn't break imports
+- **Clarity**: Single dot (`.`) = same directory, double dots (`..`) = parent package
+- **Standard practice**: Django, Flask, and other major projects use relative imports internally
+
 #### 4. Code Formatting
 
 - **Indentation**: 4 spaces (no tabs)
